@@ -1,0 +1,31 @@
+{
+    "protocol_version": "1.0-EDGE",
+    "node_role": "SENTINEL_NODE",
+    "message_types": {
+        "HAZARD_ALERT": {
+            "id": 1,
+            "fields": ["timestamp", "lat", "lon", "hazard_type", "severity", "confidence"]
+        },
+        "LEGAL_SYNC": {
+            "id": 2,
+            "fields": ["section_id", "checksum", "jurisdiction"]
+        },
+        "MESH_HEARTBEAT": {
+            "id": 3,
+            "fields": ["node_id", "battery_level", "mesh_hops"]
+        }
+    },
+    "hazard_types": {
+        "0": "POTHOLE",
+        "1": "SPEED_TRAP_NO_SIGNAGE",
+        "2": "ACCIDENT_NEAR_MISS",
+        "3": "HEAVY_CONGESTION",
+        "4": "ROAD_CONSTRUCTION"
+    },
+    "offline_mesh_configuration": {
+        "adv_interval_ms": 100,
+        "scan_window_ms": 50,
+        "mesh_ttl": 7,
+        "encryption": "AES-128-CCM"
+    }
+}

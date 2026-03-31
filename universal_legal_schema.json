@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Universal Legal Schema (ULS)",
+    "description": "Unified schema for traffic law validation across jurisdictions.",
+    "type": "object",
+    "properties": {
+        "statute_id": { "type": "string" },
+        "jurisdiction": { "type": "string" },
+        "violation_triggers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "sensor_type": { "enum": ["VISION", "IMU", "GPS", "OBD2"] },
+                    "threshold_op": { "enum": [">", "<", "==", "!=", "IN"] },
+                    "threshold_value": { "type": "number" },
+                    "duration_ms": { "type": "integer" }
+                },
+                "required": ["sensor_type", "threshold_op", "threshold_value"]
+            }
+        },
+        "penalty_logic": {
+            "type": "object",
+            "properties": {
+                "base_fine": { "type": "number" },
+                "licence_suspension_months": { "type": "integer" },
+                "repeat_offender_multiplier": { "type": "number" }
+            }
+        },
+        "litigation_vectors": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Legally binding arguments for challenging the violation."
+        }
+    },
+    "required": ["statute_id", "jurisdiction", "violation_triggers"]
+}
