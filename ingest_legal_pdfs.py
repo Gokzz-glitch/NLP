@@ -3,10 +3,19 @@ import sys
 import sqlite3
 import pdfplumber
 import pandas as pd
+from dotenv import load_dotenv
+
+# Initialize Env
+load_dotenv()
+
 
 # CONFIGURATION
 RAW_DATA_DIR = "g:/My Drive/NLP/raw_data"
-PDF_FILES = ["MVA_2019_AMENDMENT.pdf", "TN_GO_MS_56_2022.pdf"]
+PDF_FILES = [
+    "Motor Vehicle Ammendment Act 2019.pdf",
+    "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",
+    "TAMILNADU ROAD CRASH DATA.pdf"
+]
 
 def check_raw_data():
     missing = []

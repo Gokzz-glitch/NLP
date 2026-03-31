@@ -35,6 +35,9 @@ local.properties
 *.jks
 zkp_keys/
 secrets/
+.env
+*.env
+
 
 # Logs & Telemetry Dumps
 *.log
