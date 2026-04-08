@@ -134,7 +134,8 @@ class SQLiteVSSIngestor:
             self._conn = None
 
     def ensure_schema(self) -> None:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.ensure_schema() called before connect().")
         self._conn.executescript(_DDL)
         if self._vss:
             self._conn.execute(
@@ -147,7 +148,8 @@ class SQLiteVSSIngestor:
     # --- Ingest ---
 
     def ingest(self, results: List[EmbeddingResult]) -> dict:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.ingest() called before connect().")
         if not results:
             return {"written": 0, "skipped_duplicate": 0, "failed": 0, "processing_ms": 0.0}
 
@@ -246,7 +248,8 @@ class SQLiteVSSIngestor:
         Returns list of dicts: chunk_id, source_doc, doc_type, section_id,
         chunk_text, statutory_refs, gazette_ref, go_ref, similarity_score.
         """
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.query() called before connect().")
         vec = query_vector.astype(np.float32)
         if self._vss:
             return self._query_vss(vec, top_k, doc_type_filter, section_id_filter)
@@ -312,7 +315,8 @@ class SQLiteVSSIngestor:
         ]
 
     def stats(self) -> dict:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.stats() called before connect().")
         total = self._conn.execute("SELECT COUNT(*) FROM legal_chunks").fetchone()[0]
         docs  = self._conn.execute("SELECT COUNT(DISTINCT file_sha256) FROM legal_chunks").fetchone()[0]
         by_dt = self._conn.execute("SELECT doc_type,COUNT(*) FROM legal_chunks GROUP BY doc_type").fetchall()

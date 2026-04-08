@@ -142,20 +142,18 @@ def _clean_text(raw: str) -> str:
     """
     text = raw
     for pattern in _NOISE_PATTERNS:
-        if pattern.groups == 0:
-            # Simple replacement
-            try:
-                if pattern.pattern in (r"[\f\r]", r"\n{3,}", r"[ \t]{2,}"):
-                    text = pattern.sub(
-                        "\n\n" if r"\n{3,}" in pattern.pattern
-                        else " " if r"[ \t]" in pattern.pattern
-                        else "",
-                        text,
-                    )
-                else:
-                    text = pattern.sub("", text)
-            except re.error:
-                text = pattern.sub("", text)
+        # Determine the correct replacement for each known noise pattern.
+        # Checking pattern.pattern for substitution type avoids mis-merging
+        # words when removing form-feed / carriage-return characters.
+        pat = pattern.pattern
+        if pat == r"[\f\r]":
+            # Replace form-feeds / carriage-returns with a space so that
+            # adjacent words are not merged (e.g. "hello\fworld" → "hello world").
+            text = pattern.sub(" ", text)
+        elif r"\n{3,}" in pat:
+            text = pattern.sub("\n\n", text)
+        elif r"[ \t]{2,}" in pat:
+            text = pattern.sub(" ", text)
         else:
             text = pattern.sub("", text)
     return text.strip()
@@ -187,9 +185,13 @@ def _sliding_window_split(text: str, max_chars: int, overlap: int) -> List[str]:
     Splits a text block that exceeds max_chars using a sliding window.
     Attempts to break on sentence boundaries (". " or ".\n") to prevent
     mid-sentence cuts.
+
+    Guarantees forward progress on every iteration: if ``overlap`` is
+    larger than ``max_chars`` the window still advances by at least one
+    character, preventing an infinite loop and ensuring all text is covered.
     """
     if len(text) <= max_chars:
-        return [text]
+        return [text] if text.strip() else []
 
     chunks: List[str] = []
     start = 0
@@ -206,9 +208,10 @@ def _sliding_window_split(text: str, max_chars: int, overlap: int) -> List[str]:
         chunk = text[start:end].strip()
         if len(chunk) >= MIN_CHUNK_CHARS:
             chunks.append(chunk)
-        start = end - overlap  # Slide back by overlap for context continuity
-        if start < 0:
-            break
+        # Advance start by (window_size - overlap), but always move forward
+        # by at least 1 character to guarantee termination.
+        next_start = end - overlap
+        start = next_start if next_start > start else start + 1
     return chunks
 
 
