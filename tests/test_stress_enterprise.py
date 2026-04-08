@@ -158,7 +158,8 @@ if __name__ == "__main__":
     # Run only the DB phase (API phase needs a live server for manual runs)
     async def _manual():
         import tempfile, os
-        db = tempfile.mktemp(suffix=".db")
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as _f:
+            db = _f.name
         conn = sqlite3.connect(db)
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.close()
