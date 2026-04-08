@@ -8,8 +8,13 @@ except ImportError:
     print("ERR_DEPENDENCY_MISSING: [onnxruntime]")
     sys.exit(1)
 
-# CONFIGURATION
-MODEL_PATH = "g:/My Drive/NLP/raw_data/indian_traffic_yolov8.onnx"
+import pathlib as _pathlib
+
+# CONFIGURATION — resolve model path from env var, then local raw_data/, then fail gracefully
+_DEFAULT_MODEL_PATH = str(
+    _pathlib.Path(__file__).parent / "raw_data" / "indian_traffic_yolov8.onnx"
+)
+MODEL_PATH = os.environ.get("VISION_MODEL_PATH", _DEFAULT_MODEL_PATH)
 
 class VisionAuditEngine:
     """
