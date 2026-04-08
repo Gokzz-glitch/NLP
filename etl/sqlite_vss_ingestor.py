@@ -259,12 +259,16 @@ class SQLiteVSSIngestor:
             joins.append("c.doc_type=?"); params.append(dt_f)
         if sec_f:
             joins.append("c.section_id=?"); params.append(sec_f)
+        # VSS match clause must always be present; other filters are optional.
+        # Build WHERE clause to avoid "AND" without a preceding "WHERE".
+        vss_clause = "e.embedding MATCH ?1 AND k=?2"
+        where = "WHERE " + (" AND ".join(joins + [vss_clause]) if joins else vss_clause)
         sql = (
             "SELECT c.chunk_id,c.source_doc,c.doc_type,c.section_id,c.chunk_text,"
             "c.statutory_refs,c.gazette_ref,c.go_ref,e.distance "
             "FROM legal_embeddings e JOIN legal_chunks c ON e.rowid=c.rowid "
-            + (("WHERE " + " AND ".join(joins)) if joins else "")
-            + " AND e.embedding MATCH ?1 AND k=?2 ORDER BY e.distance"
+            + where
+            + " ORDER BY e.distance"
         )
         return self._to_dicts(self._conn.execute(sql, params).fetchall())
 

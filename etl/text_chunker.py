@@ -29,7 +29,7 @@ from __future__ import annotations
 import re
 import logging
 from dataclasses import dataclass, field
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from .pdf_extractor import ExtractionResult, PageText
 
@@ -364,5 +364,3 @@ class LegalTextChunker:
         return blocks
 
 
-# Needed for type hints inside text_chunker itself
-from typing import Dict

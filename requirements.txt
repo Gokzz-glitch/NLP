@@ -1,0 +1,6 @@
+numpy
+pdfplumber
+sentence-transformers
+aiohttp
+python-dotenv
+pyttsx3

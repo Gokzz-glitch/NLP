@@ -2,15 +2,14 @@ import os
 import sys
 import sqlite3
 import pdfplumber
-import pandas as pd
 from dotenv import load_dotenv
 
 # Initialize Env
 load_dotenv()
 
 
-# CONFIGURATION
-RAW_DATA_DIR = "g:/My Drive/NLP/raw_data"
+# CONFIGURATION — override RAW_DATA_DIR via environment variable if needed
+RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", os.path.join(os.path.dirname(__file__), "raw_data"))
 PDF_FILES = [
     "Motor Vehicle Ammendment Act 2019.pdf",
     "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",
