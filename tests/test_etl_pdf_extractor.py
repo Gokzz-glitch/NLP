@@ -275,7 +275,7 @@ class TestExtractFileMissing:
 
 class TestExtractMocked:
 
-    def _mock_page(self, text: str):
+    def _create_mock_pdfplumber_page(self, text: str):
         """Returns a mock pdfplumber Page object returning ``text``."""
         page = MagicMock()
         page.extract_text.return_value = text
@@ -290,7 +290,7 @@ class TestExtractMocked:
         mock_pdf.__enter__ = MagicMock(return_value=mock_pdf)
         mock_pdf.__exit__ = MagicMock(return_value=False)
         mock_pdf.is_encrypted = False
-        mock_pages = [self._mock_page(t) for t in pages_text]
+        mock_pages = [self._create_mock_pdfplumber_page(t) for t in pages_text]
         mock_pdf.pages = mock_pages
 
         ex = PDFExtractor(ocr_fallback=ocr_fallback)

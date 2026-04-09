@@ -85,10 +85,10 @@ def _mock_pipeline(tmp_dir: str, pdf_names=("test.pdf",)):
     mock_embedder  = MagicMock()
     mock_ingestor  = MagicMock()
 
-    mock_extractor.extract.return_value = _make_result()
-    mock_chunker.chunk.return_value     = [_make_chunk()]
-    mock_embedder.embed_chunks.return_value = [_make_embedding()]
-    mock_embedder.load.return_value    = EmbedderMode.HASH_FALLBACK
+    mock_extractor.extract.return_value        = _make_result()
+    mock_chunker.chunk.return_value            = [_make_chunk()]
+    mock_embedder.embed_chunks.return_value    = [_make_embedding()]
+    mock_embedder.load.return_value            = EmbedderMode.HASH_FALLBACK
     mock_ingestor.ingest.return_value  = {
         "written": 1, "skipped_duplicate": 0, "failed": 0, "processing_ms": 1.0
     }
