@@ -1,21 +1,24 @@
 """
 core/zkp_envelope.py  (T-014)
-SmartSalai Edge-Sentinel — Pedersen Commitment ZKP Telemetry Envelope
+SmartSalai Edge-Sentinel — ZKP GPS Envelope & Pedersen Commitment Telemetry Envelope
 
-Wraps sensitive telemetry payloads in a Pedersen Commitment before emission.
+Two complementary APIs:
 
-PEDERSEN COMMITMENT (prime-field variant):
-  C = g^r * h^v  mod p
-  - Perfectly hiding (C reveals nothing about v without r)
-  - Computationally binding (infeasible to find v', r' with same C)
+1. Coordinate Coarsening + SHA3 Commitment (GPS privacy stub, used by pipeline):
+     from core.zkp_envelope import wrap_event, coarsen_coordinate
+     event = wrap_event(event, raw_lat=12.9245, raw_lon=80.2301)
 
-AES-256-GCM encrypts the payload using the blinding bytes as key material.
-SHA3-256 is used for all evidence hashes (matches ULS audit template).
+2. Pedersen Commitment + AES-256-GCM Telemetry Envelope (full cryptographic sealing):
+     from core.zkp_envelope import ZKPEnvelopeBuilder, get_builder
+     env = get_builder().seal(payload_dict, "NearMissEvent")
 
-Envelope JSON format:
-  { "envelope_version", "payload_type", "commitment", "blinding_factor_hash",
-    "evidence_hash", "timestamp_epoch_ms", "payload_ciphertext", "nonce",
-    "auditor_key_hint" }
+CURRENT STATUS:
+  GPS ZKP: STUB — coordinate coarsening (≈500m grid) + SHA3 commitment.
+  Telemetry envelope: Pedersen Commitment over MODP-1536 prime + AES-256-GCM.
+
+COORDINATE COARSENING:
+  Grid resolution: 0.005° ≈ 500m at Indian latitudes.
+  Example: (12.9245, 80.2301) → (12.920, 80.230)
 """
 
 from __future__ import annotations
@@ -24,17 +27,72 @@ import hashlib
 import hmac
 import json
 import logging
+import math
 import os
 import secrets
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, Optional, Tuple
+
+if TYPE_CHECKING:
+    from agents.imu_near_miss_detector import NearMissEvent
 
 logger = logging.getLogger("edge_sentinel.core.zkp_envelope")
 
 ENVELOPE_VERSION = "ZKP-1.0"
 
-# Prime-field Pedersen parameters (256-bit safe prime representative)
+# ---------------------------------------------------------------------------
+# Part 1: GPS coordinate coarsening (pipeline stub, T-014 backlog for Groth16)
+# ---------------------------------------------------------------------------
+
+# Grid cell size: 0.005° ≈ 500m at 13°N latitude
+_GRID_DEG: float = 0.005
+_SALT_BYTES: int = 16
+
+
+def _coarsen(coord: float, grid: float = _GRID_DEG) -> float:
+    """Snap a coordinate to the nearest grid cell centre."""
+    return math.floor(coord / grid) * grid
+
+
+def _commitment_hash(raw_lat: float, raw_lon: float, salt: bytes) -> str:
+    """SHA3-256(salt || lat_str || ',' || lon_str) — verifiable by regulator."""
+    payload = salt + f"{raw_lat:.6f},{raw_lon:.6f}".encode("utf-8")
+    return "sha3:" + hashlib.sha3_256(payload).hexdigest()
+
+
+def wrap_event(
+    event: "NearMissEvent",
+    raw_lat: float,
+    raw_lon: float,
+    device_salt: Optional[bytes] = None,
+) -> "NearMissEvent":
+    """
+    Populate gps_lat / gps_lon on a NearMissEvent with coarsened coordinates.
+    Attaches a SHA3-256 commitment to ``event._gps_commitment`` for audit.
+    """
+    if device_salt is None:
+        device_salt = os.urandom(_SALT_BYTES)
+    event.gps_lat = round(_coarsen(raw_lat), 3)
+    event.gps_lon = round(_coarsen(raw_lon), 3)
+    event._gps_commitment = _commitment_hash(raw_lat, raw_lon, device_salt)  # type: ignore[attr-defined]
+    logger.debug(
+        f"[T-014] ZKP envelope applied: "
+        f"raw=({raw_lat:.4f},{raw_lon:.4f}) → coarsened=({event.gps_lat},{event.gps_lon})"
+    )
+    return event
+
+
+def coarsen_coordinate(lat: float, lon: float) -> tuple:
+    """Returns (coarsened_lat, coarsened_lon). Used by fleet telemetry uplink (T-018)."""
+    return round(_coarsen(lat), 3), round(_coarsen(lon), 3)
+
+
+# ---------------------------------------------------------------------------
+# Part 2: Pedersen Commitment + AES-256-GCM telemetry envelope
+# ---------------------------------------------------------------------------
+
+# Prime-field Pedersen parameters (MODP-1536, RFC 3526 group 5)
 _FIELD_PRIME = int(
     "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC90FDAA2"
     "2168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A"
@@ -64,20 +122,28 @@ def _aes_gcm_encrypt(plaintext: bytes, key: bytes) -> Tuple[bytes, bytes]:
     nonce = secrets.token_bytes(12)
     try:
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-        return AESGCM(key).encrypt(nonce, plaintext, None), nonce
-    except Exception:
-        # XOR-stream fallback (demo mode only)
-        ks = hashlib.sha3_256(key + nonce).digest() * (len(plaintext) // 32 + 1)
-        return bytes(a ^ b for a, b in zip(plaintext, ks)), nonce
+    except ImportError:
+        raise RuntimeError(
+            "cryptography package is required for AES-GCM. "
+            "Install with: pip install cryptography"
+        )
+    return AESGCM(key).encrypt(nonce, plaintext, None), nonce
 
 
 def _aes_gcm_decrypt(ciphertext: bytes, key: bytes, nonce: bytes) -> bytes:
     try:
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-        return AESGCM(key).decrypt(nonce, ciphertext, None)
-    except Exception:
-        ks = hashlib.sha3_256(key + nonce).digest() * (len(ciphertext) // 32 + 1)
-        return bytes(a ^ b for a, b in zip(ciphertext, ks))
+    except ImportError:
+        raise RuntimeError(
+            "cryptography package is required for AES-GCM. "
+            "Install with: pip install cryptography"
+        )
+    # Let AESGCM.decrypt raise InvalidTag on tamper — do NOT catch it
+    return AESGCM(key).decrypt(nonce, ciphertext, None)
+
+
+class TamperDetectedError(Exception):
+    """Raised when an opened ZKP envelope fails commitment or evidence-hash verification."""
 
 
 @dataclass
@@ -141,8 +207,7 @@ class ZKPEnvelopeBuilder:
     Usage:
         builder = ZKPEnvelopeBuilder()
         env = builder.seal({"gps_lat": 12.924, "speed_kmh": 65.0}, "NearMissEvent")
-        opened = builder.open(env, env._blinding_bytes)
-        assert opened.commitment_verified
+        opened = builder.open(env, env._blinding_bytes)  # raises TamperDetectedError on tamper
     """
 
     def seal(self, payload: Dict[str, Any], payload_type: str, auditor_key_hint: str = "") -> ZKPEnvelope:
@@ -150,7 +215,6 @@ class ZKPEnvelopeBuilder:
         canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         evidence_hash = _sha3_256_hex(canonical.encode())
 
-        # Integer value from GPS or evidence hash
         if "gps_lat" in payload:
             value_int = abs(round(float(payload["gps_lat"]) * 1_000_000)) % _FIELD_PRIME
         else:
@@ -180,9 +244,17 @@ class ZKPEnvelopeBuilder:
         )
 
     def open(self, envelope: ZKPEnvelope, blinding_bytes: bytes) -> OpenedEnvelope:
+        """
+        Decrypt and verify a ZKP envelope.
+
+        Raises:
+            TamperDetectedError: if commitment or evidence hash verification fails.
+            cryptography.exceptions.InvalidTag: if AES-GCM authentication fails (ciphertext tampered).
+        """
         aes_key = _derive_aes_key(blinding_bytes)
         nonce = bytes.fromhex(envelope.nonce_hex)
         ciphertext = bytes.fromhex(envelope.payload_ciphertext)
+        # _aes_gcm_decrypt raises InvalidTag on tamper — not caught here
         plaintext = _aes_gcm_decrypt(ciphertext, aes_key, nonce)
         payload = json.loads(plaintext.decode())
 
@@ -202,6 +274,12 @@ class ZKPEnvelopeBuilder:
             commitment_int.to_bytes(max((commitment_int.bit_length() + 7) // 8, 1), "big"),
             expected.to_bytes(max((expected.bit_length() + 7) // 8, 1), "big"),
         )
+
+        if not commitment_ok or not evidence_ok:
+            raise TamperDetectedError(
+                f"ZKP envelope verification failed — "
+                f"commitment_ok={commitment_ok}, evidence_hash_ok={evidence_ok}"
+            )
 
         return OpenedEnvelope(
             payload=payload,

@@ -1,25 +1,15 @@
 import os
 import sys
 import sqlite3
-import pathlib as _pathlib
-try:
-    import pdfplumber
-except ImportError:
-    pdfplumber = None
-try:
-    import pandas as pd
-except ImportError:
-    pd = None
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
+import pdfplumber
+from dotenv import load_dotenv
+
+# Initialize Env
+load_dotenv()
 
 
-# CONFIGURATION — resolve data dir from env var, then repo-local raw_data/
-_DEFAULT_RAW_DATA_DIR = str(_pathlib.Path(__file__).parent / "raw_data")
-RAW_DATA_DIR = os.environ.get("RAW_DATA_DIR", _DEFAULT_RAW_DATA_DIR)
+# CONFIGURATION — override RAW_DATA_DIR via environment variable if needed
+RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", os.path.join(os.path.dirname(__file__), "raw_data"))
 PDF_FILES = [
     "Motor Vehicle Ammendment Act 2019.pdf",
     "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",

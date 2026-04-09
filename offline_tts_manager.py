@@ -18,9 +18,13 @@ class OfflineTTSManager:
         def worker():
             while True:
                 priority, message = self.interrupt_queue.get()
-                self.engine.say(message)
-                self.engine.runAndWait()
-                self.interrupt_queue.task_done()
+                try:
+                    self.engine.say(message)
+                    self.engine.runAndWait()
+                except Exception as e:
+                    print(f"PERSONA_4_ERROR: TTS engine failure: {e}")
+                finally:
+                    self.interrupt_queue.task_done()
         
         self.worker_thread = threading.Thread(target=worker, daemon=True)
         self.worker_thread.start()

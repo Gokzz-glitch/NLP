@@ -110,13 +110,13 @@ def test_zkp_no_gps_payload():
 
 
 def test_zkp_tamper_detection():
-    from core.zkp_envelope import ZKPEnvelopeBuilder, ZKPEnvelope
+    from core.zkp_envelope import ZKPEnvelopeBuilder, ZKPEnvelope, TamperDetectedError
 
     builder = ZKPEnvelopeBuilder()
     payload = {"gps_lat": 12.924, "speed_kmh": 60.0}
     env = builder.seal(payload, "NearMiss")
 
-    # Tamper: swap ciphertext with zeroes
+    # Tamper: replace evidence_hash with zeroes
     tampered = ZKPEnvelope(
         envelope_version=env.envelope_version,
         payload_type=env.payload_type,
@@ -128,8 +128,11 @@ def test_zkp_tamper_detection():
         nonce_hex=env.nonce_hex,
         _blinding_bytes=env._blinding_bytes,
     )
-    opened = builder.open(tampered, env._blinding_bytes)
-    assert not opened.evidence_hash_verified, "Tamper detection failed"
+    try:
+        builder.open(tampered, env._blinding_bytes)
+        assert False, "Expected TamperDetectedError was not raised"
+    except TamperDetectedError:
+        pass  # correct — tamper detected
     print("[PASS] test_zkp_tamper_detection")
 
 

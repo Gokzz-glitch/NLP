@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 hf_token = os.getenv("HF_TOKEN")
 
+_PROJECT_ROOT = os.path.dirname(__file__)
+LLM_MODELS_DIR = os.getenv("LLM_MODELS_DIR", os.path.join(_PROJECT_ROOT, "models", "llm"))
+
 def download_llm():
     print("FETCHING: Edge Legal Reasoner (Phi-3-mini)...")
     try:
@@ -13,7 +16,7 @@ def download_llm():
         path = hf_hub_download(
             repo_id="microsoft/Phi-3-mini-4k-instruct-gguf",
             filename="Phi-3-mini-4k-instruct-q4.gguf",
-            local_dir="g:/My Drive/NLP/models/llm",
+            local_dir=LLM_MODELS_DIR,
             token=hf_token
         )
         print(f"SUCCESS: {path}")

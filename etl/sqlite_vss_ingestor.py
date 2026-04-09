@@ -134,7 +134,8 @@ class SQLiteVSSIngestor:
             self._conn = None
 
     def ensure_schema(self) -> None:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.ensure_schema() called before connect().")
         self._conn.executescript(_DDL)
         if self._vss:
             self._conn.execute(
@@ -147,7 +148,8 @@ class SQLiteVSSIngestor:
     # --- Ingest ---
 
     def ingest(self, results: List[EmbeddingResult]) -> dict:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.ingest() called before connect().")
         if not results:
             return {"written": 0, "skipped_duplicate": 0, "failed": 0, "processing_ms": 0.0}
 
@@ -246,7 +248,8 @@ class SQLiteVSSIngestor:
         Returns list of dicts: chunk_id, source_doc, doc_type, section_id,
         chunk_text, statutory_refs, gazette_ref, go_ref, similarity_score.
         """
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.query() called before connect().")
         vec = query_vector.astype(np.float32)
         if self._vss:
             return self._query_vss(vec, top_k, doc_type_filter, section_id_filter)
@@ -259,12 +262,16 @@ class SQLiteVSSIngestor:
             joins.append("c.doc_type=?"); params.append(dt_f)
         if sec_f:
             joins.append("c.section_id=?"); params.append(sec_f)
+        # VSS match clause must always be present; other filters are optional.
+        # Build WHERE clause to avoid "AND" without a preceding "WHERE".
+        vss_clause = "e.embedding MATCH ?1 AND k=?2"
+        where = "WHERE " + (" AND ".join(joins + [vss_clause]) if joins else vss_clause)
         sql = (
             "SELECT c.chunk_id,c.source_doc,c.doc_type,c.section_id,c.chunk_text,"
             "c.statutory_refs,c.gazette_ref,c.go_ref,e.distance "
             "FROM legal_embeddings e JOIN legal_chunks c ON e.rowid=c.rowid "
-            + (("WHERE " + " AND ".join(joins)) if joins else "")
-            + " AND e.embedding MATCH ?1 AND k=?2 ORDER BY e.distance"
+            + where
+            + " ORDER BY e.distance"
         )
         return self._to_dicts(self._conn.execute(sql, params).fetchall())
 
@@ -308,7 +315,8 @@ class SQLiteVSSIngestor:
         ]
 
     def stats(self) -> dict:
-        assert self._conn
+        if self._conn is None:
+            raise RuntimeError("SQLiteVSSIngestor.stats() called before connect().")
         total = self._conn.execute("SELECT COUNT(*) FROM legal_chunks").fetchone()[0]
         docs  = self._conn.execute("SELECT COUNT(DISTINCT file_sha256) FROM legal_chunks").fetchone()[0]
         by_dt = self._conn.execute("SELECT doc_type,COUNT(*) FROM legal_chunks GROUP BY doc_type").fetchall()
