@@ -188,6 +188,7 @@ VEHICLE_CLASSES: Dict[str, VehicleClass] = {
         speed_cap_kmh=80, jerk_multiplier=0.85, lateral_g_multiplier=0.85,
     ),
     "ambulance": VehicleClass(
+        # SIMULATION RESEARCH ONLY — see SAFETY.md for prohibited real-vehicle uses
         "Ambulance (N1 converted)", mass_kg=3000, wheelbase_m=3.3,
         speed_cap_kmh=100, jerk_multiplier=0.80, lateral_g_multiplier=0.80,
     ),

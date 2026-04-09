@@ -288,9 +288,10 @@ class TestSec208Fuzzing:
     def test_none_camera_data(self):
         from agents.sec208_drafter import Sec208DrafterAgent
         drafter = Sec208DrafterAgent()
-        # Should not raise; returns NOT_APPLICABLE or gracefully handled
+        # Should not raise; None input is coerced to {} → no device_id → NOT_APPLICABLE
         result = drafter.evaluate(camera_data=None, signage_detected=False)  # type: ignore[arg-type]
         assert "status" in result
+        assert result["status"] == "NOT_APPLICABLE"
 
     def test_garbage_device_id(self):
         from agents.sec208_drafter import Sec208DrafterAgent
