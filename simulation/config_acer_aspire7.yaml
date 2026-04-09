@@ -1,0 +1,45 @@
+# SmartSalai Edge-Sentinel — Dashcam Simulation Config
+# Acer Aspire 7 (Intel i5-12th gen · RTX 3050 Mobile 4 GB VRAM · 512 GB SSD)
+#
+# TRACK 1: Single front-facing dashcam
+# For 360-camera (Track 2), see README.md → "360-Camera Future Extension".
+#
+# SAFETY NOTE: All outputs are ADVISORY / INFORMATIONAL ONLY.
+#              See SAFETY.md for the full disclaimer.
+
+# ─── Camera source ────────────────────────────────────────────────────────────
+# "file"      → replay a recorded dashcam MP4/AVI (recommended for simulation)
+# "device"    → capture from a live USB/built-in dashcam
+# "synthetic" → procedural frames (no camera needed — for CI / first-run tests)
+source: file
+path: ""           # ← set to your .mp4/.avi dashcam file path, e.g. "360-cam.mp4"
+device_index: 0    # USB device index when source=device
+max_frames: null   # null = process entire file; integer to limit (e.g. 300)
+
+# ─── Processing ───────────────────────────────────────────────────────────────
+# RTX 3050 4 GB VRAM guidance:
+#   YOLOv8-nano INT8 inference ≈ 6–8 ms/frame at 640×360 → comfortable 15 FPS
+#   Raise target_fps up to 25 if VRAM stays below 2.5 GB (check `nvidia-smi`)
+target_fps: 15.0
+resize_width: 640
+resize_height: 360
+
+# ─── Detection thresholds ─────────────────────────────────────────────────────
+# Tune these after reviewing false-positive rate on your local footage.
+# Lower conf → more detections (noisier); higher → fewer (may miss hazards).
+detection_confidence_min: 0.45
+iou_threshold: 0.40
+
+# ─── IMU fusion ───────────────────────────────────────────────────────────────
+imu_sample_rate_hz: 100.0
+imu_window_size_samples: 128
+
+# ─── Hardware ─────────────────────────────────────────────────────────────────
+use_gpu: true       # CUDA via TensorRT/ONNX Runtime — requires nvidia-smi
+num_cpu_threads: 4  # Fallback when GPU unavailable or VRAM headroom is low
+
+# ─── Output ───────────────────────────────────────────────────────────────────
+# JSONL output: one JSON object per frame with advisory events.
+# Leave empty ("") to disable file output.
+output_jsonl: ""        # e.g. "/tmp/dashcam_advisory.jsonl"
+show_display: false     # true = OpenCV window (requires X11/Wayland display)
