@@ -44,7 +44,7 @@ secrets/
 # which Git cannot parse. Instead use: Add-Content -Encoding UTF8 .gitignore "*.mp4"
 # or simply edit this file directly in VS Code / Notepad.
 *.mp4
-*.ts
+*.ts                # MPEG Transport Stream (camera footage) — not TypeScript; this is a Python-only project
 *.avi
 *.mov
 *.mkv
