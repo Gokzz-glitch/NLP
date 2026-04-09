@@ -125,11 +125,13 @@ class AgentBus:
         self._worker.start()
 
     def stop(self, drain_timeout_s: float = 2.0) -> None:
-        self._running = False
+        # Send sentinel first so the dispatch loop drains all pending messages
+        # before exiting, then signal the loop to stop after it sees the sentinel.
         try:
             self._queue.put_nowait(None)
         except queue.Full:
             pass
+        self._running = False
         if self._worker:
             self._worker.join(timeout=drain_timeout_s)
 
@@ -141,7 +143,11 @@ class AgentBus:
 
     def publish(self, topic: str, params: Dict[str, Any], message_id: Optional[str] = None) -> str:
         msg = BusMessage(topic=topic, params=params, message_id=message_id or str(uuid.uuid4()))
-        self._queue.put_nowait(msg)
+        try:
+            self._queue.put_nowait(msg)
+        except queue.Full:
+            logger.warning(f"[AgentBus] Queue full — dropping message on topic={topic!r}")
+            return msg.message_id
         with self._stats_lock:
             self._stats["published"] += 1
         return msg.message_id
@@ -161,10 +167,13 @@ class AgentBus:
         return self._registry.subscriber_count(topic)
 
     def _dispatch_loop(self) -> None:
-        while self._running:
+        while True:
             try:
                 msg = self._queue.get(timeout=0.5)
             except queue.Empty:
+                if not self._running:
+                    # No more messages and bus is stopped — exit cleanly
+                    break
                 continue
             if msg is None:
                 break
@@ -180,7 +189,7 @@ class AgentBus:
             except Exception as exc:
                 with self._stats_lock:
                     self._stats["errors"] += 1
-                logger.error(f"[AgentBus] Handler error topic={msg.topic!r} handler={handler.__name__!r}: {exc}", exc_info=True)
+                logger.error(f"[AgentBus] Handler error topic={msg.topic!r} handler={getattr(handler, '__name__', repr(handler))!r}: {exc}", exc_info=True)
 
 
 # Module-level singleton

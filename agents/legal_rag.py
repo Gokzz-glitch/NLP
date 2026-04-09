@@ -39,10 +39,10 @@ TOP_K = 5
 def _build_embedder():
     try:
         from sentence_transformers import SentenceTransformer
-        model = SentenceTransformer("all-MiniLM-L6-v2")
+        model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
         return ("st", model)
     except Exception:
-        logger.info("[LegalRAG] sentence-transformers unavailable — using hash fallback")
+        logger.info("[LegalRAG] sentence-transformers unavailable or model not cached — using hash fallback")
         return ("hash", None)
 
 

@@ -265,7 +265,7 @@ class ZKPEnvelopeBuilder:
         if "gps_lat" in payload:
             value_int = abs(round(float(payload["gps_lat"]) * 1_000_000)) % _FIELD_PRIME
         else:
-            value_int = int.from_bytes(bytes.fromhex(envelope.evidence_hash[:16]), "big") % _FIELD_PRIME
+            value_int = int.from_bytes(bytes.fromhex(recomputed_eh[:16]), "big") % _FIELD_PRIME
 
         blinding_int = int.from_bytes(blinding_bytes, "big") % _FIELD_PRIME
         commitment_int = int.from_bytes(bytes.fromhex(envelope.commitment_hex), "big")

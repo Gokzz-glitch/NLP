@@ -127,8 +127,12 @@ class AcousticUIAgent:
         self._worker = threading.Thread(target=self._speak_loop, name="acoustic-ui", daemon=True)
         self._worker.start()
 
-    def stop(self) -> None:
+    def stop(self, join_timeout_s: float = 1.0) -> None:
         self._running = False
+        with self._lock:
+            self._queue.clear()
+        if self._worker and self._worker.is_alive():
+            self._worker.join(timeout=join_timeout_s)
 
     def speak(self, phrase_key: str) -> None:
         """Enqueue a Tanglish phrase by key."""

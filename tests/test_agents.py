@@ -41,9 +41,13 @@ def test_legal_rag_section208_query():
         "208" in (r.get("section_id") or "") or "208" in (r.get("chunk_text") or "")
         for r in result["results"]
     )
-    uls_match_present = len(result["uls_matches"]) >= 0  # any or zero both fine
     assert result["source"] in ("legacy_db", "rag_db", "no_db")
-    print(f"[PASS] test_legal_rag_section208_query (source={result['source']})")
+    # When a real DB is available it must return results; no_db is fine with an empty list
+    if result["source"] != "no_db":
+        assert len(result["results"]) > 0, (
+            f"Expected non-empty results from source={result['source']!r}"
+        )
+    print(f"[PASS] test_legal_rag_section208_query (source={result['source']}, 208_hit={sec208_in_results})")
 
 
 def test_legal_rag_uls_match():
