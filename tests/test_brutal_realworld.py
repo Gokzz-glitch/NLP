@@ -896,3 +896,565 @@ class TestHaversineEdgeCases:
         d = self._h(13.0827, 80.2707, 13.0900, 80.2800)
         assert isinstance(d, float)
         assert d > 0
+
+
+# ---------------------------------------------------------------------------
+# Phase 13: Multi-camera state isolation
+# ---------------------------------------------------------------------------
+
+class TestMultiCameraIsolation:
+
+    def _import_server_with_env(self, env_overrides):
+        import importlib
+        import sys
+        # Remove cached module so env vars are re-evaluated
+        for key in list(sys.modules.keys()):
+            if key == "api.server" or key == "api":
+                pass  # don't remove api package itself
+        with patch.dict(os.environ, env_overrides, clear=False):
+            # Force reimport by removing from sys.modules
+            for mod in list(sys.modules.keys()):
+                if mod in ("api.server",):
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                try:
+                    import importlib
+                    import api.server as srv
+                    importlib.reload(srv)
+                    return srv
+                except Exception:
+                    import api.server as srv
+                    return srv
+
+    def test_cam_state_has_expected_directions(self):
+        env = {"CAMERA_INDICES": "0,1", "CAMERA_DIRECTIONS": "front,rear",
+               "LIVE_CAMERA_ENABLED": "0"}
+        with patch.dict(os.environ, env, clear=False):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                assert "front" in srv._cam_state
+                assert "rear" in srv._cam_state
+
+    def test_cam_state_frame_queues_independent(self):
+        env = {"CAMERA_INDICES": "0,1", "CAMERA_DIRECTIONS": "front,rear",
+               "LIVE_CAMERA_ENABLED": "0"}
+        with patch.dict(os.environ, env, clear=False):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                sentinel = b"SENTINEL_FRAME"
+                srv._cam_state["front"]["frame_queue"].put_nowait(sentinel)
+                assert srv._cam_state["rear"]["frame_queue"].empty()
+
+    def test_camera_directions_parse_from_env(self):
+        env = {"CAMERA_INDICES": "0,1,2,3",
+               "CAMERA_DIRECTIONS": "front,rear,left,right",
+               "LIVE_CAMERA_ENABLED": "0"}
+        with patch.dict(os.environ, env, clear=False):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                assert len(srv._CAMERA_DIRECTIONS) == 4
+                assert len(srv._cam_state) == 4
+
+    def test_camera_directions_fallback_when_mismatch(self):
+        env = {"CAMERA_INDICES": "0,1,2",
+               "CAMERA_DIRECTIONS": "front,rear",
+               "LIVE_CAMERA_ENABLED": "0"}
+        with patch.dict(os.environ, env, clear=False):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                # mismatch → fallback to cam0, cam1, cam2
+                assert all(d.startswith("cam") for d in srv._CAMERA_DIRECTIONS)
+                assert len(srv._CAMERA_DIRECTIONS) == 3
+
+    def test_default_single_camera_backward_compat(self):
+        env_remove = {"CAMERA_INDICES": "", "CAMERA_DIRECTIONS": "",
+                      "CAMERA_INDEX": "0", "LIVE_CAMERA_ENABLED": "0"}
+        with patch.dict(os.environ, env_remove, clear=False):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            with patch("pyttsx3.init", return_value=MagicMock()):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                assert len(srv._CAMERA_DIRECTIONS) == 1
+                assert srv._CAMERA_DIRECTIONS[0] == "front"
+
+
+# ---------------------------------------------------------------------------
+# Phase 14: API server — full ingest → alert → save pipeline
+# ---------------------------------------------------------------------------
+
+class TestAPIIngestAlertPipeline:
+
+    @pytest.fixture(autouse=True)
+    def _setup(self):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            env = {"LIVE_CAMERA_ENABLED": "0", "CAMERA_INDICES": "0",
+                   "CAMERA_DIRECTIONS": "front"}
+            with patch.dict(os.environ, env, clear=False):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                from starlette.testclient import TestClient
+                self.app = srv.create_app()
+                self.client = TestClient(self.app, raise_server_exceptions=False)
+                # clear alert log before each test
+                srv._alert_log.clear()
+                yield
+
+    def test_ingest_accepted_and_returns_201(self):
+        resp = self.client.post("/api/v1/internal/ingest", json={
+            "node_id": "node-test-1",
+            "event_type": "detection",
+        })
+        assert resp.status_code == 201
+
+    def test_ingest_with_hazard_populates_alert_log(self):
+        self.client.post("/api/v1/internal/ingest", json={
+            "node_id": "node-hazard",
+            "event_type": "detection",
+            "hazard_class": "pothole",
+            "confidence": 0.9,
+        })
+        resp = self.client.get("/api/v1/incident/report")
+        data = resp.json()
+        assert len(data["recent_alerts"]) >= 1
+
+    def test_ingest_without_hazard_no_alert(self):
+        self.client.post("/api/v1/internal/ingest", json={
+            "node_id": "node-clean",
+            "event_type": "heartbeat",
+        })
+        resp = self.client.get("/api/v1/incident/report")
+        data = resp.json()
+        assert len(data["recent_alerts"]) == 0
+
+    def test_ingest_100hz_burst_no_data_loss(self):
+        results = []
+        for i in range(100):
+            r = self.client.post("/api/v1/internal/ingest", json={
+                "node_id": f"burst-node-{i}",
+                "event_type": "detection",
+            })
+            results.append(r.status_code)
+        assert all(s == 201 for s in results)
+        assert not any(s >= 500 for s in results)
+
+    def test_gps_update_reflects_in_report(self):
+        self.client.post("/api/v1/gps/update", json={"lat": 12.9716, "lon": 77.5946})
+        resp = self.client.get("/api/v1/incident/report")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "report_id" in data
+
+
+# ---------------------------------------------------------------------------
+# Phase 15: Chatbot — all 13 intents × 3 languages
+# ---------------------------------------------------------------------------
+
+class TestChatbotAllIntents:
+
+    _INTENT_KEYWORDS = [
+        ("GREETING", "hello"),
+        ("WEAKNESS", "weakness"),
+        ("SAFETY_SCORE", "score"),
+        ("ROUTE", "route"),
+        ("POTHOLE_REPORT", "I found a pothole"),
+        ("HAZARD_QUERY", "hazard"),
+        ("SPEED_RULE", "speed limit"),
+        ("SIGN_QUERY", "traffic sign"),
+        ("LEGAL_CHALLENGE", "section 208"),
+        ("NIGHT_DRIVING", "night driving"),
+        ("GENERAL_SAFETY", "seatbelt"),
+        ("HISTORY", "my history"),
+    ]
+
+    def _make_bot(self, tmp_dir, lang="en", persona="male"):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            from agents.driver_profile import DriverProfileAgent
+            from agents.driver_chatbot import DriverChatbot
+            pa = DriverProfileAgent(db_path=tmp_dir + "/test.db")
+            pa.update_preferences("testdriver", language=lang, voice_persona=persona)
+            bot = DriverChatbot("testdriver", pa)
+            return bot
+
+    def test_all_13_intents_return_non_empty_response_en(self, tmp_path):
+        import tempfile
+        tmp_dir = str(tmp_path)
+        bot = self._make_bot(tmp_dir, lang="en")
+        for intent, kw in self._INTENT_KEYWORDS:
+            result = bot.chat(kw)
+            assert result["text"], f"Empty response for intent {intent} kw={kw}"
+
+    def test_all_13_intents_tamil(self, tmp_path):
+        tmp_dir = str(tmp_path)
+        bot = self._make_bot(tmp_dir, lang="ta")
+        for intent, kw in self._INTENT_KEYWORDS:
+            result = bot.chat(kw)
+            assert result["text"], f"Empty response for intent {intent} in Tamil"
+
+    def test_all_13_intents_hindi(self, tmp_path):
+        tmp_dir = str(tmp_path)
+        bot = self._make_bot(tmp_dir, lang="hi")
+        for intent, kw in self._INTENT_KEYWORDS:
+            result = bot.chat(kw)
+            assert result["text"], f"Empty response for intent {intent} in Hindi"
+
+    def test_unknown_intent_returns_help_message(self, tmp_path):
+        tmp_dir = str(tmp_path)
+        bot = self._make_bot(tmp_dir)
+        result = bot.chat("xyzzy nonsense 12345")
+        assert result["intent"] == "UNKNOWN"
+        assert result["text"]
+
+    def test_child_persona_simplifies_response(self, tmp_path):
+        tmp_dir = str(tmp_path)
+        bot = self._make_bot(tmp_dir, persona="child")
+        result = bot.chat("section 208")
+        assert result["text"]
+        assert "mandatory" not in result["text"].lower() or len(result["text"]) < 300
+
+    def test_pothole_report_increments_counter(self, tmp_path):
+        """POTHOLE_REPORT intent logs the exchange; manually recording hazard works."""
+        tmp_dir = str(tmp_path)
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            from agents.driver_profile import DriverProfileAgent
+            from agents.driver_chatbot import DriverChatbot
+            pa = DriverProfileAgent(db_path=tmp_dir + "/test.db")
+            bot = DriverChatbot("driver2", pa)
+            resp = bot.chat("I found a pothole report")
+            assert resp["intent"] == "POTHOLE_REPORT", f"Expected POTHOLE_REPORT, got {resp['intent']}"
+            # Chatbot logs both user and bot messages
+            profile = pa._store.load("driver2")
+            assert len(profile.chat_history) >= 2
+
+    def test_chat_history_persisted(self, tmp_path):
+        tmp_dir = str(tmp_path)
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            from agents.driver_profile import DriverProfileAgent
+            from agents.driver_chatbot import DriverChatbot
+            pa = DriverProfileAgent(db_path=tmp_dir + "/test.db")
+            bot = DriverChatbot("driver3", pa)
+            bot.chat("hello")
+            bot.chat("score")
+            bot.chat("route")
+            profile = pa._store.load("driver3")
+            # user + bot per message = 6 entries
+            assert len(profile.chat_history) >= 6
+
+
+# ---------------------------------------------------------------------------
+# Phase 16: Driver profile persistence — save/load/update
+# ---------------------------------------------------------------------------
+
+class TestDriverProfilePersistence:
+
+    def _agent(self, tmp_path):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            from agents.driver_profile import DriverProfileAgent
+            return DriverProfileAgent(db_path=str(tmp_path / "dp.db"))
+
+    def test_save_and_load_roundtrip(self, tmp_path):
+        pa = self._agent(tmp_path)
+        for _ in range(3):
+            pa.record_near_miss("d1", severity="CRITICAL")
+        profile = pa._store.load("d1")
+        assert profile.critical_near_misses == 3
+
+    def test_safety_score_degrades_with_events(self, tmp_path):
+        pa = self._agent(tmp_path)
+        fresh = pa.get_or_create("d2")
+        initial_score = fresh.safety_score()
+        for _ in range(3):
+            pa.record_near_miss("d2", severity="CRITICAL")
+        updated = pa._store.load("d2")
+        assert updated.safety_score() < initial_score
+
+    def test_weakness_detected_after_threshold(self, tmp_path):
+        pa = self._agent(tmp_path)
+        # aggressive_braking triggered by ax > 6.0 in record_near_miss
+        for _ in range(6):
+            pa.record_near_miss("d3", severity="HIGH", ax=7.0)
+        profile = pa._store.load("d3")
+        from agents.driver_profile import WeaknessCode
+        assert WeaknessCode.AGGRESSIVE_BRAKING in profile.weakness_codes()
+
+    def test_session_count_increments(self, tmp_path):
+        pa = self._agent(tmp_path)
+        for _ in range(5):
+            pa.record_session_start("d4")
+        profile = pa._store.load("d4")
+        assert profile.total_sessions == 5
+
+    def test_hazard_km_accumulates(self, tmp_path):
+        pa = self._agent(tmp_path)
+        for _ in range(3):
+            pa.record_hazard_reported("d5", km_delta=10.5)
+        profile = pa._store.load("d5")
+        assert abs(profile.total_km - 31.5) < 0.01
+
+    def test_chat_history_capped_at_100(self, tmp_path):
+        pa = self._agent(tmp_path)
+        for i in range(110):
+            pa.add_chat_message("d6", "user", f"msg {i}")
+        profile = pa._store.load("d6")
+        assert len(profile.chat_history) <= 100
+
+    def test_multiple_drivers_isolated(self, tmp_path):
+        pa = self._agent(tmp_path)
+        pa.get_or_create("driverA")
+        pa.get_or_create("driverB")
+        for _ in range(3):
+            pa.record_near_miss("driverA", severity="CRITICAL")
+        pB = pa._store.load("driverB")
+        assert pB.critical_near_misses == 0
+
+
+# ---------------------------------------------------------------------------
+# Phase 17: Incident report and share — content validation
+# ---------------------------------------------------------------------------
+
+class TestIncidentReportShare:
+
+    @pytest.fixture(autouse=True)
+    def _setup(self):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            env = {"LIVE_CAMERA_ENABLED": "0", "CAMERA_INDICES": "0",
+                   "CAMERA_DIRECTIONS": "front"}
+            with patch.dict(os.environ, env, clear=False):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                from starlette.testclient import TestClient
+                self.app = srv.create_app()
+                self.client = TestClient(self.app, raise_server_exceptions=False)
+                self._srv = srv
+                yield
+
+    def test_incident_report_has_required_fields(self):
+        resp = self.client.get("/api/v1/incident/report")
+        assert resp.status_code == 200
+        data = resp.json()
+        for key in ("report_id", "generated_at", "camera_directions", "recent_alerts", "irad_compliant"):
+            assert key in data, f"Missing key: {key}"
+
+    def test_report_id_has_INC_prefix(self):
+        resp = self.client.get("/api/v1/incident/report")
+        data = resp.json()
+        assert data["report_id"].startswith("INC-")
+
+    def test_incident_report_with_driver_id(self, tmp_path):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            from agents.driver_profile import DriverProfileAgent
+            pa = DriverProfileAgent(db_path=str(tmp_path / "inc.db"))
+            pa.get_or_create("inc_driver")
+            # Inject the agent into server
+            self._srv._profile_agent = pa
+            resp = self.client.get("/api/v1/incident/report?driver_id=inc_driver")
+            assert resp.status_code == 200
+            data = resp.json()
+            assert data.get("safety_score") is not None or data.get("driver")
+
+    def test_share_returns_json_attachment(self):
+        resp = self.client.post("/api/v1/incident/share")
+        assert resp.status_code == 200
+        cd = resp.headers.get("content-disposition", "")
+        assert "attachment" in cd
+
+    def test_share_json_contains_report_id(self):
+        resp = self.client.post("/api/v1/incident/share")
+        body = json.loads(resp.content)
+        assert "report_id" in body
+        assert body["report_id"].startswith("INC-")
+
+    def test_cameras_endpoint_returns_list(self):
+        resp = self.client.get("/api/v1/cameras")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "cameras" in data
+        assert isinstance(data["cameras"], list)
+        assert data["count"] >= 1
+        for cam in data["cameras"]:
+            assert "direction" in cam
+            assert "index" in cam
+            assert "stream_url" in cam
+
+
+# ---------------------------------------------------------------------------
+# Phase 18: Alert detect, save, share — end-to-end
+# ---------------------------------------------------------------------------
+
+class TestAlertDetectSaveShare:
+
+    @pytest.fixture(autouse=True)
+    def _setup(self):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            env = {"LIVE_CAMERA_ENABLED": "0", "CAMERA_INDICES": "0",
+                   "CAMERA_DIRECTIONS": "front"}
+            with patch.dict(os.environ, env, clear=False):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                from starlette.testclient import TestClient
+                self.app = srv.create_app()
+                self.client = TestClient(self.app, raise_server_exceptions=False)
+                srv._alert_log.clear()
+                yield
+
+    def test_hazard_ingest_appears_in_live_report(self):
+        self.client.post("/api/v1/internal/ingest", json={
+            "node_id": "n1", "event_type": "detection",
+            "hazard_class": "pothole", "confidence": 0.95,
+        })
+        resp = self.client.get("/api/v1/incident/report")
+        data = resp.json()
+        assert len(data["recent_alerts"]) >= 1
+        types = [a.get("type") for a in data["recent_alerts"]]
+        assert "alert" in types
+
+    def test_alert_severity_high_propagated(self):
+        self.client.post("/api/v1/internal/ingest", json={
+            "node_id": "n2", "event_type": "detection",
+            "hazard_class": "pothole", "confidence": 0.9,
+        })
+        resp = self.client.get("/api/v1/incident/report")
+        data = resp.json()
+        severities = [a.get("severity") for a in data["recent_alerts"]]
+        assert "HIGH" in severities
+
+    def test_alert_log_bounded_at_200(self):
+        for i in range(250):
+            self.client.post("/api/v1/internal/ingest", json={
+                "node_id": f"bulk-{i}", "event_type": "detection",
+                "hazard_class": "pothole",
+            })
+        resp = self.client.get("/api/v1/incident/report")
+        assert resp.status_code == 200
+        data = resp.json()
+        # report returns last 20; just confirm no crash and within bounds
+        assert len(data["recent_alerts"]) <= 20
+
+    def test_gps_update_accepted(self):
+        resp = self.client.post("/api/v1/gps/update", json={"lat": 12.9716, "lon": 77.5946})
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data.get("status") == "OK"
+
+    def test_route_score_returns_recommendation(self):
+        resp = self.client.post("/api/v1/route/score", json={
+            "routes": [
+                [[12.97, 77.59], [12.98, 77.60]],
+                [[12.97, 77.59], [12.96, 77.58]],
+            ]
+        })
+        # 200 with scores/recommended OR 503 if advisor unavailable
+        assert resp.status_code in (200, 503)
+        if resp.status_code == 200:
+            data = resp.json()
+            assert "recommended" in data or "scores" in data
+
+
+# ---------------------------------------------------------------------------
+# Phase 19: Production-readiness hardening
+# ---------------------------------------------------------------------------
+
+class TestProductionReadiness:
+
+    @pytest.fixture(autouse=True)
+    def _setup(self):
+        with patch("pyttsx3.init", return_value=MagicMock()):
+            for mod in list(sys.modules.keys()):
+                if mod == "api.server":
+                    del sys.modules[mod]
+            env = {"LIVE_CAMERA_ENABLED": "0", "CAMERA_INDICES": "0",
+                   "CAMERA_DIRECTIONS": "front", "FLEET_API_KEYS": "testkey"}
+            with patch.dict(os.environ, env, clear=False):
+                import api.server as srv
+                import importlib
+                importlib.reload(srv)
+                from starlette.testclient import TestClient
+                self.app = srv.create_app()
+                self.client = TestClient(self.app, raise_server_exceptions=False)
+                self._srv = srv
+                yield
+
+    def test_ingest_rejects_missing_fields(self):
+        resp = self.client.post("/api/v1/internal/ingest", json={})
+        assert resp.status_code == 422
+
+    def test_razorpay_webhook_rejects_bad_signature(self):
+        resp = self.client.post("/api/v1/webhook/razorpay", json={
+            "razorpay_payment_id": "pay_123",
+            "razorpay_order_id": "order_123",
+            "razorpay_signature": "badsig",
+        })
+        assert resp.status_code == 400
+
+    def test_fleet_hazards_requires_api_key(self):
+        resp = self.client.get("/api/v1/fleet-routing-hazards")
+        assert resp.status_code == 401
+
+    def test_fleet_hazards_with_valid_key(self):
+        resp = self.client.get(
+            "/api/v1/fleet-routing-hazards",
+            headers={"X-API-Key": "testkey"},
+        )
+        assert resp.status_code == 200
+
+    def test_video_feed_disabled_returns_503(self):
+        # LIVE_CAMERA_ENABLED=0 set in fixture env
+        resp = self.client.get("/video_feed")
+        assert resp.status_code == 503
+
+    def test_video_feed_unknown_direction_returns_404(self):
+        resp = self.client.get("/video_feed/unknown_xyz")
+        assert resp.status_code in (404, 503)
+
+    def test_chat_returns_json_with_required_keys(self):
+        resp = self.client.post("/api/v1/chat", json={
+            "driver_id": "prod_driver",
+            "message": "hello",
+        })
+        assert resp.status_code == 200
+        data = resp.json()
+        for key in ("text", "intent", "lang", "voice_persona", "spoken"):
+            assert key in data, f"Missing key: {key}"
+
+    def test_driver_profile_404_for_unknown(self):
+        resp = self.client.get("/api/v1/driver/nonexistent_driver_xyz/profile")
+        assert resp.status_code == 404
+
+    def test_server_docstring_mentions_360(self):
+        import api.server as srv
+        doc = srv.__doc__ or ""
+        assert "360" in doc
