@@ -100,7 +100,69 @@ See [`tasks.md`](tasks.md) for full Kanban board.
 
 ---
 
-## Quick Start (Development)
+## Quick Start — Basic / Laptop (Minimal)
+
+Runs entirely on your laptop with **no camera hardware, no ONNX model, and no cloud
+connection** — synthetic frames and mock vision are used automatically.
+
+```bash
+# 1. Install Python dependencies
+pip install -r requirements.txt
+
+# 2. Run the basic dashcam simulation (30 synthetic frames, mock vision)
+python dashcam_sim.py
+
+# 3. Run the basic test suite
+python -m pytest tests/test_agents.py tests/test_core.py \
+                 tests/test_orchestrator.py tests/test_dashcam_basic.py -v
+```
+
+### Using a real dashcam video file
+
+```bash
+# Any MP4 / AVI file — resolution and FPS are auto-detected
+python dashcam_sim.py --source my_drive.mp4
+
+# Override preset or frame count
+python dashcam_sim.py --source my_drive.mp4 --preset 720p --frames 120
+```
+
+### Configuration (environment variables)
+
+| Variable | Default | Description |
+|---|---|---|
+| `DASHCAM_SOURCE` | `0` (synthetic) | Video file path or device index |
+| `DASHCAM_WIDTH` | `1920` | Frame width override (pixels) |
+| `DASHCAM_HEIGHT` | `1080` | Frame height override (pixels) |
+| `DASHCAM_FPS` | `30` | Frame rate override |
+| `DASHCAM_CAMERA_MODE` | `single` | `single` (dashcam) or `360` |
+| `VISION_MOCK_MODE` | `0` | Set `1` to force mock vision (CI/no-model) |
+| `VISION_MODEL_PATH` | *(auto)* | Path to custom YOLOv8 ONNX model |
+
+### 360-camera (future / architecture placeholder)
+
+The architecture is 360-ready. To add cameras, pass multiple `CameraConfig`
+objects — each stream is processed independently and events merge on the bus:
+
+```python
+from config.dashcam_defaults import DashcamConfig, CameraConfig
+
+cfg = DashcamConfig(
+    mode="360",
+    cameras=[
+        CameraConfig("front", source="front.mp4"),
+        CameraConfig("rear",  source="rear.mp4"),
+    ],
+)
+```
+
+> **SAFETY NOTICE** — This is a research/simulation tool. It is **not** certified
+> for any safety-critical or real-vehicle deployment. The driver remains solely
+> responsible for vehicle operation at all times.
+
+---
+
+## Quick Start (Development — Legacy)
 
 ```bash
 # Install Python dependencies (dev mode)
