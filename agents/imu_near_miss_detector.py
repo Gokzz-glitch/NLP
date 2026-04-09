@@ -173,9 +173,12 @@ class IMUBuffer:
 
     def apply_gravity_calibration(self, gravity_offset: np.ndarray) -> None:
         """
-        Subtract static gravity component from accel_z column in-place.
+        Subtract static gravity component from all three accelerometer axes in-place.
+        Corrects for device tilt: if mounted at an angle, gravity leaks into X and Y.
         Call once after calibrate_gravity() before first inference.
         """
+        self._buf[:, 0] -= gravity_offset[0]
+        self._buf[:, 1] -= gravity_offset[1]
         self._buf[:, 2] -= gravity_offset[2]
 
 
