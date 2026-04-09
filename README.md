@@ -62,17 +62,35 @@ NLP/
 │   ├── ble_mesh_broker.py          # P1: BLE V2X hazard sharing [TODO T-008]
 │   ├── legal_rag.py                # P2: MVA RAG pipeline [TODO T-010]
 │   ├── sec208_drafter.py           # P2: Section 208 audit drafter [TODO T-011]
-│   └── acoustic_ui.py              # P4: Bhashini TTS voice UI [TODO T-012]
+│   ├── acoustic_ui.py              # P4: Bhashini TTS voice UI [TODO T-012]
+│   └── blackspot_geofence.py       # P3: Chennai blackspot geofencing
 ├── core/
 │   ├── agent_bus.py                # P1: JSON-RPC inter-agent bus [TODO T-013]
 │   ├── zkp_envelope.py             # P1: Pedersen ZKP telemetry wrap [TODO T-014]
 │   └── irad_serializer.py          # P3: iRAD-schema telemetry serializer [TODO T-015]
+├── etl/
+│   ├── pdf_extractor.py            # P6: PDF text extraction
+│   ├── text_chunker.py             # P6: Legal section chunker
+│   ├── embedder.py                 # P6: ONNX-INT8 sentence embedder
+│   ├── sqlite_vss_ingestor.py      # P6: SQLite-VSS Edge-RAG persistence
+│   └── pipeline.py                 # P6: ETL orchestrator
+├── api/
+│   └── server.py                   # FastAPI REST interface
 ├── schemas/
 │   └── universal_legal_schema.json # ULS-v1.0.0 — IN_TN jurisdiction active
-├── tests/
+├── raw_data/                       # Source PDFs and CSV
+├── tests/                          # pytest test suite
 ├── docs/
+│   └── architecture.md             # Module descriptions, data-flow diagram
+├── system_orchestrator.py          # Main entry point
+├── vision_audit.py                 # ONNX vision inference engine
+├── edge_vector_store.py            # Legal vector store interface
+├── section_208_resolver.py         # Section 208 challenge generator
+├── offline_tts_manager.py          # Offline TTS manager
+├── ingest_legal_pdfs.py            # ETL CLI runner
 ├── tasks.md                        # Kanban board (P5)
 ├── CHANGELOG.md                    # Keep-a-Changelog (P5)
+├── requirements.txt                # Python dependencies
 └── README.md                       # This file
 ```
 
@@ -104,8 +122,15 @@ See [`tasks.md`](tasks.md) for full Kanban board.
 
 ```bash
 # Install Python dependencies (dev mode)
-pip install torch onnxruntime numpy
+pip install -r requirements.txt
 
 # Run IMU near-miss detector smoke test (deterministic fallback mode)
 python agents/imu_near_miss_detector.py
+
+# Run full test suite
+VISION_MOCK_MODE=1 python -m pytest tests/ -v
 ```
+
+> **Note**: `vision_audit.py` runs in **mock mode** (returns empty detections) until you supply
+> `VISION_MODEL_PATH` pointing to a valid YOLOv8-nano ONNX INT8 checkpoint.
+> See [`docs/architecture.md`](docs/architecture.md) for full environment variable reference.
