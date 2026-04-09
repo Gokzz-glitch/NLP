@@ -41,7 +41,7 @@ _IST_OFFSET = datetime.timedelta(hours=5, minutes=30)
 
 def _ist_now() -> str:
     """Returns current time as IST ISO-8601 string (e.g. 2026-04-09T07:15:30+05:30)."""
-    utc = datetime.datetime.utcnow()
+    utc = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
     ist = utc + _IST_OFFSET
     return ist.strftime("%Y-%m-%dT%H:%M:%S+05:30")
 

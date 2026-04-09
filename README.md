@@ -32,11 +32,11 @@
 |---|---|
 | Hardware Target | Android mid-range NPU (Dimensity 700 / SD 680 class) |
 | Inference Backend | ONNX Runtime NNAPI delegate — INT8 quantized |
-| Vision Model | YOLOv8-nano (IDD-trained weights only — no COCO/Cityscapes) |
+| Vision Model | YOLOv8-nano (Roboflow Indian road-sign dataset — IDD checkpoint pending ERR-001) |
 | IMU Model | TCN (3-layer dilated, receptive field 1.2 s, 6-DOF @100 Hz) |
 | Language | AI4Bharat IndicTrans2 / Bhashini offline TTS |
 | Cloud Dependency | ZERO (all inference on-device) |
-| Privacy | ZKP envelope (Pedersen Commitment) on all telemetry emits |
+| Privacy | SHA3-256 coordinate commitment + coordinate coarsening (≈500 m grid). Full ZKP circuit (Groth16/Pedersen) on T-014 backlog. |
 | Legal Dataset | MoRTH Gazette S.O. 2224(E); TN G.O.(Ms).No.56/2022 |
 | Telemetry Schema | iRAD (MoRTH Integrated Road Accident Database, 2022) |
 
@@ -58,15 +58,15 @@ See [`schemas/universal_legal_schema.json`](schemas/universal_legal_schema.json)
 NLP/
 ├── agents/
 │   ├── imu_near_miss_detector.py   # P3: TCN sensor fusion, near-miss detection
-│   ├── sign_auditor.py             # P3: YOLOv8-nano sign audit [TODO T-009]
-│   ├── ble_mesh_broker.py          # P1: BLE V2X hazard sharing [TODO T-008]
+│   ├── sign_auditor.py             # P3: YOLOv8-nano sign audit + 500m GPS check
+│   ├── ble_mesh_broker.py          # P1: BLE V2X hazard sharing (HMAC + AES-128-CCM)
+│   ├── acoustic_ui.py              # P4: TTS voice UI (Tamil/English, pyttsx3 / Bhashini ERR-002)
 │   ├── legal_rag.py                # P2: MVA RAG pipeline [TODO T-010]
-│   ├── sec208_drafter.py           # P2: Section 208 audit drafter [TODO T-011]
-│   └── acoustic_ui.py              # P4: Bhashini TTS voice UI [TODO T-012]
+│   └── sec208_drafter.py           # P2: Section 208 audit drafter [TODO T-011]
 ├── core/
-│   ├── agent_bus.py                # P1: JSON-RPC inter-agent bus [TODO T-013]
-│   ├── zkp_envelope.py             # P1: Pedersen ZKP telemetry wrap [TODO T-014]
-│   └── irad_serializer.py          # P3: iRAD-schema telemetry serializer [TODO T-015]
+│   ├── agent_bus.py                # P1: JSON-RPC inter-agent pub/sub bus
+│   ├── zkp_envelope.py             # P1: SHA3-256 GPS commitment (ZKP circuit T-014)
+│   └── irad_serializer.py          # P3: iRAD V-NMS-01 telemetry serialiser
 ├── schemas/
 │   └── universal_legal_schema.json # ULS-v1.0.0 — IN_TN jurisdiction active
 ├── tests/
@@ -83,7 +83,7 @@ NLP/
 | Sprint | Tasks | Done | In-Progress | Blocked |
 |---|---|---|---|---|
 | Sprint 0 — Init | 7 | 7 | 0 | 0 |
-| Sprint 1 — Core | 8 | 0 | 0 | 3 ERR nodes |
+| Sprint 1 — Core | 8 | 5 | 0 | 3 ERR nodes |
 | Sprint 2 — Integration | 5 | 0 | 0 | 0 |
 
 See [`tasks.md`](tasks.md) for full Kanban board.

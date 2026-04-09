@@ -26,7 +26,7 @@ def _haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
 def _ist_timestamp() -> str:
     """Returns the current time as an IST (UTC+5:30) ISO-8601 string."""
-    utc_now = datetime.datetime.utcnow()
+    utc_now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
     ist_offset = datetime.timedelta(hours=5, minutes=30)
     ist_now = utc_now + ist_offset
     return ist_now.strftime("%Y-%m-%dT%H:%M:%S+05:30")
