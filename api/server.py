@@ -7,24 +7,40 @@ Existing REST endpoints (unchanged):
   GET  /api/v1/fleet-routing-hazards    — Premium hazard feed (API-key gated)
   POST /api/v1/webhook/razorpay         — Razorpay HMAC-SHA256 webhook
 
-Live / real-time endpoints (NEW):
+Live / real-time endpoints:
   GET  /                                — Live dashboard (HTML single-page app)
-  GET  /video_feed                      — MJPEG camera stream (cv2 required)
+  GET  /video_feed                      — MJPEG stream: first/default camera (cv2 required)
+  GET  /video_feed/{direction}          — MJPEG stream for named camera (front/rear/left/right)
   WS   /ws/live                         — WebSocket JSON event stream
                                           broadcasts: detection | alert | gps | imu | heartbeat
   POST /api/v1/gps/update               — Push GPS coordinates; broadcasts to all WS clients
 
-Camera / inference background task:
-  Enabled when LIVE_CAMERA_ENABLED=1 (default: off, so tests are unaffected).
-  Camera index controlled by CAMERA_INDEX env var (default: 0).
-  Vision inference runs via VisionAuditEngine (mock-safe).
+Multi-camera / 360° support:
+  GET  /api/v1/cameras                  — List configured cameras (direction → device index)
+  Set  CAMERA_INDICES=0,1,2,3           — Comma-separated cv2 device indices (default: 0)
+  Set  CAMERA_DIRECTIONS=front,rear,left,right  — Direction labels matching CAMERA_INDICES
+
+Driver / AI endpoints:
+  POST /api/v1/chat                     — Driver chatbot (13 intents, ta/en/hi)
+  GET  /api/v1/driver/{id}/profile      — Safety score, weaknesses, session stats
+  POST /api/v1/driver/preferences       — Set language / voice persona / name
+  POST /api/v1/route/score              — Score/rank route alternatives by live hazards
+  GET  /api/v1/hazards/live             — Recent crowd-sourced hazard feed
+
+Incident reporting:
+  GET  /api/v1/incident/report          — Full incident report (driver + hazards + alerts)
+  POST /api/v1/incident/share           — Shareable signed JSON blob for the current incident
 
 STARTUP:
   # Simple REST + WebSocket server (no camera):
   uvicorn api.server:app --host 0.0.0.0 --port 8000
 
-  # Live camera + inference (use live_runner.py instead):
+  # Single webcam:
   LIVE_CAMERA_ENABLED=1 CAMERA_INDEX=0 uvicorn api.server:app --host 0.0.0.0 --port 8000
+
+  # 4-camera 360° rig (front=0, rear=1, left=2, right=3):
+  LIVE_CAMERA_ENABLED=1 CAMERA_INDICES=0,1,2,3 CAMERA_DIRECTIONS=front,rear,left,right \\
+    uvicorn api.server:app --host 0.0.0.0 --port 8000
 
 NOTE:
   All secrets are read from environment variables / .env — never hardcoded.
@@ -73,7 +89,32 @@ except ImportError:
 _FLEET_API_KEYS = set(filter(None, os.getenv("FLEET_API_KEYS", "").split(",")))
 _RAZORPAY_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
 _LIVE_CAMERA_ENABLED = os.getenv("LIVE_CAMERA_ENABLED", "0") == "1"
-_CAMERA_INDEX = int(os.getenv("CAMERA_INDEX", "0"))
+_CAMERA_INDEX = int(os.getenv("CAMERA_INDEX", "0"))  # legacy single-camera compat
+
+# ---------------------------------------------------------------------------
+# Multi-camera / 360° configuration
+#   CAMERA_INDICES=0,1,2,3           — cv2 device indices (default: [CAMERA_INDEX])
+#   CAMERA_DIRECTIONS=front,rear,left,right  — direction labels (default: front/rear/left/right)
+# ---------------------------------------------------------------------------
+_raw_cam_idx = os.getenv("CAMERA_INDICES", "")
+_CAMERA_INDICES: List[int] = (
+    [int(x.strip()) for x in _raw_cam_idx.split(",") if x.strip()]
+    if _raw_cam_idx else [_CAMERA_INDEX]
+)
+
+_raw_cam_dir = os.getenv("CAMERA_DIRECTIONS", "")
+_DEFAULT_DIR_NAMES = ("front", "rear", "left", "right")
+if _raw_cam_dir:
+    _parsed_dirs = [x.strip() for x in _raw_cam_dir.split(",") if x.strip()]
+    _CAMERA_DIRECTIONS: List[str] = (
+        _parsed_dirs if len(_parsed_dirs) == len(_CAMERA_INDICES)
+        else [f"cam{i}" for i in range(len(_CAMERA_INDICES))]
+    )
+else:
+    _CAMERA_DIRECTIONS = [
+        _DEFAULT_DIR_NAMES[i] if i < len(_DEFAULT_DIR_NAMES) else f"cam{i}"
+        for i in range(len(_CAMERA_INDICES))
+    ]
 
 # ---------------------------------------------------------------------------
 # Live GPS state — updated via POST /api/v1/gps/update or env vars
@@ -97,12 +138,17 @@ _alert_lock = threading.Lock()
 _event_queue: _queue.Queue = _queue.Queue(maxsize=200)
 
 # ---------------------------------------------------------------------------
-# MJPEG frame queue — camera thread posts encoded JPEG bytes here.
-# Latest frame is held in _latest_frame for new MJPEG subscribers.
+# MJPEG frame queues — one per camera direction.
+# Each entry: {"frame_queue": Queue, "latest_frame": Optional[bytes], "lock": Lock}
 # ---------------------------------------------------------------------------
-_frame_queue: _queue.Queue = _queue.Queue(maxsize=2)
-_latest_frame: Optional[bytes] = None
-_frame_lock = threading.Lock()
+_cam_state: Dict[str, Dict[str, Any]] = {
+    direction: {
+        "frame_queue":  _queue.Queue(maxsize=2),
+        "latest_frame": None,
+        "lock":         threading.Lock(),
+    }
+    for direction in _CAMERA_DIRECTIONS
+}
 
 
 # ---------------------------------------------------------------------------
@@ -150,18 +196,19 @@ manager: ConnectionManager = ConnectionManager()
 # Camera / inference background helpers
 # ---------------------------------------------------------------------------
 
-def _camera_thread_fn(camera_index: int) -> None:
+def _camera_thread_fn(camera_index: int, direction: str) -> None:
     """
     Runs in a daemon thread when LIVE_CAMERA_ENABLED=1.
 
-    Reads frames from cv2.VideoCapture, runs VisionAuditEngine inference,
-    and posts events into _event_queue / _frame_queue for the async layer.
+    Reads frames from cv2.VideoCapture (webcam or 360-cam feed), runs
+    VisionAuditEngine inference, and posts events into _event_queue /
+    _cam_state[direction] for the async layer.
     Falls back gracefully if cv2 or onnxruntime are unavailable.
     """
-    global _latest_frame  # noqa: PLW0603
+    state = _cam_state[direction]
 
     if not _CV2_AVAILABLE:
-        logger.warning("[CAM] cv2 not installed — camera thread exiting.")
+        logger.warning("[CAM:%s] cv2 not installed — camera thread exiting.", direction)
         return
 
     # Lazy-import vision engine to avoid circular deps at module load time.
@@ -174,20 +221,20 @@ def _camera_thread_fn(camera_index: int) -> None:
         from vision_audit import VisionAuditEngine  # noqa: PLC0415
         _engine = VisionAuditEngine()
     except Exception as exc:
-        logger.error("[CAM] VisionAuditEngine init failed: %s", exc)
+        logger.error("[CAM:%s] VisionAuditEngine init failed: %s", direction, exc)
         _engine = None
 
     cap = _cv2.VideoCapture(camera_index)
     if not cap.isOpened():
-        logger.error("[CAM] Cannot open camera index %d", camera_index)
+        logger.error("[CAM:%s] Cannot open camera index %d", direction, camera_index)
         return
 
-    logger.info("[CAM] Camera %d opened — streaming at native FPS", camera_index)
+    logger.info("[CAM:%s] Camera %d opened — streaming at native FPS", direction, camera_index)
 
     while True:
         ret, frame = cap.read()
         if not ret:
-            logger.warning("[CAM] Frame read failed — retrying in 100 ms")
+            logger.warning("[CAM:%s] Frame read failed — retrying in 100 ms", direction)
             time.sleep(0.1)
             continue
 
@@ -197,26 +244,27 @@ def _camera_thread_fn(camera_index: int) -> None:
             try:
                 detections = _engine.run_inference(frame)
             except Exception as exc:
-                logger.debug("[CAM] Inference error: %s", exc)
+                logger.debug("[CAM:%s] Inference error: %s", direction, exc)
 
         # --- Encode frame as JPEG for MJPEG stream ---
         ok, buf = _cv2.imencode(".jpg", frame, [int(_cv2.IMWRITE_JPEG_QUALITY), 75])
         if ok:
             jpeg_bytes = buf.tobytes()
-            with _frame_lock:
-                _latest_frame = jpeg_bytes  # type: ignore[assignment]
-            # Drop old frame to avoid stale data
-            if _frame_queue.full():
+            with state["lock"]:
+                state["latest_frame"] = jpeg_bytes
+            fq: _queue.Queue = state["frame_queue"]
+            if fq.full():
                 try:
-                    _frame_queue.get_nowait()
+                    fq.get_nowait()
                 except _queue.Empty:
                     pass
-            _frame_queue.put_nowait(jpeg_bytes)
+            fq.put_nowait(jpeg_bytes)
 
-        # --- Post detection event ---
+        # --- Post detection event (includes camera direction label) ---
         if detections:
             _event_queue.put_nowait({
                 "type": "detection",
+                "camera": direction,
                 "data": detections,
                 "ts": time.time(),
             })
@@ -393,14 +441,18 @@ def create_app() -> "FastAPI":
         logger.info("[SERVER] Broadcast task started.")
 
         if _LIVE_CAMERA_ENABLED:
-            t = threading.Thread(
-                target=_camera_thread_fn,
-                args=(_CAMERA_INDEX,),
-                daemon=True,
-                name="camera_inference",
-            )
-            t.start()
-            logger.info("[SERVER] Camera thread started (index=%d).", _CAMERA_INDEX)
+            for _cam_idx, _cam_dir in zip(_CAMERA_INDICES, _CAMERA_DIRECTIONS):
+                t = threading.Thread(
+                    target=_camera_thread_fn,
+                    args=(_cam_idx, _cam_dir),
+                    daemon=True,
+                    name=f"camera_{_cam_dir}",
+                )
+                t.start()
+                logger.info(
+                    "[SERVER] Camera thread started (direction=%s, index=%d).",
+                    _cam_dir, _cam_idx,
+                )
         else:
             logger.info("[SERVER] Camera disabled (LIVE_CAMERA_ENABLED != 1).")
 
@@ -414,48 +466,72 @@ def create_app() -> "FastAPI":
         return HTMLResponse(content=_load_dashboard_html())
 
     # ------------------------------------------------------------------
-    # GET /video_feed — MJPEG camera stream
+    # MJPEG helpers — per-camera streaming
     # ------------------------------------------------------------------
 
-    async def _mjpeg_generator():
-        """Async generator that yields MJPEG multipart frames."""
+    async def _mjpeg_generator_for(direction: str):
+        """Async generator that yields MJPEG multipart frames for one camera."""
+        state = _cam_state[direction]
         boundary = b"--frame\r\nContent-Type: image/jpeg\r\n\r\n"
-        # Send latest frame immediately if available so the browser doesn't
-        # show a blank image while waiting for the next capture.
-        with _frame_lock:
-            seed = _latest_frame
+        with state["lock"]:
+            seed = state["latest_frame"]
         if seed:
             yield boundary + seed + b"\r\n"
-
+        fq: _queue.Queue = state["frame_queue"]
         while True:
             try:
-                jpeg = _frame_queue.get(timeout=1.0)
+                jpeg = fq.get(timeout=1.0)
                 yield boundary + jpeg + b"\r\n"
             except _queue.Empty:
-                # Keep connection alive — yield a keep-alive comment in the stream
                 yield b"--frame\r\nContent-Type: text/plain\r\n\r\nkeep-alive\r\n"
 
-    @app.get("/video_feed", include_in_schema=False)
-    async def video_feed():
-        """
-        MJPEG stream for the live camera.
-        Returns 503 when cv2 / camera is unavailable.
-        """
+    async def _stream_response(direction: Optional[str]):
+        """Shared logic for /video_feed and /video_feed/{direction}."""
         if not _CV2_AVAILABLE:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Camera unavailable: cv2 not installed. "
-                       "Run: pip install opencv-python",
+                detail="Camera unavailable: cv2 not installed. Run: pip install opencv-python",
             )
         if not _LIVE_CAMERA_ENABLED:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Camera stream disabled. Set LIVE_CAMERA_ENABLED=1 to enable.",
             )
+        chosen = direction or (_CAMERA_DIRECTIONS[0] if _CAMERA_DIRECTIONS else "front")
+        if chosen not in _cam_state:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Unknown camera direction '{chosen}'. "
+                       f"Available: {list(_cam_state.keys())}",
+            )
         return StreamingResponse(
-            _mjpeg_generator(),
+            _mjpeg_generator_for(chosen),
             media_type="multipart/x-mixed-replace; boundary=frame",
         )
+
+    # ------------------------------------------------------------------
+    # GET /video_feed — backward-compatible single-stream (first/default camera)
+    # ------------------------------------------------------------------
+
+    @app.get("/video_feed", include_in_schema=False)
+    async def video_feed():
+        """
+        MJPEG stream for the default (first) camera.
+        Returns 503 when cv2 / camera is unavailable.
+        """
+        return await _stream_response(None)
+
+    # ------------------------------------------------------------------
+    # GET /video_feed/{direction} — named camera stream
+    # ------------------------------------------------------------------
+
+    @app.get("/video_feed/{direction}", include_in_schema=False)
+    async def video_feed_direction(direction: str):
+        """
+        MJPEG stream for a specific camera direction (front / rear / left / right).
+        Returns 404 for unknown directions, 503 when camera disabled.
+        """
+        return await _stream_response(direction)
 
     # ------------------------------------------------------------------
     # WS /ws/live — real-time JSON event stream
