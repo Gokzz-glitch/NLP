@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/cryptography/x509/general_name.py
+# hypothesis_version: 6.151.12
+
+['ascii', 'value must be a Name', 'value must be string']

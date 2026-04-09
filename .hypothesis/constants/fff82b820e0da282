@@ -1,0 +1,4 @@
+# file: /home/runner/work/NLP/NLP/agents/blackspot_geofence.py
+# hypothesis_version: 6.151.12
+
+[0.0, 0.5, 0.55, 0.57, 0.58, 0.6, 0.61, 0.62, 0.65, 0.68, 0.7, 0.75, 1.0, 12.8876, 12.901, 12.9249, 12.9481, 12.9941, 13.0102, 13.0339, 13.0478, 13.0674, 13.0694, 60.0, 80.0789, 80.1, 80.1589, 80.1617, 80.191, 80.1948, 80.2069, 80.2279, 80.2357, 80.249, 300.0, 6371000, 'Anna Salai–Nandanam', 'ECR Sholinganallur', 'Fatal Killed', 'Kathipara Junction', 'Koyambedu Signal', 'Maduravoyal Bypass', 'Meenambakkam Flyover', 'OMR Perungudi Signal', 'Tambaram Bypass', 'Total Accidents', 'Vandalur Roundabout', 'YEAR', 'base_risk', 'blackspot_count', 'data_years', 'distance_m', 'fatal_killed', 'lat', 'latest_fatal_killed', 'latest_risk_index', 'latest_year', 'lon', 'peak_total_accidents', 'peak_year', 'radius_m', 'raw_data', 'risk_index', 'total', 'utf-8-sig', 'year', 'zone_lat', 'zone_lon', 'zone_name']

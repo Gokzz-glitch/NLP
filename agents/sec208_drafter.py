@@ -196,6 +196,7 @@ class Sec208DrafterAgent:
     ) -> Dict[str, Any]:
         rider_data = rider_data or {}
         vision_detections = vision_detections or []
+        camera_data = camera_data or {}
 
         # Determine if Section 208 is applicable
         has_camera = camera_data.get("device_id") or any(

@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/cryptography/x509/base.py
+# hypothesis_version: 6.151.12
+
+[160, 1950, '_attributes', 'big', 'value must be bytes']

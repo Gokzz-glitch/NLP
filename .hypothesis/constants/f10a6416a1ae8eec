@@ -1,0 +1,4 @@
+# file: /home/runner/work/NLP/NLP/agents/ble_mesh_broker.py
+# hypothesis_version: 6.151.12
+
+[1.0, 10.0, 100, 244, 1000, ',', '1.0-EDGE', ':', 'ACCIDENT_BLACKSPOT', 'FLOODED_ROAD', 'HIGH', 'IN_TN', 'MeshMessage', 'NEAR_MISS', 'POTHOLE', 'SPEED_TRAP_NO_SIGN', '_MockBLETransport', 'battery_level', 'checksum', 'confidence', 'hazard_type', 'i', 'jurisdiction', 'lat', 'lon', 'mesh_hops', 'node_id', 'p', 's', 'section_id', 'sender', 'severity', 't', 'ts', 'v']

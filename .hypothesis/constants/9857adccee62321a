@@ -1,0 +1,4 @@
+# file: /home/runner/work/NLP/NLP/core/agent_bus.py
+# hypothesis_version: 6.151.12
+
+[0.5, 2.0, 256, 1000, '*', '2.0', 'BusMessage', 'agent-bus-worker', 'ble.hazard_broadcast', 'ble.mesh_heartbeat', 'dispatched', 'errors', 'geo.blackspot_alert', 'id', 'imu.near_miss', 'jsonrpc', 'legal.challenge', 'method', 'orchestrator.status', 'params', 'published', 'rag.query', 'rag.response', 'telemetry.irad_emit', 'tts.announce', 'vision.detection']

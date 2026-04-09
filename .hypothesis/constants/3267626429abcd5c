@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/x25519.py
+# hypothesis_version: 6.151.12
+
+['x25519']

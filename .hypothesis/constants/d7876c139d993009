@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/bcrypt/__init__.py
+# hypothesis_version: 6.151.12
+
+[b'\x00', b'$', b'$2b$', b'2a', b'2b', b'^\\$2y\\$', 128, 512, '%2.2u', 'Invalid rounds', 'Invalid salt', '__author__', '__copyright__', '__email__', '__license__', '__summary__', '__title__', '__uri__', '__version__', 'ascii', 'char[]', 'checkpw', 'gensalt', 'hashpw', 'kdf', 'uint8_t[]']

@@ -103,9 +103,147 @@ See [`tasks.md`](tasks.md) for full Kanban board.
 ## Quick Start (Development)
 
 ```bash
-# Install Python dependencies (dev mode)
-pip install torch onnxruntime numpy
+# Install all dependencies (runtime + test + security audit)
+pip install -r requirements.txt
 
 # Run IMU near-miss detector smoke test (deterministic fallback mode)
 python agents/imu_near_miss_detector.py
 ```
+
+---
+
+## ⚠️ Safety Disclaimer
+
+**This is a RESEARCH PROTOTYPE — NOT a certified ADAS system.**
+See [`SAFETY.md`](SAFETY.md) for mandatory safety disclaimers and prohibited uses before running or deploying this software.
+
+---
+
+## Testing
+
+All tests are in the `tests/` directory and run with [pytest](https://docs.pytest.org).
+
+```bash
+# Install test dependencies
+pip install -r requirements.txt
+
+# Run all unit + integration tests
+python -m pytest tests/ -q
+
+# Run specific test suites
+python -m pytest tests/test_core.py              # Core bus / ZKP / iRAD
+python -m pytest tests/test_agents.py            # All agents
+python -m pytest tests/test_orchestrator.py      # End-to-end orchestration
+python -m pytest tests/test_property_based.py    # Property-based (Hypothesis)
+python -m pytest tests/test_fuzz_inputs.py       # Adversarial / fuzz inputs
+python -m pytest tests/test_stress_enterprise.py # Concurrent stress tests
+python -m pytest tests/test_etl_pipeline.py      # ETL PDF ingestion pipeline
+```
+
+### Test Categories
+
+| Suite | Description |
+|---|---|
+| `test_core.py` | AgentBus pub/sub, ZKP Pedersen envelope, iRAD schema |
+| `test_agents.py` | All 6 persona agents (LegalRAG, Sec208, SignAuditor, BLE, TTS, Blackspot) |
+| `test_imu_near_miss_detector.py` | IMU buffer, TCN feature extractor, severity classifier |
+| `test_orchestrator.py` | Full bus-driven pipeline integration |
+| `test_property_based.py` | Invariant testing with Hypothesis (ZKP round-trip, iRAD completeness, severity monotonicity, BLE MTU) |
+| `test_fuzz_inputs.py` | Adversarial / malformed inputs to API, agents, and parsers |
+| `test_stress_enterprise.py` | SQLite WAL concurrency, async API load |
+
+---
+
+## Simulation Harness
+
+The `sim/` package provides an offline evaluation harness that runs the full pipeline on synthetic or recorded video input and emits JSON metrics.
+
+```bash
+# Synthetic simulation (no video clip needed) — 60-second urban scenario
+python sim/run_video_sim.py --synthetic --duration 60 --metrics-out /tmp/metrics.json
+
+# Real dashcam video (requires OpenCV: pip install opencv-python-headless)
+python sim/run_video_sim.py --video 360-cam.mp4 \
+       --scenario national_highway_night \
+       --vehicle two_wheeler_100cc \
+       --metrics-out /tmp/nh_night_metrics.json
+
+# Sweep ALL 100 scenario × vehicle combinations (takes ~5 min)
+python sim/run_video_sim.py --synthetic --all-scenarios --duration 10 \
+       --metrics-out /tmp/all_scenarios.json
+
+# Run the 30-minute India omnibus simulation (IMU only, terminal report)
+python tests/simulation_india_30min.py
+```
+
+### Available Scenarios (`sim/scenarios.py`)
+
+| Key | Description |
+|---|---|
+| `national_highway_day` | 4/6-lane NH; 90 km/h; clear |
+| `national_highway_night` | NH at night; glare; reduced grip |
+| `national_highway_rain` | NH monsoon; aquaplaning risk |
+| `state_highway_day` | 2-lane SH; pedestrians + animals |
+| `urban_arterial_day` | Chennai peak-hour; gridlock |
+| `urban_arterial_night_glare` | Urban night + headlight glare |
+| `rural_single_lane` | Narrow rural road; large potholes |
+| `mountain_ghat_day` | Nilgiris hairpins; mist; steep |
+| `construction_zone` | Active NHAI construction; debris |
+| `school_zone_peak` | Dense pedestrian crossings; 25 km/h |
+
+### Metrics Output
+
+```json
+{
+  "scenario_name": "Urban Arterial — Chennai Peak Hour",
+  "vehicle_class": "Two-Wheeler (<125cc)",
+  "avg_latency_ms": 0.15,
+  "p95_latency_ms": 1.45,
+  "avg_fps": 6471.0,
+  "peak_memory_mb": 12.3,
+  "detection_counts": {"speed_camera": 1, "speed_limit_sign": 8},
+  "near_miss_counts": {"CRITICAL": 0, "HIGH": 1},
+  "sec208_triggers": 1,
+  "disclaimer": "SIMULATION ONLY — NOT CERTIFIED ADAS — DO NOT USE TO MAKE REAL DRIVING DECISIONS"
+}
+```
+
+---
+
+## CI / CD
+
+GitHub Actions workflow is at [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+| Job | Trigger | Includes |
+|---|---|---|
+| **Lint** | Every push / PR | flake8, mypy (advisory) |
+| **Tests** | Every push / PR | Full test matrix (Python 3.10, 3.11) |
+| **Simulation** | After tests pass | 30-min simulation + video harness smoke test |
+| **Security** | Every push / PR | pip-audit dependency CVE scan, trufflehog secret scan |
+
+### Run CI locally
+
+```bash
+# Lint
+flake8 . --max-line-length=120 --extend-ignore=E203,W503,E501
+
+# Full test suite
+python -m pytest tests/ -v
+
+# Dependency audit
+pip-audit
+
+# Simulation smoke-test
+python sim/run_video_sim.py --synthetic --duration 10 --metrics-out /tmp/smoke.json
+```
+
+---
+
+## Security Guidance
+
+- **No secrets in code**: all keys/tokens loaded from env vars (`.env`, never committed).
+- **`.gitignore`** excludes `*.pem`, `*.key`, `*.onnx`, `*.env`, `zkp_keys/`, `secrets/`.
+- **Razorpay webhook**: HMAC-SHA256 verified in `api/server.py` before processing.
+- **SQLite WAL**: concurrent write safety tested in `tests/test_stress_enterprise.py`.
+- Run `pip-audit` regularly; update `requirements.txt` pinned versions when advisories are published.
+

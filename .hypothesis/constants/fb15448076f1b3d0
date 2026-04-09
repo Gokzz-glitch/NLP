@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/cryptography/hazmat/backends/openssl/aead.py
+# hypothesis_version: 6.151.12
+
+[b'-ccm', b'-siv', b'chacha20-poly1305', 'ascii', 'int *', 'size_t *', 'uint8_t[]', 'unsigned char[]']

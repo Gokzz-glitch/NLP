@@ -1,0 +1,4 @@
+# file: /usr/lib/python3/dist-packages/bcrypt/__about__.py
+# hypothesis_version: 6.151.12
+
+['3.2.2', '__author__', '__copyright__', '__email__', '__license__', '__summary__', '__title__', '__uri__', '__version__', 'bcrypt']
