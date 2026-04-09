@@ -1,0 +1,130 @@
+name: CI — SmartSalai Edge-Sentinel
+
+on:
+  push:
+    branches: ["main", "copilot/**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Lint, Type-check & Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-lock.txt
+          pip install flake8 mypy bandit pip-audit
+
+      - name: Lint with flake8
+        run: |
+          flake8 agents/ core/ etl/ api/ \
+            --max-line-length=120 \
+            --extend-ignore=E203,W503 \
+            --count --statistics
+
+      - name: Security scan with bandit
+        run: |
+          bandit -r agents/ core/ etl/ api/ section_208_resolver.py \
+            edge_vector_store.py offline_tts_manager.py vision_audit.py \
+            system_orchestrator.py \
+            --severity-level medium \
+            --confidence-level medium \
+            -x tests/ \
+            || true  # report but don't fail build; review output manually
+
+      - name: Dependency vulnerability audit
+        run: |
+          pip-audit --requirement requirements.txt \
+            --ignore-vuln PYSEC-2022-42969 \
+            || true  # report findings; address critical ones manually
+
+      - name: Run full test suite
+        run: |
+          python -m pytest tests/ \
+            -v \
+            --tb=short \
+            -W error::DeprecationWarning \
+            --junitxml=test-results.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-py${{ matrix.python-version }}
+          path: test-results.xml
+          retention-days: 7
+
+  safety-doc-check:
+    name: Safety documentation present
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check SAFETY.md exists
+        run: |
+          test -f SAFETY.md || (echo "SAFETY.md missing — required for this repo" && exit 1)
+          echo "SAFETY.md present ✓"
+      - name: Check SAFETY.md contains disclaimer
+        run: |
+          grep -q "not certified" SAFETY.md || (echo "SAFETY.md must contain safety disclaimer" && exit 1)
+          echo "Disclaimer present ✓"
+
+  secret-scan:
+    name: Secret / credential scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan for secrets with git-secrets patterns
+        run: |
+          python - <<'EOF'
+          import re, sys, pathlib
+          # Simple pattern scan for common secret anti-patterns
+          PATTERNS = [
+              r'(?i)(api[_-]?key|secret|password|token|passwd|private[_-]?key)\s*[:=]\s*["\']?[A-Za-z0-9+/]{16,}["\']?',
+              r'-----BEGIN (RSA|EC|OPENSSH|PGP) PRIVATE KEY-----',
+              r'(?i)hf_[A-Za-z0-9]{30,}',  # HuggingFace tokens
+              r'(?i)sk-[A-Za-z0-9]{32,}',  # OpenAI keys
+          ]
+          compiled = [re.compile(p) for p in PATTERNS]
+          extensions = {'.py', '.json', '.yaml', '.yml', '.txt', '.md', '.sh', '.env'}
+          found = []
+          root = pathlib.Path('.')
+          for f in root.rglob('*'):
+              if f.is_file() and f.suffix in extensions and '.git' not in f.parts:
+                  try:
+                      text = f.read_text(errors='ignore')
+                  except Exception:
+                      continue
+                  for pat in compiled:
+                      for m in pat.finditer(text):
+                          found.append(f"{f}:{m.start()} — {m.group()[:80]}")
+          if found:
+              print("POTENTIAL SECRETS FOUND:")
+              for item in found:
+                  print(" ", item)
+              sys.exit(1)
+          print("No secrets detected ✓")
+          EOF
