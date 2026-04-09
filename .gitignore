@@ -39,6 +39,21 @@ secrets/
 *.env
 
 
+# Video Files — keep locally for testing, do not commit large binaries
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.webm
+# .ts (MPEG Transport Stream) scoped to video dirs to avoid shadowing TypeScript sources
+raw_data/videos/*.ts
+data/videos/*.ts
+
+# SQLite / Generated Databases — recreated at runtime
+*.db
+*.sqlite
+*.sqlite3
+
 # Logs & Telemetry Dumps
 *.log
 telemetry_dumps/
