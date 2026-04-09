@@ -103,9 +103,20 @@ See [`tasks.md`](tasks.md) for full Kanban board.
 ## Quick Start (Development)
 
 ```bash
-# Install Python dependencies (dev mode)
-pip install torch onnxruntime numpy
+# Install Python dependencies (pinned, reproducible)
+pip install -r requirements-lock.txt
+
+# Run the full test suite
+python -m pytest tests/ -v
 
 # Run IMU near-miss detector smoke test (deterministic fallback mode)
 python agents/imu_near_miss_detector.py
 ```
+
+---
+
+## Safety Notice
+
+> ⚠️ **This is a research prototype.** It is **NOT** certified for deployment in any vehicle.
+> See [`SAFETY.md`](SAFETY.md) for the full safety disclaimer, limitations, and required
+> safeguards before any real-world use.
