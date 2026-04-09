@@ -8,3 +8,4 @@ pytest
 pytest-asyncio
 fastapi
 uvicorn
+cryptography>=46.0.5

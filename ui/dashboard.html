@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartSalai 360° — Live Dashboard</title>
+<style>
+/* ========================================================================
+   DESIGN TOKENS & RESET
+   ======================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #050709;
+  --surface:      #0d1117;
+  --surface2:     #161b22;
+  --border:       #21262d;
+  --accent:       #00d4ff;
+  --accent2:      #7c3aed;
+  --green:        #2ea043;
+  --green-bright: #56d364;
+  --amber:        #d29922;
+  --red:          #da3633;
+  --text:         #c9d1d9;
+  --muted:        #484f58;
+  --font:         'Consolas', 'Menlo', 'Liberation Mono', monospace;
+  --radius:       6px;
+  --header-h:     52px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* ========================================================================
+   SCROLLBAR
+   ======================================================================== */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ========================================================================
+   KEYFRAMES
+   ======================================================================== */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+  50%       { opacity: .4; box-shadow: none; }
+}
+
+@keyframes camera-glow {
+  0%   { box-shadow: 0 0 0 0 var(--accent); border-color: var(--accent); }
+  50%  { box-shadow: 0 0 18px 4px var(--accent); border-color: var(--accent); }
+  100% { box-shadow: 0 0 0 0 var(--accent); border-color: var(--border); }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes border-chase {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========================================================================
+   HEADER
+   ======================================================================== */
+#header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  height: var(--header-h);
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  opacity: .5;
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.version-badge {
+  font-size: 9px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 1px 6px;
+  border-radius: 10px;
+  letter-spacing: .06em;
+}
+
+.header-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.ws-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ws-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--red);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.ws-dot.connected   { background: var(--green-bright); color: var(--green-bright); }
+.ws-dot.connecting  { background: var(--amber); color: var(--amber); }
+
+.ws-label {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.client-badge {
+  font-size: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.gps-inline {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .03em;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gps-inline span { color: var(--accent); }
+
+.header-spacer { flex: 1; }
+
+.hdr-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hdr-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,.07);
+}
+
+.hdr-btn.primary {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+.hdr-btn.primary:hover {
+  background: rgba(124,58,237,.12);
+  border-color: var(--accent2);
+}
+
+/* ========================================================================
+   MAIN LAYOUT GRID
+   ======================================================================== */
+#main {
+  display: grid;
+  grid-template-columns: 1fr 320px 280px;
+  gap: 10px;
+  padding: 10px;
+  height: calc(100vh - var(--header-h));
+  overflow: hidden;
+}
+
+/* ========================================================================
+   PANEL SHELL
+   ======================================================================== */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel-title .icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+/* ========================================================================
+   COLUMN 1 — CAMERA GRID
+   ======================================================================== */
+#col-cameras {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Camera tab bar */
+#cam-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.cam-tab {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface2);
+  color: var(--muted);
+  font-family: var(--font);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+}
+
+.cam-tab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cam-tab.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,.08);
+}
+
+/* Camera grid */
+#cam-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+#cam-grid.expanded-view {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#cam-grid.expanded-view .cam-cell:not(.expanded) {
+  display: none;
+}
+
+.cam-cell {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  transition: border-color .3s;
+}
+
+.cam-cell.detecting {
+  animation: camera-glow 1.2s ease-out;
+}
+
+.cam-cell img.cam-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cam-cell .no-signal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: #000;
+  justify-content: center;
+}
+
+.cam-cell .no-signal .ns-icon { font-size: 28px; opacity: .4; }
+
+.cam-cell .cam-overlay-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cam-cell .cam-label {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(5,7,9,.75);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  pointer-events: none;
+}
+
+.cam-cell .fps-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(5,7,9,.75);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 9px;
+  color: var(--green-bright);
+  pointer-events: none;
+}
+
+/* scan-line overlay for cool effect */
+.cam-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,.3) 50%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+  animation: scan-line 4s linear infinite;
+}
+
+/* ========================================================================
+   COLUMN 2 — GPS + DETECTIONS + ALERTS
+   ======================================================================== */
+#col-center {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* GPS PANEL */
+#gps-panel { flex-shrink: 0; }
+
+.gps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+
+.gps-cell {
+  background: var(--surface);
+  padding: 8px 12px;
+}
+
+.gps-cell .label {
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.gps-cell .value {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+
+.gps-cell .value.green { color: var(--green-bright); }
+.gps-cell .value.amber { color: var(--amber); }
+
+/* DETECTION PANEL */
+#det-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+
+#det-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.det-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  animation: slide-in .25s ease-out;
+  border-left: 3px solid var(--border);
+}
+
+.det-item.sev-high { border-left-color: var(--red); }
+.det-item.sev-med  { border-left-color: var(--amber); }
+.det-item.sev-low  { border-left-color: var(--green); }
+
+.det-item .det-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+.det-item .det-body { flex: 1; min-width: 0; }
+
+.det-item .det-label {
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.det-item .det-meta {
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 1px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.det-item .det-conf {
+  font-size: 10px;
+  color: var(--accent);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.det-empty {
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+  padding: 20px;
+  opacity: .6;
+}
+
+/* ALERT LOG PANEL */
+#alert-panel { flex-shrink: 0; height: 160px; display: flex; flex-direction: column; }
+
+#alert-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alert-row {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(33,38,45,.5);
+  animation: slide-in .2s ease-out;
+}
+
+.alert-row .a-time { font-size: 9px; color: var(--muted); flex-shrink: 0; }
+
+.alert-row .a-icon { font-size: 11px; flex-shrink: 0; }
+
+.alert-row .a-text { font-size: 10px; color: var(--text); flex: 1; min-width: 0; word-break: break-all; }
+
+.alert-row.a-crit .a-text { color: var(--red); }
+.alert-row.a-warn .a-text { color: var(--amber); }
+.alert-row.a-info .a-text { color: var(--text); }
+
+/* ========================================================================
+   COLUMN 3 — AI CO-PILOT CHATBOT
+   ======================================================================== */
+#col-chat {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.chat-driver-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.chat-driver-row label {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#driver-id-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  padding: 4px 8px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+#driver-id-input:focus { border-color: var(--accent); }
+
+/* chat messages */
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.msg-bubble {
+  max-width: 88%;
+  padding: 8px 11px;
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.55;
+  animation: slide-in .2s ease-out;
+  word-break: break-word;
+}
+
+.msg-bubble.user {
+  align-self: flex-end;
+  background: rgba(124,58,237,.2);
+  border: 1px solid rgba(124,58,237,.4);
+  color: var(--text);
+  border-bottom-right-radius: 3px;
+}
+
+.msg-bubble.bot {
+  align-self: flex-start;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-bottom-left-radius: 3px;
+}
+
+.msg-bubble.bot.error {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.msg-bubble .msg-sender {
+  font-size: 8px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  opacity: .6;
+}
+
+.msg-bubble.user .msg-sender { color: var(--accent2); }
+.msg-bubble.bot  .msg-sender { color: var(--accent); }
+
+.chat-typing {
+  align-self: flex-start;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-bottom-left-radius: 3px;
+  display: none;
+  gap: 4px;
+  align-items: center;
+}
+
+.chat-typing.visible { display: flex; }
+
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: .2s; }
+.typing-dot:nth-child(3) { animation-delay: .4s; }
+
+/* chat input bar */
+.chat-input-bar {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+#chat-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  padding: 6px 10px;
+  outline: none;
+  resize: none;
+  transition: border-color .2s;
+  min-height: 34px;
+  max-height: 80px;
+}
+
+#chat-input:focus { border-color: var(--accent2); }
+
+#chat-send {
+  padding: 6px 12px;
+  background: var(--accent2);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity .2s, transform .1s;
+}
+
+#chat-send:hover   { opacity: .85; }
+#chat-send:active  { transform: scale(.96); }
+#chat-send:disabled { opacity: .35; cursor: not-allowed; }
+
+/* ========================================================================
+   INCIDENT REPORT MODAL
+   ======================================================================== */
+#modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,7,9,.88);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+#modal-backdrop.open { display: flex; }
+
+#modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: min(680px, 94vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modal-in .25s ease-out;
+  box-shadow: 0 0 60px rgba(0,212,255,.12), 0 0 120px rgba(124,58,237,.08);
+}
+
+#modal::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  z-index: -1;
+  opacity: .25;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+  font-size: 14px;
+  letter-spacing: .06em;
+  color: var(--accent);
+}
+
+.modal-close {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface2);
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .2s, color .2s;
+}
+
+.modal-close:hover { border-color: var(--red); color: var(--red); }
+
+.modal-body { padding: 20px; }
+
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.report-cell {
+  background: var(--surface2);
+  padding: 10px 14px;
+}
+
+.report-cell .rc-label {
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.report-cell .rc-value {
+  font-size: 13px;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.report-cell .rc-value.accent { color: var(--accent); }
+
+.report-section-title {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.weakness-list, .report-alerts-list, .cam-dirs-list {
+  list-style: none;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.weakness-list li, .report-alerts-list li {
+  font-size: 11px;
+  padding: 5px 10px;
+  background: var(--surface2);
+  border-radius: 4px;
+  border-left: 3px solid var(--amber);
+  color: var(--text);
+}
+
+.cam-dirs-list {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.cam-dirs-list li {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+.score-bar-wrap {
+  margin-bottom: 16px;
+}
+
+.score-bar-wrap .score-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.score-bar-wrap .score-label .score-val { color: var(--green-bright); font-size: 13px; }
+
+.score-bar-bg {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-btn {
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.modal-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.modal-btn.primary {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+.modal-btn.primary:hover { opacity: .85; }
+
+/* ========================================================================
+   RESPONSIVE
+   ======================================================================== */
+@media (max-width: 1100px) {
+  #main {
+    grid-template-columns: 1fr 280px 260px;
+  }
+}
+
+@media (max-width: 860px) {
+  html, body { overflow: auto; }
+  #main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+    overflow: visible;
+  }
+  #col-cameras  { height: 60vw; min-height: 320px; }
+  #col-center   { height: 500px; }
+  #col-chat     { height: 420px; }
+  .report-grid  { grid-template-columns: 1fr; }
+}
+
+/* ========================================================================
+   UTILITY
+   ======================================================================== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 9px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.tag.green  { background: rgba(46,160,67,.15); border: 1px solid var(--green); color: var(--green-bright); }
+.tag.amber  { background: rgba(210,153,34,.15); border: 1px solid var(--amber); color: var(--amber); }
+.tag.red    { background: rgba(218,54,51,.15);  border: 1px solid var(--red);   color: var(--red); }
+.tag.accent { background: rgba(0,212,255,.1);   border: 1px solid var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     HEADER
+     ====================================================================== -->
+<header id="header">
+  <div class="logo-block">
+    <span class="logo-text">SmartSalai 360°</span>
+    <span class="version-badge">v2.5.0</span>
+  </div>
+
+  <div class="header-sep"></div>
+
+  <div class="ws-status">
+    <span class="ws-dot" id="ws-dot"></span>
+    <span class="ws-label" id="ws-label">Disconnected</span>
+  </div>
+
+  <div class="header-sep"></div>
+
+  <span class="client-badge">👤 <span id="client-count">0</span> clients</span>
+
+  <div class="header-sep"></div>
+
+  <div class="gps-inline">
+    <span>📍</span>
+    <span>LAT <span id="hdr-lat">---.------</span></span>
+    <span>LON <span id="hdr-lon">---.------</span></span>
+  </div>
+
+  <div class="header-spacer"></div>
+
+  <button class="hdr-btn primary" id="btn-report" title="Generate Incident Report">
+    📋 Generate Report
+  </button>
+  <button class="hdr-btn" id="btn-share" title="Share Incident">
+    🔗 Share Incident
+  </button>
+</header>
+
+<!-- ======================================================================
+     MAIN GRID
+     ====================================================================== -->
+<div id="main">
+
+  <!-- ===== COLUMN 1: 360° CAMERAS ===== -->
+  <div id="col-cameras">
+
+    <!-- Tab bar -->
+    <div id="cam-tabs">
+      <button class="cam-tab active" data-cam="all">⊞ All</button>
+      <button class="cam-tab" data-cam="front">▲ Front</button>
+      <button class="cam-tab" data-cam="rear">▼ Rear</button>
+      <button class="cam-tab" data-cam="left">◀ Left</button>
+      <button class="cam-tab" data-cam="right">▶ Right</button>
+    </div>
+
+    <!-- 2×2 camera grid -->
+    <div id="cam-grid">
+
+      <!-- Front -->
+      <div class="cam-cell" id="cell-front" data-dir="front">
+        <div class="no-signal" id="ns-front">
+          <div class="ns-icon">📷</div>
+          <div>No Signal</div>
+        </div>
+        <img class="cam-feed" id="feed-front" src="" alt="Front camera" style="display:none" />
+        <canvas class="cam-overlay-canvas" id="canvas-front"></canvas>
+        <div class="cam-label">▲ Front</div>
+        <div class="fps-badge" id="fps-front">-- fps</div>
+      </div>
+
+      <!-- Rear -->
+      <div class="cam-cell" id="cell-rear" data-dir="rear">
+        <div class="no-signal" id="ns-rear">
+          <div class="ns-icon">📷</div>
+          <div>No Signal</div>
+        </div>
+        <img class="cam-feed" id="feed-rear" src="" alt="Rear camera" style="display:none" />
+        <canvas class="cam-overlay-canvas" id="canvas-rear"></canvas>
+        <div class="cam-label">▼ Rear</div>
+        <div class="fps-badge" id="fps-rear">-- fps</div>
+      </div>
+
+      <!-- Left -->
+      <div class="cam-cell" id="cell-left" data-dir="left">
+        <div class="no-signal" id="ns-left">
+          <div class="ns-icon">📷</div>
+          <div>No Signal</div>
+        </div>
+        <img class="cam-feed" id="feed-left" src="" alt="Left camera" style="display:none" />
+        <canvas class="cam-overlay-canvas" id="canvas-left"></canvas>
+        <div class="cam-label">◀ Left</div>
+        <div class="fps-badge" id="fps-left">-- fps</div>
+      </div>
+
+      <!-- Right -->
+      <div class="cam-cell" id="cell-right" data-dir="right">
+        <div class="no-signal" id="ns-right">
+          <div class="ns-icon">📷</div>
+          <div>No Signal</div>
+        </div>
+        <img class="cam-feed" id="feed-right" src="" alt="Right camera" style="display:none" />
+        <canvas class="cam-overlay-canvas" id="canvas-right"></canvas>
+        <div class="cam-label">▶ Right</div>
+        <div class="fps-badge" id="fps-right">-- fps</div>
+      </div>
+
+    </div><!-- /#cam-grid -->
+  </div><!-- /#col-cameras -->
+
+  <!-- ===== COLUMN 2: GPS + DETECTIONS + ALERTS ===== -->
+  <div id="col-center">
+
+    <!-- GPS Panel -->
+    <div class="panel" id="gps-panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="icon">🛰</span>GPS / Telemetry</div>
+        <span class="tag green" id="gps-fix-tag">NO FIX</span>
+      </div>
+      <div class="gps-grid">
+        <div class="gps-cell">
+          <div class="label">Latitude</div>
+          <div class="value" id="gps-lat">---</div>
+        </div>
+        <div class="gps-cell">
+          <div class="label">Longitude</div>
+          <div class="value" id="gps-lon">---</div>
+        </div>
+        <div class="gps-cell">
+          <div class="label">Speed</div>
+          <div class="value green" id="gps-speed">--- km/h</div>
+        </div>
+        <div class="gps-cell">
+          <div class="label">Heading</div>
+          <div class="value" id="gps-heading">---°</div>
+        </div>
+        <div class="gps-cell">
+          <div class="label">Altitude</div>
+          <div class="value" id="gps-alt">--- m</div>
+        </div>
+        <div class="gps-cell">
+          <div class="label">Satellites</div>
+          <div class="value amber" id="gps-sats">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Detections Panel -->
+    <div class="panel" id="det-panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="icon">🎯</span>Live Detections</div>
+        <span class="tag accent" id="det-count-badge">0 obj</span>
+      </div>
+      <div id="det-list">
+        <div class="det-empty">Waiting for detections…</div>
+      </div>
+    </div>
+
+    <!-- Alert Log Panel -->
+    <div class="panel" id="alert-panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="icon">⚠</span>Alert Log</div>
+        <button class="cam-tab" id="btn-clear-alerts" style="flex:none;padding:2px 8px;font-size:9px;">Clear</button>
+      </div>
+      <div id="alert-log">
+        <div class="det-empty">No alerts yet</div>
+      </div>
+    </div>
+
+  </div><!-- /#col-center -->
+
+  <!-- ===== COLUMN 3: AI CO-PILOT CHATBOT ===== -->
+  <div class="panel" id="col-chat">
+    <div class="panel-header">
+      <div class="panel-title"><span class="icon">🤖</span>AI Co-Pilot</div>
+      <span class="tag accent">GPT-4o</span>
+    </div>
+
+    <div class="chat-driver-row">
+      <label for="driver-id-input">Driver ID</label>
+      <input type="text" id="driver-id-input" placeholder="DRV-0001" value="DRV-0001" />
+    </div>
+
+    <div id="chat-messages">
+      <div class="msg-bubble bot">
+        <div class="msg-sender">AI Co-Pilot</div>
+        Hello! I'm monitoring your 360° sensors. How can I assist you today?
+      </div>
+    </div>
+
+    <div class="chat-typing" id="chat-typing">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+
+    <div class="chat-input-bar">
+      <textarea id="chat-input" placeholder="Ask the AI co-pilot…" rows="1"></textarea>
+      <button id="chat-send">Send</button>
+    </div>
+  </div><!-- /#col-chat -->
+
+</div><!-- /#main -->
+
+<!-- ======================================================================
+     INCIDENT REPORT MODAL
+     ====================================================================== -->
+<div id="modal-backdrop">
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title-text">📋 Incident Report</div>
+      <button class="modal-close" id="modal-close-btn" title="Close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="det-empty" style="padding:30px">Loading report…</div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn" id="modal-close-btn2">Close</button>
+      <button class="modal-btn primary" id="modal-download-btn">⬇ Download JSON</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================================
+     JAVASCRIPT
+     ====================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+     CONSTANTS
+  ------------------------------------------------------------------ */
+  const DIRS = ['front', 'rear', 'left', 'right'];
+  const MAX_DET_ITEMS  = 25;
+  const MAX_ALERT_ROWS = 100;
+  const WS_RECONNECT_BASE_MS = 1500;
+  const WS_RECONNECT_MAX_MS  = 30000;
+
+  /* ------------------------------------------------------------------
+     STATE
+  ------------------------------------------------------------------ */
+  let ws               = null;
+  let wsReconnectDelay = WS_RECONNECT_BASE_MS;
+  let wsReconnectTimer = null;
+  let lastReportData   = null;
+
+  const fpsCounters = {};   // dir -> { count, lastTs, current }
+  const detItems    = [];   // circular buffer of detection items
+
+  DIRS.forEach(d => {
+    fpsCounters[d] = { count: 0, lastTs: performance.now(), current: 0 };
+  });
+
+  /* ------------------------------------------------------------------
+     DOM REFS
+  ------------------------------------------------------------------ */
+  const $ = id => document.getElementById(id);
+  const wsDot      = $('ws-dot');
+  const wsLabel    = $('ws-label');
+  const clientBadge = $('client-count');
+  const hdrLat     = $('hdr-lat');
+  const hdrLon     = $('hdr-lon');
+  const gpsLat     = $('gps-lat');
+  const gpsLon     = $('gps-lon');
+  const gpsSpeed   = $('gps-speed');
+  const gpsHeading = $('gps-heading');
+  const gpsAlt     = $('gps-alt');
+  const gpsSats    = $('gps-sats');
+  const gpsFixTag  = $('gps-fix-tag');
+  const detList    = $('det-list');
+  const detCountBadge = $('det-count-badge');
+  const alertLog   = $('alert-log');
+  const chatMessages = $('chat-messages');
+  const chatTyping = $('chat-typing');
+  const chatInput  = $('chat-input');
+  const chatSend   = $('chat-send');
+  const driverIdEl = $('driver-id-input');
+  const modalBackdrop = $('modal-backdrop');
+  const modalBody  = $('modal-body');
+  const camGrid    = $('cam-grid');
+  const camTabs    = $('cam-tabs');
+
+  /* canvas contexts */
+  const ctxMap = {};
+  DIRS.forEach(d => {
+    const cv = $('canvas-' + d);
+    ctxMap[d] = cv ? cv.getContext('2d') : null;
+  });
+
+  /* ------------------------------------------------------------------
+     WEBSOCKET
+  ------------------------------------------------------------------ */
+  function wsConnect() {
+    const url = 'ws://' + location.host + '/ws/live';
+    setWsState('connecting');
+    try {
+      ws = new WebSocket(url);
+    } catch (e) {
+      scheduleReconnect();
+      return;
+    }
+
+    ws.addEventListener('open', () => {
+      setWsState('connected');
+      wsReconnectDelay = WS_RECONNECT_BASE_MS;
+      addAlert('WebSocket connected', 'info');
+      loadCameraFeeds();
+    });
+
+    ws.addEventListener('message', e => {
+      let msg;
+      try { msg = JSON.parse(e.data); }
+      catch (_) { return; }
+      handleWsMessage(msg);
+    });
+
+    ws.addEventListener('close', () => {
+      setWsState('disconnected');
+      addAlert('WebSocket disconnected — reconnecting…', 'warn');
+      scheduleReconnect();
+    });
+
+    ws.addEventListener('error', () => {
+      setWsState('disconnected');
+    });
+  }
+
+  function scheduleReconnect() {
+    if (wsReconnectTimer) return;
+    wsReconnectTimer = setTimeout(() => {
+      wsReconnectTimer = null;
+      wsReconnectDelay = Math.min(wsReconnectDelay * 1.5, WS_RECONNECT_MAX_MS);
+      wsConnect();
+    }, wsReconnectDelay);
+  }
+
+  function setWsState(state) {
+    wsDot.className = 'ws-dot ' + (state === 'connected' ? 'connected' : state === 'connecting' ? 'connecting' : '');
+    wsLabel.textContent = state === 'connected' ? 'Connected' : state === 'connecting' ? 'Connecting…' : 'Disconnected';
+  }
+
+  /* ------------------------------------------------------------------
+     WS MESSAGE ROUTER
+  ------------------------------------------------------------------ */
+  function handleWsMessage(msg) {
+    switch (msg.type) {
+      case 'gps':        handleGps(msg); break;
+      case 'detection':  handleDetection(msg); break;
+      case 'alert':      addAlert(msg.message || JSON.stringify(msg), msg.level || 'info'); break;
+      case 'clients':    clientBadge.textContent = msg.count || 0; break;
+      case 'frame':      handleFrame(msg); break;
+      default: break;
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     GPS
+  ------------------------------------------------------------------ */
+  function handleGps(d) {
+    const lat = typeof d.lat  === 'number' ? d.lat.toFixed(6)  : d.lat  || '---';
+    const lon = typeof d.lon  === 'number' ? d.lon.toFixed(6)  : d.lon  || '---';
+    const spd = typeof d.speed === 'number' ? d.speed.toFixed(1) + ' km/h' : '--- km/h';
+    const hdg = typeof d.heading === 'number' ? d.heading.toFixed(1) + '°' : '---°';
+    const alt = typeof d.alt === 'number' ? d.alt.toFixed(0) + ' m' : '--- m';
+    const sat = d.satellites !== undefined ? String(d.satellites) : '--';
+
+    gpsLat.textContent = lat;
+    gpsLon.textContent = lon;
+    gpsSpeed.textContent = spd;
+    gpsHeading.textContent = hdg;
+    gpsAlt.textContent = alt;
+    gpsSats.textContent = sat;
+
+    hdrLat.textContent = lat;
+    hdrLon.textContent = lon;
+
+    if (d.fix) {
+      gpsFixTag.textContent = '3D FIX';
+      gpsFixTag.className = 'tag green';
+    } else {
+      gpsFixTag.textContent = 'NO FIX';
+      gpsFixTag.className = 'tag amber';
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     DETECTIONS
+  ------------------------------------------------------------------ */
+  function handleDetection(msg) {
+    const dir = (msg.camera || 'front').toLowerCase();
+
+    /* FPS counter */
+    const fps = fpsCounters[dir];
+    if (fps) {
+      fps.count++;
+      const now = performance.now();
+      const elapsed = now - fps.lastTs;
+      if (elapsed >= 1000) {
+        fps.current = Math.round(fps.count * 1000 / elapsed);
+        fps.count   = 0;
+        fps.lastTs  = now;
+        const el = $('fps-' + dir);
+        if (el) el.textContent = fps.current + ' fps';
+      }
+    }
+
+    /* glow effect on camera cell */
+    const cell = $('cell-' + dir);
+    if (cell) {
+      cell.classList.remove('detecting');
+      void cell.offsetWidth; // reflow
+      cell.classList.add('detecting');
+    }
+
+    /* draw bounding boxes */
+    if (msg.boxes && ctxMap[dir]) {
+      requestAnimationFrame(() => drawBoxes(dir, msg.boxes, msg.labels));
+    }
+
+    /* add to detection list */
+    if (msg.objects && msg.objects.length > 0) {
+      msg.objects.forEach(obj => {
+        addDetItem(obj, dir);
+      });
+    } else if (msg.label) {
+      addDetItem({ label: msg.label, confidence: msg.confidence, severity: msg.severity }, dir);
+    }
+  }
+
+  function addDetItem(obj, dir) {
+    detItems.unshift({ obj, dir, ts: Date.now() });
+    if (detItems.length > MAX_DET_ITEMS) detItems.pop();
+    renderDetList();
+  }
+
+  function renderDetList() {
+    if (detItems.length === 0) {
+      detList.innerHTML = '<div class="det-empty">Waiting for detections…</div>';
+      detCountBadge.textContent = '0 obj';
+      return;
+    }
+    detCountBadge.textContent = detItems.length + ' obj';
+    detList.innerHTML = detItems.slice(0, MAX_DET_ITEMS).map(({ obj, dir, ts }) => {
+      const sev = obj.severity || (obj.confidence > 0.85 ? 'high' : obj.confidence > 0.6 ? 'med' : 'low');
+      const icon = sev === 'high' ? '🔴' : sev === 'med' ? '🟡' : '🟢';
+      const conf = obj.confidence !== undefined ? (obj.confidence * 100).toFixed(0) + '%' : '';
+      const time = new Date(ts).toLocaleTimeString([], { hour12: false });
+      const label = obj.label || obj.class || 'Unknown';
+      return `<div class="det-item sev-${sev}">
+        <div class="det-icon">${icon}</div>
+        <div class="det-body">
+          <div class="det-label">${escHtml(label)}</div>
+          <div class="det-meta"><span>${time}</span><span>📷 ${escHtml(dir)}</span></div>
+        </div>
+        ${conf ? `<div class="det-conf">${conf}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  /* ------------------------------------------------------------------
+     BOUNDING BOX CANVAS
+  ------------------------------------------------------------------ */
+  function syncCanvas(dir) {
+    const cv  = $('canvas-' + dir);
+    const img = $('feed-' + dir);
+    if (!cv || !img) return;
+    const r = img.getBoundingClientRect();
+    if (r.width > 0) {
+      cv.width  = r.width;
+      cv.height = r.height;
+    }
+  }
+
+  function drawBoxes(dir, boxes, labels) {
+    const cv  = $('canvas-' + dir);
+    if (!cv) return;
+    syncCanvas(dir);
+    const ctx = ctxMap[dir];
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    if (!boxes || boxes.length === 0) return;
+
+    const scaleX = cv.width;
+    const scaleY = cv.height;
+
+    boxes.forEach((box, i) => {
+      /* box can be [x1,y1,x2,y2] normalized or {x,y,w,h} */
+      let x1, y1, x2, y2;
+      if (Array.isArray(box)) {
+        [x1, y1, x2, y2] = box;
+      } else {
+        x1 = box.x; y1 = box.y; x2 = box.x + box.w; y2 = box.y + box.h;
+      }
+      /* If values > 1 assume pixel coords relative to canvas */
+      if (x2 <= 1) {
+        x1 *= scaleX; x2 *= scaleX;
+        y1 *= scaleY; y2 *= scaleY;
+      }
+      const lbl = labels && labels[i] ? labels[i] : '';
+
+      ctx.strokeStyle = '#00d4ff';
+      ctx.lineWidth   = 1.5;
+      ctx.shadowColor = '#00d4ff';
+      ctx.shadowBlur  = 6;
+      ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+      ctx.shadowBlur  = 0;
+
+      if (lbl) {
+        ctx.fillStyle = 'rgba(0,212,255,.18)';
+        ctx.fillRect(x1, y1 - 16, Math.min(lbl.length * 7 + 8, x2 - x1 + 20), 16);
+        ctx.fillStyle = '#00d4ff';
+        ctx.font = '10px Consolas, monospace';
+        ctx.fillText(lbl, x1 + 4, y1 - 4);
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     CAMERA FEEDS
+  ------------------------------------------------------------------ */
+  function loadCameraFeeds() {
+    fetch('/api/v1/cameras')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data) return;
+        /* Expected: { cameras: [{direction:'front', url:'...'}, ...] } */
+        const list = data.cameras || data;
+        if (!Array.isArray(list)) return;
+        list.forEach(cam => {
+          const dir = (cam.direction || cam.id || '').toLowerCase();
+          if (!DIRS.includes(dir)) return;
+          const imgEl = $('feed-' + dir);
+          const nsEl  = $('ns-' + dir);
+          if (!imgEl) return;
+          imgEl.onerror = () => {
+            imgEl.style.display = 'none';
+            if (nsEl) nsEl.style.display = 'flex';
+          };
+          imgEl.onload = () => {
+            imgEl.style.display = 'block';
+            if (nsEl) nsEl.style.display = 'none';
+          };
+          imgEl.src = cam.url || cam.stream_url || '';
+        });
+      })
+      .catch(() => {});
+  }
+
+  /* ------------------------------------------------------------------
+     FRAME MESSAGES (base64 JPEG from WS)
+  ------------------------------------------------------------------ */
+  function handleFrame(msg) {
+    const dir = (msg.camera || 'front').toLowerCase();
+    if (!DIRS.includes(dir)) return;
+    const imgEl = $('feed-' + dir);
+    const nsEl  = $('ns-' + dir);
+    if (!imgEl) return;
+    const blob = b64ToBlob(msg.data || '', 'image/jpeg');
+    const url  = URL.createObjectURL(blob);
+    const old  = imgEl.src;
+    imgEl.src  = url;
+    if (old && old.startsWith('blob:')) URL.revokeObjectURL(old);
+    imgEl.style.display = 'block';
+    if (nsEl) nsEl.style.display = 'none';
+
+    /* tick FPS */
+    const fps = fpsCounters[dir];
+    if (fps) {
+      fps.count++;
+      const now = performance.now();
+      const elapsed = now - fps.lastTs;
+      if (elapsed >= 1000) {
+        fps.current = Math.round(fps.count * 1000 / elapsed);
+        fps.count   = 0;
+        fps.lastTs  = now;
+        const el = $('fps-' + dir);
+        if (el) el.textContent = fps.current + ' fps';
+      }
+    }
+  }
+
+  function b64ToBlob(b64, mimeType) {
+    const binary = atob(b64);
+    const len    = binary.length;
+    const buf    = new Uint8Array(len);
+    for (let i = 0; i < len; i++) buf[i] = binary.charCodeAt(i);
+    return new Blob([buf], { type: mimeType });
+  }
+
+  /* ------------------------------------------------------------------
+     ALERT LOG
+  ------------------------------------------------------------------ */
+  function addAlert(text, level) {
+    const isEmpty = alertLog.querySelector('.det-empty');
+    if (isEmpty) isEmpty.remove();
+
+    const time = new Date().toLocaleTimeString([], { hour12: false });
+    const icon = level === 'crit' ? '🔴' : level === 'warn' ? '🟡' : 'ℹ️';
+    const row  = document.createElement('div');
+    row.className = 'alert-row a-' + (level === 'crit' ? 'crit' : level === 'warn' ? 'warn' : 'info');
+    row.innerHTML = `<span class="a-time">${time}</span><span class="a-icon">${icon}</span><span class="a-text">${escHtml(String(text))}</span>`;
+    alertLog.appendChild(row);
+
+    /* trim */
+    while (alertLog.children.length > MAX_ALERT_ROWS) {
+      alertLog.removeChild(alertLog.firstChild);
+    }
+    alertLog.scrollTop = alertLog.scrollHeight;
+  }
+
+  $('btn-clear-alerts').addEventListener('click', () => {
+    alertLog.innerHTML = '<div class="det-empty">No alerts yet</div>';
+  });
+
+  /* ------------------------------------------------------------------
+     CAMERA TABS
+  ------------------------------------------------------------------ */
+  camTabs.addEventListener('click', e => {
+    const btn = e.target.closest('.cam-tab');
+    if (!btn) return;
+    const cam = btn.dataset.cam;
+
+    /* active state */
+    camTabs.querySelectorAll('.cam-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (cam === 'all') {
+      camGrid.classList.remove('expanded-view');
+      DIRS.forEach(d => {
+        const c = $('cell-' + d);
+        if (c) { c.classList.remove('expanded'); c.style.display = ''; }
+      });
+    } else {
+      camGrid.classList.add('expanded-view');
+      DIRS.forEach(d => {
+        const c = $('cell-' + d);
+        if (!c) return;
+        if (d === cam) {
+          c.classList.add('expanded');
+          c.style.display = '';
+        } else {
+          c.classList.remove('expanded');
+        }
+      });
+    }
+    syncAllCanvases();
+  });
+
+  /* ------------------------------------------------------------------
+     CHATBOT
+  ------------------------------------------------------------------ */
+  function addChatBubble(text, role, isError) {
+    const wrap = document.createElement('div');
+    wrap.className = 'msg-bubble ' + role + (isError ? ' error' : '');
+    wrap.innerHTML = `<div class="msg-sender">${role === 'user' ? 'You' : 'AI Co-Pilot'}</div>${escHtml(text)}`;
+    chatMessages.appendChild(wrap);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function sendChat() {
+    const msg = chatInput.value.trim();
+    if (!msg) return;
+    const driverId = driverIdEl.value.trim() || 'DRV-0001';
+
+    addChatBubble(msg, 'user');
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    chatSend.disabled = true;
+    chatTyping.classList.add('visible');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const res = await fetch('/api/v1/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ driver_id: driverId, message: msg })
+      });
+      const data = await res.json();
+      chatTyping.classList.remove('visible');
+      addChatBubble(data.response || data.message || JSON.stringify(data), 'bot', !res.ok);
+    } catch (err) {
+      chatTyping.classList.remove('visible');
+      addChatBubble('Error: ' + err.message, 'bot', true);
+    } finally {
+      chatSend.disabled = false;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  }
+
+  chatSend.addEventListener('click', sendChat);
+
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendChat();
+    }
+  });
+
+  chatInput.addEventListener('input', () => {
+    chatInput.style.height = 'auto';
+    chatInput.style.height = Math.min(chatInput.scrollHeight, 80) + 'px';
+  });
+
+  /* ------------------------------------------------------------------
+     INCIDENT REPORT MODAL
+  ------------------------------------------------------------------ */
+  function openModal() {
+    const driverId = driverIdEl.value.trim() || 'DRV-0001';
+    modalBackdrop.classList.add('open');
+    modalBody.innerHTML = '<div class="det-empty" style="padding:30px">Loading report…</div>';
+
+    fetch('/api/v1/incident/report?driver_id=' + encodeURIComponent(driverId))
+      .then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status))
+      .then(renderReport)
+      .catch(err => {
+        modalBody.innerHTML = `<div class="det-empty" style="padding:30px;color:var(--red)">Failed to load report: ${escHtml(String(err))}</div>`;
+        lastReportData = null;
+      });
+  }
+
+  function renderReport(data) {
+    lastReportData = data;
+    const score   = data.driver_safety_score !== undefined ? data.driver_safety_score : data.safety_score;
+    const scoreN  = typeof score === 'number' ? score : parseFloat(score) || 0;
+    const scorePct = Math.max(0, Math.min(100, scoreN)).toFixed(1);
+    const scoreColor = scoreN >= 80 ? 'var(--green-bright)' : scoreN >= 55 ? 'var(--amber)' : 'var(--red)';
+
+    const weaknesses = Array.isArray(data.weaknesses) ? data.weaknesses : [];
+    const alerts     = Array.isArray(data.recent_alerts) ? data.recent_alerts : [];
+    const cameras    = Array.isArray(data.camera_directions) ? data.camera_directions : DIRS;
+
+    modalBody.innerHTML = `
+      <div class="report-grid">
+        <div class="report-cell">
+          <div class="rc-label">Report ID</div>
+          <div class="rc-value accent">${escHtml(data.report_id || data.id || 'N/A')}</div>
+        </div>
+        <div class="report-cell">
+          <div class="rc-label">Timestamp</div>
+          <div class="rc-value">${escHtml(data.timestamp || new Date().toISOString())}</div>
+        </div>
+        <div class="report-cell">
+          <div class="rc-label">Driver ID</div>
+          <div class="rc-value">${escHtml(data.driver_id || driverIdEl.value || 'N/A')}</div>
+        </div>
+        <div class="report-cell">
+          <div class="rc-label">Vehicle ID</div>
+          <div class="rc-value">${escHtml(data.vehicle_id || 'N/A')}</div>
+        </div>
+      </div>
+
+      <div class="score-bar-wrap">
+        <div class="score-label">
+          <span>Driver Safety Score</span>
+          <span class="score-val" style="color:${scoreColor}">${scorePct} / 100</span>
+        </div>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width:${scorePct}%"></div>
+        </div>
+      </div>
+
+      ${weaknesses.length > 0 ? `
+        <div class="report-section-title">Identified Weaknesses</div>
+        <ul class="weakness-list">
+          ${weaknesses.map(w => `<li>${escHtml(String(w))}</li>`).join('')}
+        </ul>
+      ` : ''}
+
+      ${alerts.length > 0 ? `
+        <div class="report-section-title">Recent Alerts</div>
+        <ul class="report-alerts-list">
+          ${alerts.slice(0, 10).map(a => `<li>${escHtml(typeof a === 'object' ? JSON.stringify(a) : String(a))}</li>`).join('')}
+        </ul>
+      ` : ''}
+
+      <div class="report-section-title">Camera Directions</div>
+      <ul class="cam-dirs-list">
+        ${cameras.map(c => `<li>${escHtml(String(c))}</li>`).join('')}
+      </ul>
+    `;
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('open');
+  }
+
+  $('btn-report').addEventListener('click', openModal);
+  $('modal-close-btn').addEventListener('click', closeModal);
+  $('modal-close-btn2').addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', e => { if (e.target === modalBackdrop) closeModal(); });
+
+  /* ------------------------------------------------------------------
+     SHARE INCIDENT
+  ------------------------------------------------------------------ */
+  $('btn-share').addEventListener('click', () => {
+    const driverId = driverIdEl.value.trim() || 'DRV-0001';
+    fetch('/api/v1/incident/share', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ driver_id: driverId, timestamp: new Date().toISOString() })
+    })
+      .then(r => r.json())
+      .then(d => addAlert('Incident shared. Ref: ' + (d.ref || d.report_id || JSON.stringify(d)), 'info'))
+      .catch(e => addAlert('Share failed: ' + e.message, 'warn'));
+  });
+
+  /* ------------------------------------------------------------------
+     DOWNLOAD JSON
+  ------------------------------------------------------------------ */
+  $('modal-download-btn').addEventListener('click', () => {
+    if (!lastReportData) return;
+    const blob = new Blob([JSON.stringify(lastReportData, null, 2)], { type: 'application/json' });
+    const a    = document.createElement('a');
+    a.href     = URL.createObjectURL(blob);
+    a.download = 'incident-report-' + (lastReportData.report_id || Date.now()) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+
+  /* ------------------------------------------------------------------
+     CANVAS RESIZE SYNC
+  ------------------------------------------------------------------ */
+  function syncAllCanvases() {
+    DIRS.forEach(syncCanvas);
+  }
+
+  window.addEventListener('resize', () => {
+    requestAnimationFrame(syncAllCanvases);
+  });
+
+  /* ------------------------------------------------------------------
+     KEYBOARD SHORTCUT — Escape closes modal
+  ------------------------------------------------------------------ */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  /* ------------------------------------------------------------------
+     UTILITIES
+  ------------------------------------------------------------------ */
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  /* ------------------------------------------------------------------
+     BOOT
+  ------------------------------------------------------------------ */
+  wsConnect();
+  syncAllCanvases();
+
+})();
+</script>
+</body>
+</html>

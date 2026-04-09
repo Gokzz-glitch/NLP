@@ -1,8 +1,48 @@
 import sqlite3
 import json
+import math
+import hashlib
+import datetime
 import logging
 
 logger = logging.getLogger("edge_sentinel.section_208")
+
+# ---------------------------------------------------------------------------
+# Geodetic / cryptographic utilities
+# ---------------------------------------------------------------------------
+
+def _haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """
+    Great-circle distance in metres between two GPS coordinates.
+    Accurate to ±0.5% for distances < 50 km at Indian latitudes (haversine formula).
+    """
+    R = 6_371_000  # Earth mean radius, metres
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlambda = math.radians(lon2 - lon1)
+    a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
+
+
+def _ist_timestamp() -> str:
+    """Returns the current time as an IST (UTC+5:30) ISO-8601 string."""
+    utc_now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+    ist_offset = datetime.timedelta(hours=5, minutes=30)
+    ist_now = utc_now + ist_offset
+    return ist_now.strftime("%Y-%m-%dT%H:%M:%S+05:30")
+
+
+def _sha3_evidence_hash(camera_data: dict) -> str:
+    """
+    SHA3-256 hex digest of the camera evidence payload.
+    Provides a tamper-evident commitment for Annexure A.
+    """
+    payload = json.dumps(camera_data, sort_keys=True).encode("utf-8")
+    return hashlib.sha3_256(payload).hexdigest()
+
+
+# Speed-sign mandatory distance per IRC:67 and MV (Driving) Regulations 2017
+_SIGN_WINDOW_M: float = 500.0
 
 class Section208Resolver:
     """
@@ -60,22 +100,56 @@ class Section208Resolver:
     # Public API
     # ------------------------------------------------------------------
 
-    def challenge_speed_camera(self, camera_data, signage_detected):
+    def challenge_speed_camera(
+        self,
+        camera_data,
+        signage_detected,
+        sign_lat: float = None,
+        sign_lon: float = None,
+    ):
         """
-        camera_data: { "lat": float, "lon": float, "type": "speed_camera" }
-        signage_detected: bool
+        Evaluate whether a speed-camera enforcement point is legally challengeable.
+
+        Args:
+            camera_data:      { "lat": float, "lon": float, "type": "speed_camera" }
+            signage_detected: bool — fallback flag when GPS sign location is unknown
+            sign_lat:         GPS latitude of the nearest detected speed-limit sign.
+                              When provided, a haversine distance check supersedes
+                              the boolean signage_detected flag.
+            sign_lon:         GPS longitude of the nearest detected speed-limit sign.
+
+        Returns:
+            dict with keys: status, document, legal_basis, statutory_sources.
+            If sign GPS is provided, also includes sign_distance_m.
         """
-        if camera_data['type'] == 'speed_camera' and not signage_detected:
-            # Pull live statutory text from the RAG store
-            statutes = self._lookup_related_sections(['208', '183'])
-            audit_request = self.generate_audit_request(camera_data, statutes)
-            return {
-                "status": "CHALLENGE_GENERATED",
-                "document": audit_request,
-                "legal_basis": "Section 208: Lack of prerequisite signage for enforcement infrastructure.",
-                "statutory_sources": list(statutes.keys()),
-            }
-        return {"status": "LEGAL_COMPLIANCE_VERIFIED"}
+        if camera_data['type'] != 'speed_camera':
+            return {"status": "LEGAL_COMPLIANCE_VERIFIED"}
+
+        # Compute GPS distance if sign coordinates supplied
+        sign_distance_m = None
+        if sign_lat is not None and sign_lon is not None:
+            sign_distance_m = _haversine_m(
+                camera_data['lat'], camera_data['lon'], sign_lat, sign_lon
+            )
+            no_compliant_sign = sign_distance_m > _SIGN_WINDOW_M
+        else:
+            no_compliant_sign = not signage_detected
+
+        if not no_compliant_sign:
+            return {"status": "LEGAL_COMPLIANCE_VERIFIED"}
+
+        # Pull live statutory text from the RAG store
+        statutes = self._lookup_related_sections(['208', '183'])
+        audit_request = self.generate_audit_request(camera_data, statutes)
+        result = {
+            "status": "CHALLENGE_GENERATED",
+            "document": audit_request,
+            "legal_basis": "Section 208: Lack of prerequisite signage for enforcement infrastructure.",
+            "statutory_sources": list(statutes.keys()),
+        }
+        if sign_distance_m is not None:
+            result["sign_distance_m"] = round(sign_distance_m, 1)
+        return result
 
     def generate_audit_request(self, camera_data, statutes=None):
         """
@@ -93,10 +167,16 @@ class Section208Resolver:
         sec_208_excerpt = sec_208_text[:300].rstrip() + "…" if len(sec_208_text) > 300 else sec_208_text
         sec_183_excerpt = sec_183_text[:200].rstrip() + "…" if len(sec_183_text) > 200 else sec_183_text
 
+        # Evidence integrity fields
+        timestamp_ist = _ist_timestamp()
+        evidence_hash = _sha3_evidence_hash(camera_data)
+
         return f"""
         TO: Traffic Regulatory Authority / MoRTH / Regional Transport Officer
         SUBJECT: Audit Request — Unlawful Enforcement Infrastructure (Section 208 MVA 1988)
         LOCATION: {camera_data['lat']}, {camera_data['lon']}
+        TIMESTAMP (IST): {timestamp_ist}
+        EVIDENCE HASH (SHA3-256): {evidence_hash}
 
         This is a formal challenge under the 'SmartSalai Edge-Sentinel' protocol.
         Detection algorithms have identified enforcement infrastructure (Speed Camera)
@@ -119,6 +199,7 @@ class Section208Resolver:
 
         Telemetry evidence (GPS trace, vision log, IMU telemetry) available as
         Annexure A upon request (SHA3-256 hash-committed, ZKP envelope applied).
+        Evidence hash committed above allows tamper-evident verification.
 
         Immediate remediation or removal of this infrastructure is requested.
         Challan challenge to be filed within 60 days of issuance per Section 208.

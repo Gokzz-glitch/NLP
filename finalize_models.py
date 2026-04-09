@@ -30,7 +30,7 @@ def finalize():
             # Move exported onnx
             onnx_src1 = src1.replace(".pt", ".onnx")
             os.makedirs(VISION_MODELS_DIR, exist_ok=True)
-            shutil.copy(onnx_src1, os.path.join(VISION_MODELS_DIR, "indian_traffic_signs_yolov8n.onnx"))
+            shutil.copy(onnx_src1, os.path.join(VISION_MODELS_DIR, "indian_traffic_yolov8.onnx"))
             print("SUCCESS: Legal Signage Auditor (ONNX).")
     except Exception as e:
         print(f"ERR_1: {e}")

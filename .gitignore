@@ -12,13 +12,12 @@ build/
 venv/
 env/
 
-# ONNX / Model Weights
-*.onnx
-*.pth
-*.pt
-*.gguf
-*.bin
-models/
+# ONNX / Model Weights — ignore binaries but allow documentation
+models/**/*.onnx
+models/**/*.pth
+models/**/*.pt
+models/**/*.gguf
+models/**/*.bin
 
 # Android Build Artifacts
 *.apk
