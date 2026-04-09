@@ -12,7 +12,7 @@
 # "device"    → capture from a live USB/built-in dashcam
 # "synthetic" → procedural frames (no camera needed — for CI / first-run tests)
 source: file
-path: ""           # ← set to your .mp4/.avi dashcam file path, e.g. "360-cam.mp4"
+path: ""           # ← set to your dashcam file path, e.g. "dashcam.mp4" or "front_cam.avi"
 device_index: 0    # USB device index when source=device
 max_frames: null   # null = process entire file; integer to limit (e.g. 300)
 

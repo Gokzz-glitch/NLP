@@ -200,7 +200,7 @@ class DashcamFileSource(CameraSource):
         ret, bgr = self._cap.read()
         if not ret:
             return None
-        ts = self._cap.get(0) / 1000.0  # cv2.CAP_PROP_POS_MSEC → seconds
+        ts = self._cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0  # position in seconds
         frame = CameraFrame(
             camera_id=self.camera_id,
             frame_index=self._frame_index,
@@ -347,7 +347,7 @@ class MultiCameraRig:
             if frame is None:
                 return None
             out[cid] = frame
-        return out or None
+        return out if out else None
 
     def stream(self) -> Generator[Dict[str, CameraFrame], None, None]:
         """Yield synchronised frame bundles until any source is exhausted."""

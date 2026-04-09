@@ -13,6 +13,9 @@ import json
 import tempfile
 import pytest
 
+# Words that must never appear in advisory event text (control-command guard)
+_FORBIDDEN_CONTROL_WORDS = ["steer", "brake", "accelerate", "control", "override"]
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from simulation.camera_ingest import (
@@ -429,13 +432,12 @@ class TestDashcamSimulator:
 
     def test_no_control_outputs_in_results(self):
         """Advisory events must never contain steering/braking control commands."""
-        FORBIDDEN = ["steer", "brake", "accelerate", "control", "override"]
         sim = self._make_sim(max_frames=20)
         results = sim.run()
         for r in results:
             for ev in r.advisory_events:
                 ev_lower = ev.lower()
-                for word in FORBIDDEN:
+                for word in _FORBIDDEN_CONTROL_WORDS:
                     assert word not in ev_lower, (
                         f"Advisory event contains forbidden control word {word!r}: {ev!r}"
                     )
