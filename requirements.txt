@@ -4,3 +4,7 @@ sentence-transformers
 aiohttp
 python-dotenv
 pyttsx3
+pytest
+pytest-asyncio
+fastapi
+uvicorn

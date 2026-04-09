@@ -240,11 +240,13 @@ class LegalEmbedder:
         st_model_name: str = DEFAULT_ST_MODEL,
         batch_size: int = DEFAULT_BATCH_SIZE,
         embedding_dim: int = DEFAULT_EMBEDDING_DIM,
+        force_hash_fallback: bool = False,
     ) -> None:
         self.onnx_model_path = onnx_model_path
         self.st_model_name = st_model_name
         self.batch_size = batch_size
         self.embedding_dim = embedding_dim
+        self._force_hash_fallback = force_hash_fallback
 
         self._mode: Optional[EmbedderMode] = None
         self._tokenizer = None     # HuggingFace tokenizer (ST or ONNX mode)
@@ -261,8 +263,19 @@ class LegalEmbedder:
         Call once at application startup.
 
         Priority: ONNX_INT8 → SentenceTransformers → HASH_FALLBACK
+
+        Pass ``force_hash_fallback=True`` at construction time to skip all
+        ML backends and use the deterministic hash fallback.  Useful for
+        unit tests and CI environments without GPU / model weights.
         """
         import os
+
+        # Forced fallback — skip all ML backends (for CI / unit tests)
+        if self._force_hash_fallback:
+            self.embedding_dim = HASH_FALLBACK_DIM
+            self._mode = EmbedderMode.HASH_FALLBACK
+            logger.info("[P6/Embedder] Mode: HASH_FALLBACK (forced)")
+            return self._mode
 
         # --- Try ONNX INT8 ---
         if self.onnx_model_path and os.path.exists(self.onnx_model_path):
