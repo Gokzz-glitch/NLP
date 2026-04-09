@@ -1,4 +1,0 @@
-# file: /usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/rsa.py
-# hypothesis_version: 6.151.12
-
-[512, 1000, 65537, 'dmp1 must be odd.', 'dmq1 must be odd.', 'e must be odd.', 'n must be >= 3.', 'p must be < modulus.', 'q must be < modulus.']

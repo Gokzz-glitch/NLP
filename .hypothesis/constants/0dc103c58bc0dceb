@@ -1,4 +1,0 @@
-# file: /home/runner/work/NLP/NLP/agents/legal_rag.py
-# hypothesis_version: 6.151.12
-
-[0.0, 1000, 'ETL', 'LEGACY', 'all-MiniLM-L6-v2', 'canonical_name', 'chunk_id', 'chunk_text', 'detection_triggers', 'doc_type', 'edge_rag.db', 'elapsed_ms', 'embeddings', 'empty', 'etl', 'f', 'hash', 'irad_category_code', 'legacy', 'legacy_db', 'no_db', 'offence_id', 'offence_registry', 'query', 'query_text', 'rag_db', 'results', 'schemas', 'section', 'section_id', 'similarity_score', 'source', 'st', 'statute_chunks', 'statute_ref', 'uls_matches', 'unknown', 'utf-8']

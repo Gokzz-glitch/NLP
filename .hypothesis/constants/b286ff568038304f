@@ -1,4 +1,0 @@
-# file: /usr/lib/python3/dist-packages/jinja2/async_utils.py
-# hypothesis_version: 6.151.12
-
-['V', '__aiter__', '__module__', '__name__', '__qualname__', 't.AsyncIterable[V]', 't.AsyncIterator[V]', 't.Awaitable[V]', 't.Iterable[V]']

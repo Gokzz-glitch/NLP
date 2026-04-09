@@ -1,4 +1,0 @@
-# file: /home/runner/work/NLP/NLP/core/zkp_envelope.py
-# hypothesis_version: 6.151.12
-
-[b'SmartSalai-ZKP-AES-KEY-v1', b'SmartSalai_H_generator_v1', 0.005, 1000, 1000000, ',', ':', 'NearMissEvent', 'TelemetryEvent', 'ZKP-1.0', 'ZKPEnvelope', 'auditor_key_hint', 'big', 'blinding_factor_hash', 'commitment', 'envelope_version', 'evidence_hash', 'gps_lat', 'nonce', 'payload_ciphertext', 'payload_type', 'sha3:', 'sha3_256', 'timestamp_epoch_ms', 'utf-8']

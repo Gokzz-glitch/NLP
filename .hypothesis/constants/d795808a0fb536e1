@@ -1,4 +1,0 @@
-# file: /home/runner/work/NLP/NLP/agents/acoustic_ui.py
-# hypothesis_version: 6.151.12
-
-[0.05, 1.0, 160, 'BHASHINI_API_KEY', 'acoustic-ui', 'battery_low', 'bhashini', 'blackspot_alert', 'ble_hazard_received', 'en', 'gps_lost', 'irad_submitted', 'key', 'lang', 'near_miss_critical', 'near_miss_high', 'phrase_key', 'pyttsx3_en', 'pyttsx3_ta', 'rate', 'silent', 'speed_trap_no_sign', 'system_ready', 'ta', 'tamil', 'tanglish', 'text', 'ts', 'voice', 'voices']

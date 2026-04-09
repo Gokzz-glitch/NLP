@@ -1,4 +1,0 @@
-# file: /home/runner/work/NLP/NLP/agents/sec208_drafter.py
-# hypothesis_version: 6.151.12
-
-[0.0, ',', '208', ':', 'AnnexureA-v1.0', 'CHALLENGE_GENERATED', 'COMPLIANT', 'NOT_APPLICABLE', 'SEC208_NO_SIGNAGE', 'SHA3-256', 'UNKNOWN', 'Z', 'annexure_a', 'camera_data', 'camera_device_id', 'camera_location', 'camera_operator', 'critical', 'detections', 'device_id', 'en', 'enforcement_camera', 'evidentiary_hash', 'gps_lat', 'gps_lon', 'grounds', 'imu_log_hash', 'irad_category_code', 'irc_67_compliance', 'label', 'lang', 'lat', 'legal_sections', 'lon', 'operator', 'request_id', 'rider_data', 'rider_speed_kmh', 'schemas', 'section_208_flag', 'section_208_protocol', 'speed_camera', 'speed_kmh', 'speed_limit_sign', 'speed_sign', 'status', 'subject', 'subject_pattern', 'telemetry_hash', 'text', 'timestamp_utc', 'to', 'to_authority', 'utf-8', 'version', 'vision_detections', 'vision_log_hash']

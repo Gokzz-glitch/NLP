@@ -39,7 +39,8 @@ secrets/
 *.env
 
 
-# Logs & Telemetry Dumps
+# Hypothesis test database
+.hypothesis/
 *.log
 telemetry_dumps/
 irad_logs/

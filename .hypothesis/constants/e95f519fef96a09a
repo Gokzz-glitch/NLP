@@ -1,4 +1,0 @@
-# file: /usr/lib/python3/dist-packages/jinja2/environment.py
-# hypothesis_version: 6.151.12
-
-[400, 493, '&', '.', '<template>', '=', 'BaseLoader', 'BytecodeCache', 'CodeGenerator', 'Environment', 'Extension', 'Template', 'TemplateExpression', 'TemplateModule', 'TemplateStream', '__file__', '__jinja_template__', '_env_bound', 'blocks', 'cache_size', 'debug_info', 'deflated', 'enable_async', 'environment', 'exec', 'extensions', 'filter', 'name', 'result', 'root', 'self', 'store', 'strict', 'te.Literal[False]', 'te.Literal[True]', 'te.NoReturn', 'test', 'utf-8', 'utf8', 'variable', 'w', 'wb', 'writelines']

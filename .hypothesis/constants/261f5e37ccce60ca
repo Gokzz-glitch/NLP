@@ -1,4 +1,0 @@
-# file: /usr/lib/python3/dist-packages/markupsafe/__init__.py
-# hypothesis_version: 6.151.12
-
-['-->', '2.1.5', '<', '<!--', '>', 'HasHTML', 'Markup', '_ListOrDict', '_P', '_P.args', '_P.kwargs', '__getitem__', '__html__', '__html_format__', 'escape', 'obj', 'strict', 't.Callable[_P, str]', 'te.Self', 'te.SupportsIndex']

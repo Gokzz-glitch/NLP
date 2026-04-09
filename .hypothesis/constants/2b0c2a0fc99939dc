@@ -1,4 +1,0 @@
-# file: /usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/types.py
-# hypothesis_version: 6.151.12
-
-['PRIVATE_KEY_TYPES', 'PUBLIC_KEY_TYPES']

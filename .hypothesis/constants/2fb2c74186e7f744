@@ -1,4 +1,0 @@
-# file: /home/runner/work/NLP/NLP/core/irad_serializer.py
-# hypothesis_version: 6.151.12
-
-[0.0, 1000, ',', ':', 'CRITICAL', 'HIGH', 'IRADRecord', 'LOW', 'MODERATE', 'MORTH-iRAD-2022-v1', 'NEAR_MISS_KINETIC', 'NM_TWOWHEELER', 'NearMissEvent', 'TN', 'TWO_WHEELER', 'UNKNOWN', 'Z', 'accident_id', 'annexure_a', 'annexure_a_fields', 'bbox', 'blackspot', 'blackspot_flag', 'cause_code', 'confidence', 'evidence_chain', 'evidence_count', 'gps_lat', 'gps_lon', 'irad_category_code', 'label', 'legal_sections', 'near_miss_score', 'raw_event_type', 'record_sha3', 'risk_index', 'road_user_type', 'schema_version', 'sec208_trigger', 'section_208_flag', 'severity', 'severity_code', 'source', 'speed_kmh', 'state_code', 'timestamp_epoch_ms', 'timestamp_utc', 'vehicles_involved', 'vision_detection', 'zkp_envelope', 'zkp_sealed', 'zone_name', '|']
