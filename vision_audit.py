@@ -182,4 +182,3 @@ if __name__ == "__main__":
         blank = np.zeros((480, 640, 3), dtype=np.uint8)
         results = engine.run_inference(blank)
         print(f"Detections on blank frame: {results}")
-

@@ -1,8 +1,18 @@
 """
-core/
-SmartSalai Edge-Sentinel — Core Infrastructure
+SmartSalai Edge-Sentinel — core package.
 
 Modules:
-  zkp_envelope.py  — Zero-Knowledge Proof GPS envelope (T-014)
-                     Wraps NearMissEvent GPS fields before telemetry emission.
+  agent_bus.py      — JSON-RPC 2.0 inter-agent pub/sub bus (T-013)
+  zkp_envelope.py   — Zero-Knowledge Proof GPS envelope (T-014)
+  irad_serializer.py — MoRTH iRAD-2022 schema serializer (T-015)
 """
+from .agent_bus import AgentBus, BusMessage, Topics, get_bus, reset_bus
+from .zkp_envelope import ZKPEnvelopeBuilder, ZKPEnvelope, get_builder, wrap_event, coarsen_coordinate
+from .irad_serializer import IRADSerializer, IRADRecord, get_serializer
+
+__all__ = [
+    "AgentBus", "BusMessage", "Topics", "get_bus", "reset_bus",
+    "ZKPEnvelopeBuilder", "ZKPEnvelope", "get_builder",
+    "wrap_event", "coarsen_coordinate",
+    "IRADSerializer", "IRADRecord", "get_serializer",
+]
