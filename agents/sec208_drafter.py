@@ -231,7 +231,7 @@ class Sec208DrafterAgent:
         # Draft the challenge
         logger.info("[Sec208Drafter] TRIGGER: Speed camera without sign — drafting audit request.")
         import datetime
-        ts = datetime.datetime.utcnow().isoformat() + "Z"
+        ts = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 
         vision_log_hash = _sha3_256(vision_detections)
         imu_log_hash    = _sha3_256(rider_data)
@@ -285,7 +285,7 @@ class Sec208DrafterAgent:
 
 def _iso_now() -> str:
     import datetime
-    return datetime.datetime.utcnow().isoformat() + "Z"
+    return datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 _agent: Optional[Sec208DrafterAgent] = None

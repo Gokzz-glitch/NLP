@@ -8,3 +8,5 @@ pytest
 pytest-asyncio
 fastapi
 uvicorn
+onnxruntime>=1.19.0
+opencv-python>=4.9.0
