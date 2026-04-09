@@ -22,7 +22,8 @@ models/
 
 # Video & Camera Footage — never commit (too large for GitHub)
 *.mp4
-*.ts
+raw_data/**/*.ts
+data/**/*.ts
 *.avi
 *.mkv
 *.mov
