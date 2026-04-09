@@ -20,6 +20,23 @@ env/
 *.bin
 models/
 
+# Video & Camera Footage — never commit (too large for GitHub)
+*.mp4
+*.ts
+*.avi
+*.mkv
+*.mov
+*.flv
+*.wmv
+raw_data/videos/
+data/videos/
+360camvideo
+
+# Databases — generated at runtime, not source artefacts
+*.db
+*.sqlite
+*.sqlite3
+
 # Android Build Artifacts
 *.apk
 *.aab

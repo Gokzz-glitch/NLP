@@ -110,7 +110,7 @@ class IRADRecord:
 
 def _iso_now() -> str:
     import datetime
-    return datetime.datetime.utcnow().isoformat() + "Z"
+    return datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 class IRADSerializer:
