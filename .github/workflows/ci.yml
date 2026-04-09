@@ -1,0 +1,169 @@
+name: CI — SmartSalai Edge-Sentinel
+
+on:
+  push:
+    branches: ["main", "copilot/**"]
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────────────
+  # 1. Lint + format + type-check
+  # ──────────────────────────────────────────────────────────────────────────
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install lint tools
+        run: pip install flake8 flake8-bugbear pyproject-flake8 mypy types-requests
+
+      - name: flake8
+        run: |
+          flake8 . \
+            --max-line-length=120 \
+            --extend-ignore=E203,W503,E501 \
+            --exclude=.venv,venv,env,dist,build,__pycache__,.git \
+            --per-file-ignores="tests/*:E501,F811"
+
+      - name: mypy (non-blocking — report only)
+        run: |
+          mypy \
+            core/ agents/ etl/ api/ \
+            --ignore-missing-imports \
+            --no-error-summary \
+            --follow-imports=silent \
+            --allow-untyped-defs \
+            || true   # advisory-only; hardening PR will fix remaining errors
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # 2. Core test matrix (Python 3.10 + 3.11)
+  # ──────────────────────────────────────────────────────────────────────────
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install runtime + test dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio hypothesis
+
+      - name: Unit + integration tests
+        run: |
+          python -m pytest \
+            tests/test_core.py \
+            tests/test_agents.py \
+            tests/test_imu_near_miss_detector.py \
+            tests/test_section_208_resolver.py \
+            tests/test_orchestrator.py \
+            tests/test_offline_tts_manager.py \
+            -v --tb=short -q
+
+      - name: ETL pipeline tests
+        run: |
+          python -m pytest \
+            tests/test_etl_pipeline.py \
+            tests/test_etl_text_chunker.py \
+            tests/test_etl_embedder.py \
+            tests/test_etl_sqlite_vss_ingestor.py \
+            -v --tb=short -q
+
+      - name: Property-based + fuzz tests
+        run: |
+          python -m pytest \
+            tests/test_property_based.py \
+            tests/test_fuzz_inputs.py \
+            -v --tb=short -q
+
+      - name: Stress / enterprise tests
+        run: |
+          python -m pytest \
+            tests/test_stress_enterprise.py \
+            -v --tb=short -q
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # 3. Simulation smoke-test (offline, no real video required)
+  # ──────────────────────────────────────────────────────────────────────────
+  simulation:
+    name: Simulation Harness Smoke-Test
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run 30-min India road simulation
+        run: python tests/simulation_india_30min.py
+
+      - name: Run video simulation harness (synthetic / no clip needed)
+        run: python sim/run_video_sim.py --synthetic --duration 60 --metrics-out /tmp/sim_metrics.json
+
+      - name: Upload simulation metrics
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-metrics-${{ github.run_id }}
+          path: /tmp/sim_metrics.json
+          retention-days: 30
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # 4. Security scanning
+  # ──────────────────────────────────────────────────────────────────────────
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Dependency vulnerability audit
+        run: |
+          pip install -r requirements.txt
+          pip-audit --require-hashes=false --desc || true   # advisory-only until pinned
+
+      - name: Secret scanning (trufflehog — shallow scan)
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          extra_args: --only-verified
+        continue-on-error: true  # Advisory until hardened
