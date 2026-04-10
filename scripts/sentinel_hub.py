@@ -54,7 +54,21 @@ state = SentinelState()
 def get_video_stream():
     """Generator for MJPEG stream of YOLO-processed frames."""
     ensure_runtime_components()
-    cap = cv2.VideoCapture(0) # Default to webcam for 'Live' interaction
+
+    # Support IP camera from phone via PHONE_IP env var
+    phone_ip = os.environ.get("PHONE_IP", "").strip()
+    phone_port = os.environ.get("PHONE_PORT", "8080").strip()
+    cap = None
+    if phone_ip:
+        ip_cam_url = f"http://{phone_ip}:{phone_port}/video"
+        print(f"📡 Attempting IP Camera connection at {ip_cam_url} ...")
+        cap = cv2.VideoCapture(ip_cam_url, cv2.CAP_FFMPEG)
+        if not cap.isOpened():
+            print(f"⚠️ IP Camera at {ip_cam_url} not reachable. Falling back to local webcam.")
+            cap = None
+
+    if cap is None:
+        cap = cv2.VideoCapture(0)  # Default to webcam for 'Live' interaction
     if not cap.isOpened():
         # Fallback to a sample video if webcam isn't available
         cap = cv2.VideoCapture("raw_data/sample_road_v1.mp4")

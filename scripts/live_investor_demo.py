@@ -10,7 +10,11 @@ from core.model_registry import resolve_yolo_general_pt, resolve_yolo_pothole_pt
 class HybridInvestorDemo:
     def __init__(self, use_phone=True, phone_ip="192.168.x.x", phone_port=8080):
         self.use_phone = use_phone
+        self.phone_ip = phone_ip
+        self.phone_port = phone_port
         self.phyphox_url = f"http://{phone_ip}:{phone_port}/get?accX&accY&accZ"
+        # IP Webcam app stream URL (Android "IP Webcam" app default)
+        self.ip_cam_url = f"http://{phone_ip}:{phone_port}/video"
         self.imu_z_baseline = deque(maxlen=30) # Rolling average buffer (From the Cheat Fixes!)
         self.current_impact_gforce = 0.0
         self.crash_triggered = False
@@ -56,12 +60,24 @@ class HybridInvestorDemo:
             time.sleep(0.05) # Poll ~20Hz
 
     def start_demo(self):
-        print("🎥 IGNITING LIVE WEBCAM FEED")
-        print("➡️  Hold up a Pothole image to the webcam...")
+        print("🎥 IGNITING LIVE CAMERA FEED")
+        print(f"➡️  Connecting to IP Camera at {self.ip_cam_url}")
+        print("➡️  Install 'IP Webcam' app on Android and start server at port 8080.")
+        print("➡️  Ensure phone and laptop are on the same WiFi network or USB tethered.")
+        print("➡️  Hold up a Pothole image to the camera...")
         print("➡️  Shake your phone OR press SPACEBAR to trigger a crash...")
         print("➡️  Press ESC to exit or reset.")
         
-        cap = cv2.VideoCapture(0)
+        # Try IP camera stream only if phone_ip looks like a valid address
+        _ip_valid = self.phone_ip and "x" not in self.phone_ip
+        cap = None
+        if _ip_valid:
+            cap = cv2.VideoCapture(self.ip_cam_url, cv2.CAP_FFMPEG)
+            if not cap.isOpened():
+                print(f"⚠️ IP Camera at {self.ip_cam_url} not reachable. Falling back to local webcam.")
+                cap = None
+        if cap is None:
+            cap = cv2.VideoCapture(0)
         
         if self.use_phone:
             threading.Thread(target=self.poll_smartphone_imu, daemon=True).start()
@@ -158,7 +174,8 @@ class HybridInvestorDemo:
 
 if __name__ == "__main__":
     import os
-    # Default to 192.168.1.10 - change to whatever Phyphox says!
-    phone_ip = os.environ.get("PHONE_IP", "192.168.1.10") 
-    demo = HybridInvestorDemo(use_phone=True, phone_ip=phone_ip)
+    # Set PHONE_IP env var to your phone's IP (check 'IP Webcam' app on Android)
+    phone_ip = os.environ.get("PHONE_IP", "192.168.1.10")
+    phone_port = int(os.environ.get("PHONE_PORT", "8080"))
+    demo = HybridInvestorDemo(use_phone=True, phone_ip=phone_ip, phone_port=phone_port)
     demo.start_demo()
