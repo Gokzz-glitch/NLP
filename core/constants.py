@@ -1,0 +1,33 @@
+# core/constants.py
+
+# [REMEDIATION #22]: Central Constant Registry [CWE-22]
+# Prevents swarm-wide instability caused by name typos.
+
+# Event Bus Channels
+EVENT_YOLO_DETECTION = "YOLO_DETECTION"
+EVENT_LEGAL_VIOLATION = "LEGAL_VIOLATION_DETECTED"
+EVENT_SOS_TRIGGER = "SYSTEM_SOS_TRIGGER"
+EVENT_SOS_CANCEL = "SYSTEM_SOS_CANCEL"
+EVENT_TTS_SPEAK = "TTS_SPEAK_REQUEST"
+EVENT_HEARTBEAT = "AGENT_HEARTBEAT"
+EVENT_VOICE_COMMAND = "VOICE_COMMAND_DETECTED"
+EVENT_ACCIDENT_DETECTED = "IMU_ACCIDENT_DETECTED"
+
+# Finding Types (Ledger)
+FINDING_THREAT = "security_threat"
+FINDING_HAZARD = "road_hazard"
+FINDING_VIOLATION = "legal_violation"
+FINDING_HEARTBEAT = "agent_heartbeat"
+FINDING_SOS = "system_sos_event"
+FINDING_INSIGHT = "agent_insight"
+FINDING_STRESS = "custom_stress_telemetry" # For testers
+
+# Auth Roles
+ROLE_MASTER = "MASTER_ADMIN"
+ROLE_AGENT = "SWARM_NODE"
+ROLE_VIEWER = "REMOTE_DASHBOARD"
+
+# Hardware Limits
+MAX_SENSORS_PER_NODE = 16
+LEDGER_MAX_RECORDS = 50000
+TPS_SOFT_LIMIT = 200 # Threads Per Swarm

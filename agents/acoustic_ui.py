@@ -1,3 +1,161 @@
+<<<<<<< HEAD
+import logging
+import time
+import threading
+import queue
+import json
+import pyttsx3
+import winsound
+from itertools import count
+from pathlib import Path
+from typing import Dict, Any
+from core.agent_bus import bus
+from agents.driver_companion_agent import driver_companion
+
+# [PERSONA 4: ACOUSTIC UI - VOICE BRIDGE]
+# Task: T-021 — Bhashini-to-Bus bridge for Tanglish alerts (Upgraded with Generative Memory).
+
+logger = logging.getLogger("edge_sentinel.acoustic_ui")
+logger.setLevel(logging.INFO)
+
+class AcousticUIAgent:
+    """
+    Consumes Sentinel Fusion Alerts and triggers local audio playback.
+    Uses Driver Companion Agent to generate friendly but direct alerts.
+    """
+    def __init__(self, mode: str = "OFFLINE"):
+        self.mode = mode
+        self.engine_name = "pyttsx3"
+        self.cache_dir = Path("mobile/assets/audio")
+        self.cache_index_path = self.cache_dir / "index.json"
+        self.audio_cache = self._load_audio_cache()
+        self.speak_queue = queue.PriorityQueue()
+        self._seq = count()
+        self._setup_bus()
+        self._setup_worker()
+        logger.info(f"PERSONA_4_REPORT: ACOUSTIC_UI_ONLINE | mode={self.mode} | engine={self.engine_name}")
+
+    def _load_audio_cache(self) -> Dict[str, Dict[str, str]]:
+        if not self.cache_index_path.exists():
+            logger.warning("AUDIO_CACHE: index.json not found; using real-time TTS only")
+            return {}
+        try:
+            with self.cache_index_path.open("r", encoding="utf-8") as fh:
+                data = json.load(fh)
+            logger.info(f"AUDIO_CACHE: Loaded {len(data)} cached phrases")
+            return data
+        except Exception as e:
+            logger.error(f"AUDIO_CACHE_LOAD_ERROR: {e}")
+            return {}
+
+    @staticmethod
+    def _normalize_phrase(phrase: str) -> str:
+        return " ".join((phrase or "").strip().lower().split())
+
+    def _play_from_cache(self, phrase: str) -> bool:
+        cache_key = self._normalize_phrase(phrase)
+        cache_meta = self.audio_cache.get(cache_key)
+        if not cache_meta:
+            return False
+
+        audio_file = self.cache_dir / cache_meta.get("file", "")
+        if not audio_file.exists():
+            logger.warning(f"AUDIO_CACHE_MISS_FILE: {audio_file}")
+            return False
+
+        try:
+            # Async playback avoids blocking the main event flow.
+            winsound.PlaySound(str(audio_file), winsound.SND_FILENAME | winsound.SND_ASYNC)
+            logger.info(f"AUDIO_CACHE_HIT: {audio_file.name}")
+            return True
+        except Exception as e:
+            logger.error(f"AUDIO_CACHE_PLAY_ERROR: {e}")
+            return False
+
+    def _setup_worker(self):
+        def worker():
+            try:
+                # Initialize COM/pyttsx3 once inside the thread
+                engine = pyttsx3.init()
+                engine.setProperty('rate', 150)
+                while True:
+                    priority, _, phrase = self.speak_queue.get()
+                    if phrase is None:
+                        break
+                    try:
+                        logger.info(f"TTS_DEQUEUE: priority={priority} text={phrase[:80]}")
+                        engine.say(phrase)
+                        engine.runAndWait()
+                    except Exception as e:
+                        logger.error(f"TTS_WORKER_ERROR: {e}")
+                    self.speak_queue.task_done()
+            except Exception as e:
+                logger.error(f"TTS_INIT_ERROR: {e}")
+                
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _setup_bus(self):
+
+        bus.subscribe("FAST_CRITICAL_ALERT", self._on_fast_critical_alert)
+        bus.subscribe("SENTINEL_FUSION_ALERT", self._on_fusion_alert)
+        bus.subscribe("REGULATORY_CONFLICT", self._on_regulatory_conflict)
+
+    def _on_fast_critical_alert(self, alert_payload: Dict[str, Any]):
+        phrase = alert_payload.get("phrase") or "Critical pothole ahead. Slow down now."
+        self._playback(phrase, "CRITICAL")
+
+    def _on_fusion_alert(self, alert_payload: Dict[str, Any]):
+        """
+        Receives: { 'fusion_id', 'type', 'severity', 'timestamp_epoch_ms' }
+        """
+        severity = alert_payload.get("severity", "MEDIUM")
+        alert_type = alert_payload.get("type", "GENERAL")
+        
+        # 1. Generate a friendly but direct message (no sugar-coating).
+        phrase = driver_companion.generate_message(alert_type, severity)
+        
+        # 2. Trigger Synthesis / Playback
+        self._playback(phrase, severity)
+
+    def _on_regulatory_conflict(self, conflict_payload: Dict[str, Any]):
+        # "Macha, look at the sign board"
+        phrase = driver_companion.generate_message("LEGAL_SIGN_MISSING", "HIGH")
+        self._playback(phrase, "HIGH")
+
+    def _playback(self, phrase: str, severity: str):
+        """
+        In production, this calls the Bhashini Offline TTS engine via subprocess or local lib.
+        For immediate offline demo, we use `pyttsx3` natively on Windows.
+        """
+        log_level = logging.WARNING if severity == "CRITICAL" else logging.INFO
+        logger.log(log_level, f"TTS_ENGINE: SPEAK: '{phrase}' [priority={severity}]")
+
+        # SYSTEM DIRECTIVE: STRIKE COMMAND - ACOUSTIC PRE-CACHING
+        # Cache-first playback to eliminate real-time TTS latency for common critical alerts.
+        if self._play_from_cache(phrase):
+            return
+        
+        # Critical alerts preempt normal voice traffic.
+        priority = 0 if severity == "CRITICAL" else 1
+        self.speak_queue.put((priority, next(self._seq), phrase))
+        
+        # Simulated Bhashini Synthesis Payload for Shadow Mode
+        bhashini_req = {
+            "text": phrase,
+            "persona": "SENTINEL_MACHA",
+            "dialect": "CHENNAI_TAMIL_ANGLO",
+            "offline": True
+        }
+        bus.emit("TTS_SYNTHESIS_REQUEST", bhashini_req)
+
+if __name__ == "__main__":
+    # Test
+    ui_agent = AcousticUIAgent()
+    bus.emit("SENTINEL_FUSION_ALERT", {
+        "type": "CONFIRMED_POTHOLE_STRIKE",
+        "severity": "CRITICAL"
+    })
+=======
 """
 agents/acoustic_ui.py  (T-012)
 SmartSalai Edge-Sentinel — Bhashini/IndicTrans2 Tanglish TTS Voice UI
@@ -183,3 +341,4 @@ def get_agent(silent: bool = False) -> AcousticUIAgent:
         _agent = AcousticUIAgent(silent=silent)
         _agent.start()
     return _agent
+>>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e

@@ -1,4 +1,69 @@
 """
+<<<<<<< HEAD
+Section 208 Drafter Agent (Persona 2)
+- Consumes violation events (from sign_auditor)
+- Loads legal schema (universal_legal_schema.json)
+- Generates legal draft for detected violations
+- Uses simple prompt template (can swap in LLM later)
+
+Author: SmartSalai Team
+License: AGPL3.0
+"""
+
+import json
+from pathlib import Path
+from datetime import datetime
+
+SCHEMA_PATH = "schemas/universal_legal_schema.json"
+EVENTS_PATH = "violation_events.json"
+
+# --- Utility Functions ---
+def load_schema(schema_path):
+    with open(schema_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def load_events(events_path):
+    with open(events_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def generate_draft(event, schema):
+    # Simple template for Section 208 challenge
+    offence = schema["offence_registry"].get("IN_SEC_194D", {})
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    draft = f"""
+To Whom It May Concern,
+
+Subject: Challenge under Section 208 — Speed Camera Placement Violation
+
+On {date_str}, a speed camera was detected within 500m of a speed limit sign, which is a violation of the Motor Vehicles Act, Section 208.
+
+Details:
+- Speed Camera Frame: {event['speed_camera_frame']}
+- Speed Limit Sign Frame: {event['speed_limit_frame']}
+
+Relevant Law: {offence.get('canonical_name', 'N/A')}
+Statute: {offence.get('statute_ref', {}).get('act', 'N/A')} Section {offence.get('statute_ref', {}).get('section', 'N/A')}
+
+I request that this violation be reviewed and the penalty be revoked as per the law.
+
+Sincerely,
+DriveLegal System
+"""
+    return draft
+
+def main():
+    schema = load_schema(SCHEMA_PATH)
+    events = load_events(EVENTS_PATH)
+    for idx, event in enumerate(events):
+        draft = generate_draft(event, schema)
+        out_path = f"legal_draft_{idx+1}.txt"
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(draft)
+        print(f"Draft generated: {out_path}")
+
+if __name__ == "__main__":
+    main()
+=======
 agents/sec208_drafter.py  (T-011)
 SmartSalai Edge-Sentinel — Section 208 MVA Audit Drafter
 
@@ -296,3 +361,4 @@ def get_agent() -> Sec208DrafterAgent:
     if _agent is None:
         _agent = Sec208DrafterAgent()
     return _agent
+>>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e

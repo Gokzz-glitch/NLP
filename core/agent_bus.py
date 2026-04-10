@@ -1,4 +1,321 @@
 """
+<<<<<<< HEAD
+Agent Bus - JSON-RPC Central Switchboard for Edge-Sentinel Personas
+
+Coordinates multi-agent communication between:
+  - Persona 1: V2X / BLE Mesh (hazard broadcast)
+  - Persona 2: Legal RAG (violation analysis & legal guidance)
+  - Persona 3: Vision (YOLOv8) + IMU (TCN sensor fusion)
+  - Persona 4: Voice (Bhashini TTS)
+  - Persona 5: Dashboard / DevOps
+
+Thread-safe pub-sub with event history for edge debugging.
+
+Author: SmartSalai Team
+License: AGPL3.0
+"""
+
+import asyncio
+import json
+import logging
+import threading
+import time
+from collections import defaultdict
+from typing import Callable, Any, Dict, List, Optional
+from concurrent.futures import ThreadPoolExecutor
+
+logger = logging.getLogger("edge_sentinel.agent_bus")
+logger.setLevel(logging.INFO)
+
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# CORE EVENT TYPES (Persona Integration Map)
+# ─────────────────────────────────────────────────────────────────────────
+
+EVENT_TYPES = {
+    # Persona 1: V2X / BLE Mesh Broker
+    "V2X_HAZARD_BROADCAST": "Broadcast road hazard to nearby vehicles",
+    "BLE_MESH_PEER_JOINED": "New peer joined BLE swarm",
+    "BLE_MESH_PEER_LEFT": "Peer left BLE swarm",
+    # Persona 2: Legal RAG + DriveLegal Engine
+    "LEGAL_VIOLATION_DETECTED": "Violation detected → legal sections retrieved",
+    "SECTION208_AUDIT_DRAFTED": "Section 208 RTO challenge auto-drafted",
+    "LEGAL_ALERT_GENERATED": "Legal + penalty + appeal info ready for TTS/HUD",
+    # Persona 3: Vision (YOLO) + Sensor Fusion (TCN)
+    "YOLO_DETECTION": "YOLOv8 object detection result",
+    "VISION_HAZARD_DETECTED": "Vision pipeline flagged a hazard candidate",
+    "IMU_NEAR_MISS": "TCN near-miss detection (accel + gyro fusion)",
+    "NEAR_MISS_DETECTED": "Sensor fusion near-miss event for downstream actions",
+    "POTHOLE_HAZARD": "Pothole/road defect detected",
+    "HELMET_MISSING": "Helmet absence detected by vision",
+    "SIGN_DETECTED": "Traffic sign detected (speed camera, yield, etc.)",
+    "SENTINEL_FUSION_ALERT": "Vision+IMU consensus hazard alert for UI and voice",
+    "FAST_CRITICAL_ALERT": "Low-latency critical alert lane that bypasses non-essential processing",
+    "ALERT_RECEIVED_ACK": "Frontend acknowledgement emitted when acoustic warning fires",
+    "REGULATORY_CONFLICT": "Legal/RAG conflict result for current driving context",
+    # Persona 4: Voice + Audio Alerts (TTS)
+    "TTS_ALERT_QUEUE": "Audio alert ready to play (Tanglish TTS)",
+    "VOICE_ALERT_REQUEST": "Request to announce a voice alert immediately",
+}
+
+# ─────────────────────────────────────────────────────────────────────────
+# Minimal MVP Agent Bus (in-memory pub/sub)
+# ─────────────────────────────────────────────────────────────────────────
+import threading
+from collections import defaultdict
+from typing import Callable, Dict, List, Any
+
+class AgentBus:
+    def __init__(self):
+        self.subscribers: Dict[str, List[Callable[[Any], None]]] = defaultdict(list)
+        self.lock = threading.Lock()
+
+    def subscribe(self, event_type: str, callback: Callable[[Any], None]):
+        with self.lock:
+            self.subscribers[event_type].append(callback)
+
+    def publish(self, event_type: str, data: Any):
+        with self.lock:
+            callbacks = list(self.subscribers[event_type])
+        for cb in callbacks:
+            cb(data)
+
+# Global bus instance for agents to import
+agent_bus = AgentBus()
+
+# Example usage (for integration test)
+if __name__ == "__main__":
+    def on_violation(event):
+        print(f"Received violation: {event}")
+    agent_bus.subscribe("500m_violation", on_violation)
+    agent_bus.publish("500m_violation", {"speed_camera_frame": 100, "speed_limit_frame": 50})
+
+
+class AgentBus:
+    """
+    Central JSON-RPC event bus for Edge-Sentinel.
+    
+    Provides:
+    - Thread-safe pub-sub with callbacks
+    - Event history for debugging
+    - Payload validation (basic)
+    - Per-event metrics (latency, subscriber count)
+    """
+    
+    _instance = None
+    _lock = threading.Lock()
+    
+    def __new__(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super(AgentBus, cls).__new__(cls)
+                cls._instance._init_bus()
+        return cls._instance
+    
+    def _init_bus(self):
+        """Initialize bus state"""
+        self._subscribers: Dict[str, List[Callable]] = defaultdict(list)
+        self._history: List[Dict] = []
+        self._metrics: Dict[str, Dict] = defaultdict(lambda: {
+            "emit_count": 0,
+            "subscriber_count": 0,
+            "last_emitted_at": 0,
+            "total_latency_ms": 0,
+        })
+        self.max_history = 500  # Keep last N events for debugging
+        # [REMEDIATION #5]: Managed ThreadPool for sync callbacks [CWE-400]
+        self._executor = ThreadPoolExecutor(max_workers=20, thread_name_prefix="BusWorker")
+    
+    def shutdown(self):
+        """Cleanly shutdown the thread pool"""
+        self._executor.shutdown(wait=False)
+    
+    def subscribe(self, event_type: str, callback: Callable[[Any], None], name: str = None):
+        """
+        Register callback for event type.
+        
+        Args:
+            event_type: One of EVENT_TYPES keys
+            callback: Function(payload) to execute on event
+            name: Optional name for this subscription (for debugging)
+        """
+        if event_type not in EVENT_TYPES and not event_type.startswith("CUSTOM_"):
+            logger.warning(f"BUS_SUBSCRIBE: Unknown event type '{event_type}'")
+        
+        with self._lock:
+            self._subscribers[event_type].append(callback)
+            self._metrics[event_type]["subscriber_count"] = len(self._subscribers[event_type])
+            logger.info(f"BUS_SUBSCRIBE: {event_type} ({name or 'anonymous'})")
+    
+    def emit(self, event_type: str, payload: Any):
+        """
+        Dispatch event to all subscribers.
+        
+        Args:
+            event_type: One of EVENT_TYPES keys
+            payload: Event data (dict or object with .to_dict())
+        """
+        emit_time = time.time()
+        
+        with self._lock:
+            callbacks = self._subscribers.get(event_type, []).copy()
+            self._metrics[event_type]["emit_count"] += 1
+            self._metrics[event_type]["last_emitted_at"] = emit_time
+        
+        # Log event
+        payload_str = json.dumps(payload, default=str) if isinstance(payload, dict) else str(payload)
+        logger.info(f"BUS_EMIT: {event_type} | {len(callbacks)} subscribers")
+        
+        # Record in history
+        with self._lock:
+            self._history.append({
+                "event_type": event_type,
+                "timestamp": emit_time,
+                "payload_type": type(payload).__name__,
+                "subscriber_count": len(callbacks),
+            })
+            if len(self._history) > self.max_history:
+                self._history = self._history[-self.max_history:]
+        
+        # 4. Execute callbacks asynchronously to prevent deadlocks [CWE-662]
+        for callback in callbacks:
+            try:
+                # Wrap in task so slow agents don't block the emitter
+                if asyncio.iscoroutinefunction(callback):
+                    asyncio.create_task(self._safe_callback(callback, payload, event_type))
+                else:
+                    # [REMEDIATION #5]: Offload to managed pool instead of raw Thread().start()
+                    self._executor.submit(self._safe_sync_callback, callback, payload, event_type)
+            except Exception as e:
+                logger.error(f"BUS_DISPATCH_ERROR: {event_type} | {e}")
+
+    async def _safe_callback(self, callback, payload, event_type):
+        """Async wrapper for metric tracking"""
+        # [REMEDIATION #27]: Use monotonic perf_counter for latency [CWE-114]
+        start = time.perf_counter()
+        try:
+            await callback(payload)
+            latency = (time.perf_counter() - start) * 1000
+            with self._lock:
+                self._metrics[event_type]["total_latency_ms"] += latency
+            if latency > 200:
+                logger.warning(f"BUS_SLOW_ASYNC: {event_type} took {latency:.1f}ms")
+        except Exception as e:
+            logger.error(f"BUS_CALLBACK_ERROR: {event_type} | {e}")
+
+    def _safe_sync_callback(self, callback, payload, event_type):
+        """Sync wrapper for threadpool metrics"""
+        # [REMEDIATION #27]: Use monotonic perf_counter for latency [CWE-114]
+        start = time.perf_counter()
+        try:
+            callback(payload)
+            latency = (time.perf_counter() - start) * 1000
+            with self._lock:
+                self._metrics[event_type]["total_latency_ms"] += latency
+        except Exception as e:
+            logger.error(f"BUS_SYNC_ERROR: {event_type} | {e}")
+    
+    def get_event_types(self) -> List[str]:
+        """Return all registered event types"""
+        with self._lock:
+            return sorted(list(self._subscribers.keys()))
+    
+    def get_subscribers_for(self, event_type: str) -> int:
+        """Get subscriber count for an event type"""
+        with self._lock:
+            return len(self._subscribers.get(event_type, []))
+    
+    def get_history(self, event_type: Optional[str] = None, limit: int = 50) -> List[Dict]:
+        """
+        Get event history (for debugging).
+        
+        Args:
+            event_type: Filter to specific event, or None for all
+            limit: Number of events to return
+        
+        Returns:
+            List of event records with timestamp, type, subscriber count
+        """
+        with self._lock:
+            history = self._history if not event_type else [
+                h for h in self._history if h["event_type"] == event_type
+            ]
+            return history[-limit:]
+    
+    def get_metrics(self) -> Dict[str, Dict]:
+        """Get per-event metrics (emit count, latency, subscriber count)"""
+        with self._lock:
+            return dict(self._metrics)
+    
+    def clear_history(self):
+        """Clear event history (use for testing)"""
+        with self._lock:
+            self._history.clear()
+
+
+# Global singleton instance
+bus = AgentBus()
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# HELPER: Create standard legal violation event
+# ─────────────────────────────────────────────────────────────────────────
+
+def emit_legal_violation(violation_type: str, severity: str, location: Dict, context: Dict):
+    """
+    Convenience function: detect violation → emit to bus.
+    
+    Chain: Persona 3 (vision/IMU) → DriveLegal (DL-2) → RAG (Persona 2) → TTS (Persona 4)
+    """
+    bus.emit("LEGAL_VIOLATION_DETECTED", {
+        "violation_type": violation_type,
+        "severity": severity,
+        "location": location,
+        "context": context,
+        "timestamp": time.time(),
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# SMOKE TEST
+# ─────────────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    
+    # Test 1: Basic pub-sub
+    def hazard_handler(data):
+        print(f"  ✓ Hazard handler: {data.get('type')}")
+    
+    def legal_handler(data):
+        print(f"  ✓ Legal handler: {data.get('violation_type')} | Severity: {data.get('severity')}")
+    
+    bus.subscribe("YOLO_DETECTION", hazard_handler, "hazard_detector")
+    bus.subscribe("LEGAL_VIOLATION_DETECTED", legal_handler, "legal_rag")
+    
+    print("✅ Test 1: Emit YOLO detection")
+    bus.emit("YOLO_DETECTION", {"type": "POTHOLE", "lat": 13.0827, "lng": 80.2707})
+    
+    print("\n✅ Test 2: Emit legal violation (helmet)")
+    emit_legal_violation(
+        violation_type="HELMET_MISSING",
+        severity="CRITICAL",
+        location={"zone": "SCHOOL_ZONE"},
+        context={"source": "YOLO", "confidence": 0.94}
+    )
+    
+    print("\n✅ Test 3: Bus metrics")
+    metrics = bus.get_metrics()
+    for event_type, stats in metrics.items():
+        print(f"  {event_type}: {stats['emit_count']} emits, {stats['subscriber_count']} subscribers")
+    
+    print("\n✅ Test 4: Event history")
+    history = bus.get_history(limit=5)
+    for h in history:
+        print(f"  {h['event_type']} @ {h['timestamp']:.1f} ({h['subscriber_count']} subs)")
+    
+    print("\n✅ Agent Bus smoke test PASSED")
+=======
 core/agent_bus.py  (T-013)
 SmartSalai Edge-Sentinel — JSON-RPC 2.0 Inter-Agent Message Bus
 
@@ -209,3 +526,4 @@ def reset_bus() -> None:
     if _bus is not None:
         _bus.stop()
         _bus = None
+>>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e
