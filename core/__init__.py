@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# core/__init__.py
+=======
 """
 SmartSalai Edge-Sentinel — core package.
 
@@ -16,3 +19,4 @@ __all__ = [
     "wrap_event", "coarsen_coordinate",
     "IRADSerializer", "IRADRecord", "get_serializer",
 ]
+>>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e

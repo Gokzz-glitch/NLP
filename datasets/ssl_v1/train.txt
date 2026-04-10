@@ -1,0 +1,747 @@
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_2560_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_2560_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_304_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_304_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_3760_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/--_ueCbwdmQ_POTHOLES_ON_ROAD_DUE_TO_HEAVY_RAIN_INDIAN_ROADS_IN_MONSOON_DASHCAM_VIDEO_BAD_ROADS_IN_NASHIK_424_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_145_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_170_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_175_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_180_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_185_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_235_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_240_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_250_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_255_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_260_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_275_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_280_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation.f136_285_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_145_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_150_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_175_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_180_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_190_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_275_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_290_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_355_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_390_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/1zxNwZkiazc_Close_calls_and_surprises_on_Indian_Roads_-_Part_-2_Dashcam_fails_Compilation_400_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1032_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1032_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1056_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1056_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1304_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1304_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1308_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1308_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1496_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1500_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1515_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1530_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1860_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1875_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_1890_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_420_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_420_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_428_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_428_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_4650_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_4665_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_4740_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_4935_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_608_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_608_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_612_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_820_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_820_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/2Nnm9KugP5E_Accidents_surprises_on_Indian_Roads_Dash_Camera_Compilation_Challenges_on_highways_852_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_100_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_101_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_102_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_103_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_104_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_105_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_106_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_107_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_108_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_109_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_110_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_111_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_112_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_113_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_114_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_115_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_116_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_117_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_118_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_120_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_121_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_122_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_124_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_125_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_126_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_127_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_128_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_12_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_130_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_131_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_133_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_135_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_136_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_137_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_138_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_139_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_13_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_140_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_141_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_142_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_143_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_144_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_145_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_146_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_147_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_148_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_149_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_14_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_150_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_152_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_153_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_155_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_156_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_157_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_159_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_160_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_161_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_162_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_163_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_164_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_165_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_166_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_167_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_168_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_169_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_16_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_170_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_171_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_172_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_173_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_174_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_175_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_176_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_177_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_179_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_17_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_180_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_181_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_182_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_183_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_184_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_185_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_186_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_187_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_189_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_18_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_190_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_191_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_192_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_193_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_194_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_195_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_196_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_197_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_198_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_19_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_200_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_201_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_202_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_203_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_204_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_205_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_206_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_207_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_208_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_209_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_20_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_210_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_211_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_212_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_213_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_214_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_215_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_216_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_217_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_218_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_219_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_21_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_220_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_221_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_223_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_225_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_226_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_227_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_228_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_229_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_22_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_230_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_231_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_232_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_233_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_234_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_235_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_236_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_237_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_238_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_23_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_240_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_241_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_242_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_243_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_244_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_245_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_246_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_247_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_248_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_249_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_24_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_250_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_251_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_252_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_253_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_254_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_255_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_256_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_257_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_258_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_25_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_260_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_261_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_262_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_263_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_264_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_265_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_266_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_268_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_269_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_26_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_270_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_271_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_272_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_273_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_274_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_275_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_276_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_277_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_278_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_279_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_280_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_281_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_282_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_283_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_284_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_285_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_286_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_287_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_288_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_289_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_28_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_291_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_292_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_293_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_294_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_295_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_296_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_297_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_299_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_29_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_300_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_301_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_302_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_303_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_304_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_305_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_306_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_307_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_308_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_309_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_310_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_311_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_312_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_313_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_314_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_315_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_316_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_317_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_318_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_319_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_31_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_320_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_321_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_322_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_323_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_324_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_325_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_326_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_327_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_328_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_329_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_32_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_330_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_331_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_332_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_333_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_334_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_335_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_336_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_337_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_338_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_339_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_33_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_340_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_341_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_342_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_343_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_344_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_345_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_346_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_347_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_348_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_349_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_34_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_350_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_351_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_353_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_354_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_355_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_356_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_357_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_358_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_359_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_35_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_360_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_362_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_363_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_364_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_365_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_366_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_367_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_368_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_369_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_36_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_371_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_372_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_373_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_375_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_376_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_377_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_378_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_379_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_380_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_381_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_382_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_383_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_384_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_385_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_386_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_387_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_388_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_389_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_38_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_390_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_391_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_392_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_394_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_395_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_396_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_397_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_398_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_399_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_39_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_400_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_401_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_402_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_403_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_404_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_406_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_407_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_409_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_40_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_410_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_411_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_412_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_413_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_414_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_415_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_416_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_417_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_418_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_419_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_41_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_420_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_421_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_422_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_423_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_424_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_425_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_426_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_427_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_428_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_429_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_42_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_430_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_431_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_432_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_433_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_434_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_435_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_436_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_438_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_43_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_440_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_441_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_443_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_444_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_445_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_446_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_447_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_448_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_449_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_44_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_450_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_451_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_453_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_454_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_455_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_456_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_458_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_459_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_45_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_460_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_461_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_462_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_464_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_465_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_466_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_467_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_468_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_469_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_46_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_470_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_471_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_473_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_474_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_475_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_476_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_478_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_479_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_47_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_480_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_481_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_482_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_483_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_484_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_485_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_486_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_487_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_488_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_489_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_48_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_491_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_492_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_493_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_494_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_495_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_496_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_498_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_499_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_49_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_50_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_51_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_52_VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_53_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_54_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_55_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_56_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_57_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_58_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_59_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_60_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_61_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_62_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_63_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_65_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_66_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_67_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_68_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_69_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_70_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_71_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_72_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_73_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_74_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_75_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_77_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_78_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_79_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_80_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_81_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_82_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_83_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_84_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_85_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_86_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_87_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_89_VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_90_VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_91_VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_92_VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_93_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_94_NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_95_yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_96_yP9v8KRym9c_2550.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_97_yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_98_yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/aug_99_VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_0_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1000_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1000_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1020_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1020_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1030_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1040_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1050_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1050_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1060_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1060_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1070_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1070_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_10_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_110_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1160_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1160_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1180_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1190_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1190_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_120_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_120_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1220_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1220_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1230_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1230_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1260_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_1260_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_130_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_130_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_140_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_150_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_20_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_20_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_220_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_220_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_280_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_280_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_290_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_290_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_30_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_30_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_310_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_310_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_330_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_330_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_340_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_340_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_360_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_370_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_370_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_420_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_420_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_440_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_440_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_550_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_550_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_580_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_580_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_590_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_590_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_620_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_620_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_660_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_660_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_70_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_70_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_750_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_750_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_780_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_780_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_790_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_790_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_800_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_800_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_80_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_80_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_840_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_840_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_850_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_880_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_880_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_890_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_890_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_900_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_900_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_90_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_90_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_910_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_910_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_920_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_920_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_930_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_940_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_940_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_950_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_950_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_960_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_960_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_980_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_980_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/h1u5OzTdbpc_Crazy_Tata_Punch_Crash_on_Highway_Caught_On_Dashcam_Video_990_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_0_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_120_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_120_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_15165_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1776_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1776_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1780_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1780_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1784_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1784_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1788_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1792_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1792_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1800_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_1935_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_20_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_20_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_240_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_264_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_264_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_2700_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_280_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_280_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_30_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_3105_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_32_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_32_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_3510_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_4260_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_4455_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_4515_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_540_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/JlLdoaaeL0U_CARELESS_INDIAN_using_mobile_phone_on_highway_ACCIDENT_7125_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_0_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_10_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_10_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_20_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_20_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_30_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/mbWZNZM72Vg_They_try_to_escape_cops_and_scratch_other_vehicles._But_they_failed_to_escape_30_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_125_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_130_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_15_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_235_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_255_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_565_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_570_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_610_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_612_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_645_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_665_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_670_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_695_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_700_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_705_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get Real India： Viral Video Exposes Bengaluru's Challenge With Potholes ｜ DKS Admits 5,000+ Remain.f247_710_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_0_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_10_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_10_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_125_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_125_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_140_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_140_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_15_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_15_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_235_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_255_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_255_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_565_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_565_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_570_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_570_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_5_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_610_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_610_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_615_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_615_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_645_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_665_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_670_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_700_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_705_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_710_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/NFpo7_sAdWU_Get_Real_India_-_Viral_Video_Exposes_Bengaluru_s_Challenge_With_Potholes_DKS_Admits_5_000+_Remain_745_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VEu8biALJ8s_3400.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VEu8biALJ8s_3425.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VEu8biALJ8s_6150.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VEu8biALJ8s_800.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VUKGt45sE1Y.f398_0_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/VUKGt45sE1Y.f398_5_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_4350.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_4375.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_1690_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_2655_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_2735_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_3030_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_3280_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_4350_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_4360_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_4365_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_4375_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_440_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_665_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_684_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_685_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News.f398_905_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_1690_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_1690_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2375_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2375_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2420_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2420_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2485_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2485_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2490_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2490_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2655_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_2655_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_3030_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_4360_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_4365_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_4370_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_4375_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_560_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_560_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_665_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_665_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_685_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_685_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_880_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_880_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_900_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_900_neg__boost1.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_905_neg.jpg
+G:/My Drive/NLP/datasets/ssl_v1/images/yP9v8KRym9c_Bengaluru_Potholes_-_Viral_Video_By_School_Children_Highlights_Road_Woes_India_Today_News_905_neg__boost1.jpg
