@@ -79,8 +79,22 @@ def apply():
             return "cpu"
 
         if not torch.cuda.is_available():
-            logger.error("🛑 FATAL: CUDA not found. 'Fixed Rule' prevents CPU fallback.")
-            raise RuntimeError("CUDA is required but not available. CPU fallback is disabled.")
+            # Allow CPU fallback when SMARTSALAI_MOCK_GPU=1 or GPU_REQUIRED != "1".
+            # This lets the pipeline run on machines without an NVIDIA GPU
+            # (e.g. during local video testing) without crashing the orchestrator.
+            mock_gpu = os.environ.get("SMARTSALAI_MOCK_GPU", "0") == "1"
+            gpu_required = os.environ.get("GPU_REQUIRED", "1") == "1"
+            if mock_gpu or not gpu_required:
+                logger.warning(
+                    "⚠️  CUDA not found — running on CPU. "
+                    "Set GPU_REQUIRED=1 to enforce GPU-only mode."
+                )
+                return "cpu"
+            logger.error("🛑 FATAL: CUDA not found. Set GPU_REQUIRED=0 to allow CPU fallback.")
+            raise RuntimeError(
+                "CUDA is required but not available. "
+                "Set GPU_REQUIRED=0 in your environment to allow CPU fallback."
+            )
 
         device_name = torch.cuda.get_device_name(0)
         torch.cuda.set_device(0)
