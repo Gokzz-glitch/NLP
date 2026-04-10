@@ -1,0 +1,130 @@
+INFO: [MACHA_BATCH_AUDITOR] BATCH_AUDITOR: Initialized with directory: raw_data/batch_test
+INFO: [MACHA_BATCH_AUDITOR] \U0001f517 CONNECTED: Global AI Brain Online. Starting 10-Clip Marathon.
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: truck at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: motorcycle at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: person at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: traffic light at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: traffic light at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: traffic light at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: Dashcam Disasters \uff5c Unbelievable Driver Fails 2025.mp4 | Hazards_Audited: 42
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: 133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: truck at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: truck at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: airplane at REAR
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4] EVENT: person at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: 133 Crazy Moments Car Crashes Compilation Of Idiots In Cars Got Instant Karma Caught On Camera.mp4 | Hazards_Audited: 11
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: ludhian to Jalandhar india via Highway dash cam video Part 1.mp4
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: bus at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: bus at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [ludhian to Jalandhar india via Highway dash cam video Part 1.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: ludhian to Jalandhar india via Highway dash cam video Part 1.mp4 | Hazards_Audited: 17
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: Bike Accident on a Pitch-Dark Road in Kerala \uff5c Real Traffic Incident.mp4
+INFO: [MACHA_BATCH_AUDITOR] [Bike Accident on a Pitch-Dark Road in Kerala \uff5c Real Traffic Incident.mp4] EVENT: bus at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Bike Accident on a Pitch-Dark Road in Kerala \uff5c Real Traffic Incident.mp4] EVENT: bus at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Bike Accident on a Pitch-Dark Road in Kerala \uff5c Real Traffic Incident.mp4] EVENT: bus at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: Bike Accident on a Pitch-Dark Road in Kerala \uff5c Real Traffic Incident.mp4 | Hazards_Audited: 3
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: BeamNG Drive - Realistic Car Crashes \uff5c Dangerous Driving #11.mp4
+INFO: [MACHA_BATCH_AUDITOR] [BeamNG Drive - Realistic Car Crashes \uff5c Dangerous Driving #11.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [BeamNG Drive - Realistic Car Crashes \uff5c Dangerous Driving #11.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: BeamNG Drive - Realistic Car Crashes \uff5c Dangerous Driving #11.mp4 | Hazards_Audited: 2
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: truck at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: Car and truck Accident CCTV and Dash Cam Danger Car Crash 2019.mp4 | Hazards_Audited: 12
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: Driving through Indian towns - Paika - Kerala.mp4
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: bus at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: bus at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: bus at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [Driving through Indian towns - Paika - Kerala.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: Driving through Indian towns - Paika - Kerala.mp4 | Hazards_Audited: 17
+INFO: [MACHA_BATCH_AUDITOR] \u25b6\ufe0f STARTING_CLIP: BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: car at REAR
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: truck at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: car at FRONT
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: truck at REAR
+INFO: [MACHA_BATCH_AUDITOR] [BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4] EVENT: airplane at FRONT
+INFO: [MACHA_BATCH_AUDITOR] \u2705 CLIP_COMPLETE: BEST OF SEMI-TRUCK CRASHES \uff5c Road Rage,  Brake checks \uff5c BEST OF THE YEAR 2024.mp4 | Hazards_Audited: 7
+INFO: [MACHA_BATCH_AUDITOR] \U0001f3c6 MARATHON_COMPLETE: Macha has survived all 10 road scenarios.

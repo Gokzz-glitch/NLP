@@ -1,0 +1,543 @@
+python : INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+At line:1 char:32
++ ... NG='utf-8'; python brutal_sentinel_test.py > test_output_utf8.txt 2>& ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:edge_senti...de=PYTORCH_FP32 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.681 lat-G=0.379
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.691 lat-G=0.380
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.698 lat-G=0.380
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.700 lat-G=0.380
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.706 lat-G=0.380
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.695 lat-G=0.307
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.724 lat-G=0.307
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.751 lat-G=0.328
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.775 lat-G=0.328
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.800 lat-G=0.328
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.822 lat-G=0.328
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.722 lat-G=0.680
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.767 lat-G=0.680
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.804 lat-G=0.680
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.16 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.84 lateral_g=0.00 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.44 lateral_g=0.01 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.16 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.35 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.29 lateral_g=0.01 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.31 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.97 lateral_g=0.01 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.11 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.81 lateral_g=0.02 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=8.43 lateral_g=0.00 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=8.76 lateral_g=0.01 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=9.01 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=9.84 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.24 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.44 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.63 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.39 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.61 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.82 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.11 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.51 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.68 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.85 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.53 lateral_g=0.02 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.32 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.55 lateral_g=0.00 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.27 lateral_g=0.00 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.14 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.87 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.28 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.54 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.44 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.74 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.20 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.76 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=15.20 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.33 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.89 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.45 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.85 lateral_g=0.01 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.59 lateral_g=0.02 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.43 lateral_g=0.01 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=14.02 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.72 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.47 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.73 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.67 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=13.25 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.86 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.58 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.09 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.81 lateral_g=0.00 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.78 lateral_g=0.00 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.75 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=11.11 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.74 lateral_g=0.02 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.42 lateral_g=0.01 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=10.11 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=9.23 lateral_g=0.00 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=8.93 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=8.32 lateral_g=0.01 
+longitudinal_g=0.05
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.99 lateral_g=0.00 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.75 lateral_g=0.00 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.12 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.51 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.34 lateral_g=0.02 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.52 lateral_g=0.02 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.85 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.40 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.11 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.64 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.09 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=2.93 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.66 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.40 lateral_g=0.01 
+longitudinal_g=0.04
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.91 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.54 lateral_g=0.01 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.99 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.22 lateral_g=0.00 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=6.83 lateral_g=0.02 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.23 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=7.65 lateral_g=0.01 
+longitudinal_g=0.03
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=8.29 lateral_g=0.01 
+longitudinal_g=0.02
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=4.42 lateral_g=0.05 
+longitudinal_g=0.07
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.310 lat-G=1.205
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.285 lat-G=1.205
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.241 lat-G=1.205
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=3.30 lateral_g=0.10 
+longitudinal_g=0.06
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=29.97 lateral_g=0.15 
+longitudinal_g=0.01
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=5.48 lateral_g=0.18 
+longitudinal_g=0.07
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=12.32 lateral_g=0.20 
+longitudinal_g=0.11
+INFO:edge_sentinel.imu_near_miss:[A1] Suppressed near-miss: vertical-G spike 
+(speed bump) detected. vertical_g_excess=27.09 lateral_g=0.00 
+longitudinal_g=0.13
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.194 lat-G=1.205
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | severity=HIGH 
+score=0.821 lat-G=0.300
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.883 lat-G=0.500
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.939 lat-G=0.500
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+WARNING:edge_sentinel.imu_near_miss:[P3] NEAR-MISS DETECTED | 
+severity=CRITICAL score=0.969 lat-G=0.500
+INFO:edge_sentinel.agent_bus:BUS_EMIT: NEAR_MISS_DETECTED | 0 subscribers
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+INFO:edge_sentinel.imu_near_miss:[P3] NearMissDetector init ΓåÆ 
+mode=PYTORCH_FP32
+INFO:edge_sentinel.imu_near_miss:[P3] PyTorch TCN model initialized (untrained 
+ΓÇö load weights before inference).
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [A] IMU SENSOR EDGE CASES ΓÇö The Physics of Real TN Crashes
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [B] HUMAN BEHAVIOUR SCENARIOS ΓÇö Real Rider Psychology
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [C] ENVIRONMENTAL CONDITIONS ΓÇö Indian Roads Are Not Lab Conditions
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [D] SYSTEM FAILURE MODES ΓÇö What Happens When Hardware Dies
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [E] LEGAL LOGIC ΓÇö Wrong Section 208 = Driver Loses in Court
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [F] TTS LATENCY & PRIORITY ΓÇö Alert 100ms Late = Already Crashed
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [G] BLE MESH INTEGRITY ΓÇö Ghost Events Must Never Alert
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [H] THRESHOLD BOUNDARY ΓÇö Off-By-One at 0.64g Can Mean Death
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [I] MODEL GAPS ΓÇö The TCN Is Untrained. Everything Is Theoretical.
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  [J] ADVERSARIAL ΓÇö The Scenarios Nobody Planned For
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+ΓòöΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòù
+Γòæ      SmartSalai Edge-Sentinel ΓÇö BRUTAL SYSTEM STRESS TEST v1.0             Γòæ
+Γòæ      "Tamil Nadu: 11,140 two-wheeler deaths/year. 8 crashes/hour."         Γòæ
+ΓòÜΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓò¥
+    
+  Γ£à PASS  A1 Speed Bump False Positive
+          ΓåÆ Speed bump correctly ignored
+  Γ£à PASS  A2 Pothole Front-Wheel Wobble Detection
+          ΓåÆ Pothole wobble detected: severity=HIGH
+  Γ¥î FAIL  A3 U-Turn vs Skid Discrimination
+          ΓåÆ FALSE POSITIVE: Normal U-turn triggered alert. Severity=HIGH. This is the wolf-cry failure mode.
+  ≡ƒÆÇ CRITICAL_FAIL  A4 Gravity Calibration While Moving
+          ΓåÆ Calibration during motion accepted with only 0.004 m/s┬▓ detected error. No motion guard exists. Hard braking threshold is effectively shifted ΓÇö real 8.0 m/s┬▓ brake appears as 7.5 m/s┬▓.
+  Γ£à PASS  A5 Compound Brake+Swerve (Auto-Rickshaw)
+          ΓåÆ Compound crash detected as CRITICAL | alerts=3
+  Γ¥î FAIL  B1 Drunk Rider Micro-Correction Pattern
+          ΓåÆ DESIGN GAP: Drunk-rider micro-correction pattern (0.12g lateral oscillations, 3Hz) produces NO alert. This is TN's #1 crash cause (70%+ fatalities involve alcohol). System needs a temporal variance / frequency-domain feature ΓÇö not just peak thresholds.
+  Γ¥î FAIL  B2 Medical Emergency / Seizure Signature
+          ΓåÆ DESIGN GAP: Rider seizure/cardiac arrest not detectable. No 'no-braking + erratic IMU' pattern recognition. System needs a 'rider incapacitated' alert mode ΓÇö this is a different emergency.
+  Γ¥î FAIL  B3 Road Rage Tailgating Pre-Signal
+          ΓåÆ DESIGN GAP: No proactive tailgating detection. Repeated micro-braking oscillations (0.5-1.5 m/s┬▓ at 0.5Hz for 30+ seconds) are a textbook pre-collision signature. System is reactive-only. RECOMMENDATION: Add rolling variance monitor on longitudinal decel.
+  Γ¥î FAIL  B4 Pillion Rider Weight ΓÇö Threshold Bias
+          ΓåÆ DESIGN GAP: No pillion-rider mode. Current LATERAL_G_CRITICAL_THRESHOLD=0.65g is for solo rider. With 70kg pillion, effective critical threshold should be ~0.52g. TN Sec 194D(2) explicitly mandates pillion helmet ΓÇö system KNOWS about pillions legally but ignores pillion physics entirely. Add user-configurable load mode.
+  Γ£à PASS  B5 Phone in Pocket ΓÇö Leg Noise Rejection
+          ΓåÆ Pocket-noise not triggering false alerts (verify with physical test)
+  Γ¥î FAIL  C1 Monsoon ΓÇö No Weather Context
+          ΓåÆ DESIGN GAP: No weather context. Monsoon road ╬╝=0.35 vs dry ╬╝=0.8. Same lateral-G reading = 2.3x more dangerous on wet road. RECOMMENDATION: Integrate device GPS speed + weather API (even offline approximation from date/time + stored monsoon calendar for TN). Alternative: lower all thresholds by 30% if rainfall detected via microphone FFT.
+  Γ¥î FAIL  C2 Railway Crossing Vibration FP
+          ΓåÆ Railway crossing vibration triggered 4 false alerts. TN has 4,500+ level crossings. This system will cry wolf multiple times per commute.
+  Γ£à PASS  C3 Cattle-on-Road Swerve Detection
+          ΓåÆ Cattle-avoidance swerve detected: severity=HIGH
+  ≡ƒÆÇ CRITICAL_FAIL  C4 Thermal Throttling ΓÇö CPU at 55┬░C
+          ΓåÆ DESIGN GAP: No thermal throttling protection. Under Chennai summer + direct sunlight: ONNX inference latency can spike 13x. IMUBuffer ring-buffer will drop 15+ critical samples during a crash event. RECOMMENDATION: (1) Add inference_latency_ms monitoring. (2) If latency > 30ms, drop to DETERMINISTIC mode automatically. (3) Add a watchdog that checks processed_samples_per_second ΓëÑ 90.
+  ≡ƒÆÇ CRITICAL_FAIL  D1 ONNX Crash ΓÇö No Watchdog
+          ΓåÆ NO WATCHDOG EXISTS. If ONNX session crashes mid-ride, detector silently falls back to DETERMINISTIC mode with NO user notification. Rider has no idea the ML-powered detection is dead. REQUIREMENT: Add health_check() ΓåÆ emit TTS 'AI degraded, basic mode' alert.
+  Γ¥î FAIL  D2 IMU Gap ΓÇö Missing 200ms of Data
+          ΓåÆ IMUBuffer has no timestamp validation. A 200ms IMU gap cannot be detected internally. Stale data from pre-gap rides can dilute the crash signature. RECOMMENDATION: Store timestamps per sample; reject window if gap > 50ms detected.
+  ≡ƒÆÇ CRITICAL_FAIL  D3 Battery 15% ΓÇö Silent Degradation
+          ΓåÆ DESIGN GAP: No battery level monitoring. At <20% battery, Android OS WILL throttle the sensor sampling rate and may kill the NNAPI background process. The system should: (1) Monitor battery level via Android API. (2) At <20%: emit TTS warning 'Low battery, detection may degrade'. (3) At <10%: force DETERMINISTIC mode, reduce inference rate to 2Hz. A rider relying on this system at 8% battery on a highway = false safety.
+  Γ£à PASS  D4 Thread Safety ΓÇö IMUBuffer Race Cond.
+          ΓåÆ No race condition detected in 1s concurrent test (run longer for confidence)
+  ≡ƒÆÇ CRITICAL_FAIL  E1 Section 208 ΓÇö No Distance Measurement
+          ΓåÆ Section 208 resolver accepts boolean `signage_detected`, NOT distance. A sign at 499m (challenge valid) vs 501m (no challenge) is legally decisive. Current implementation: any sign anywhere = 'signage_detected=True' ΓåÆ no challenge. This will fail in court. IRC:67 requires sign WITHIN 500m UPSTREAM. Fix: resolver must accept (camera_gps, sign_gps) and compute haversine distance.
+  Γ¥î FAIL  E2 Audit Document Completeness
+          ΓåÆ Audit document missing: No evidence hash, No IST timestamp, No RTO addressee. Document may be inadmissible.
+  Γ£à PASS  E3 MVA 2019 Section Numbers Correct
+          ΓåÆ All MVA 2019 section numbers correct
+  ≡ƒÆÇ CRITICAL_FAIL  F1 TTS Queue Saturation ΓÇö Crash Already Over
+          ΓåÆ DESIGN GAP: pyttsx3 is synchronous/blocking. A 3-word CRITICAL alert ('Hard brake detected!') takes ~1.2 seconds on Dimensity 700. A compound event queues 3 alerts = 3.6 seconds of audio. The crash resolves in 0.3-0.8 seconds. Alerts play AFTER impact. REQUIREMENT: (1) CRITICAL alert must be Γëñ 3 words. (2) New CRITICAL interrupt MUST flush the queue and preempt. (3) Target: <80ms from event detection to first audio byte. Current architecture cannot do this.
+  Γ¥î FAIL  F2 Tamil Language for CRITICAL Alerts
+          ΓåÆ DESIGN GAP: Single TTS language hardcoded. 60%+ of TN two-wheeler riders are more fluent in Tamil than English. A CRITICAL alert in an unfamiliar language during panic = ignored. REQUIREMENT: User onboarding must select language. CRITICAL alerts must play in: Tamil first, then English fallback. The Bhashini TTS model is already in the stack ΓÇö use it properly.
+  ≡ƒÆÇ CRITICAL_FAIL  G1 BLE Mesh ΓÇö Stale Hazard Replay Attack
+          ΓåÆ No hazard expiry in BLE mesh protocol. TTL=7 hops + mesh_ttl field counts hops only. A POTHOLE alert can circulate for hours. Riders will brake hard for phantom hazards. REQUIREMENT: Add 'expiry_epoch_ms' to HAZARD_ALERT. Reject any hazard older than 300 seconds (5 min for potholes, 30 min for construction).
+  ≡ƒÆÇ CRITICAL_FAIL  G2 BLE Mesh ΓÇö Spoofed Hazard Injection
+          ΓåÆ BLE mesh HAZARD_ALERT has no cryptographic signature field. AES-128-CCM protects confidentiality but NOT authenticity of sender. Attack: rogue BLE device broadcasts fake SPEED_TRAP_NO_SIGNAGE ΓåÆ every nearby rider gets phantom legal challenge ΓåÆ mass highway confusion. ZKP envelope (zkp_envelope.py T-014) exists for telemetry but NOT for mesh messages. REQUIREMENT: Add Pedersen commitment or HMAC-SHA256 to HAZARD_ALERT signature field.
+  Γ£à PASS  H1 1% Below Critical ΓÇö Still Dangerous
+          ΓåÆ lateral_g=0.6440g (threshold=0.65g) ΓåÆ HIGH
+  Γ¥î FAIL  H2 TCN Score Fence-Post at 0.65
+          ΓåÆ anomaly_score_threshold=0.65 creates a hard fence-post decision. TCN score of 0.649 vs 0.651 = different outcomes with no physical basis. This threshold was set without validation against real iRAD crash telemetry. REQUIREMENT: Validate threshold using ROC curve on actual TN crash dataset. Until then, consider lowering to 0.60 (higher recall, lower precision) ΓÇö in life-safety systems, false negatives are worse than false positives.
+  ≡ƒÆÇ CRITICAL_FAIL  I1 TCN Has No Trained Weights
+          ΓåÆ TCN produces score=0.5229 on zero input (untrained). The neural network has NO trained weights. In ONNX_INT8_NPU mode, if an ONNX file is loaded, it is an untrained export ΓÇö equivalent to random noise. REQUIREMENT: (1) Collect real iRAD crash telemetry. (2) Train TCN with minimum 5,000 labeled near-miss events. (3) Validate: precision ΓëÑ 0.90, recall ΓëÑ 0.95 on held-out TN data. Until then: DISABLE ONNX mode. Use DETERMINISTIC only. Be honest about it.
+  ≡ƒÆÇ CRITICAL_FAIL  I2 IDD vs Roboflow Dataset Mismatch
+          ΓåÆ README claims IDD-trained YOLOv8-nano. fetch_vision_models.py downloads 'road-signs-indian-p2kgu' from Roboflow (crowd-sourced, not IDD). IDD dataset is from IIT Hyderabad ΓÇö requires separate access. These are DIFFERENT training distributions. The model's claimed provenance is wrong. If presented to IIT Madras CoERS judges: this inconsistency will be caught. FIX: Either (a) actually use IDD weights, or (b) correct README to say 'Roboflow dataset'. Do NOT misrepresent training data to a safety-research audience.
+  Γ¥î FAIL  J1 Phone Drop ΓÇö False Crash Alert
+          ΓåÆ Phone drop triggered 0 event(s). No free-fall detection guard exists. A dropped phone = false crash alert. RECOMMENDATION: Detect free-fall (all-axis accel < 0.5g for > 50ms) ΓåÆ enter 'SENSOR_DISCONNECTED' state, suppress alerts for 3s, emit 'Check device mount'.
+  Γ¥î FAIL  J2 Wrong-Way Head-On ΓÇö No Cross-Agent Corr
+          ΓåÆ DESIGN GAP: No cross-agent correlation for head-on scenarios. Vision (oncoming vehicle in lane) + IMU (emergency brake) together = head-on. Separate: both are generic alerts. Together: specific 'WRONG-WAY VEHICLE' warning. This distinction matters for TTS message content and BLE hazard type selection. 5.8% of TN highway fatalities = wrong-way. This is a named scenario, not an edge case.
+  ≡ƒÆÇ CRITICAL_FAIL  J3 100 km/h Highway Speed-Blind Threshold
+          ΓåÆ SPEED-BLIND THRESHOLDS. Current LATERAL_G_MEDIUM=0.3g is applied at all speeds. At 100 km/h: 0.30g lateral = 81.7 m/s┬▓ centripetal ΓÇö exceeds tyre grip limit on most TN highway surfaces. Physics: safe lateral-G_max = ╬╝ ├ù g / (1 + speed_factor). REQUIREMENT: If GPS speed > 60 km/h, reduce all thresholds by 40%. At 100 km/h: LATERAL_G_CRITICAL should be 0.35g, not 0.65g. This is not a feature ΓÇö it is a fundamental safety calculation error.
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  FINAL VERDICT
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+  Total Tests : 32
+  Γ£à PASS     : 8
+  Γ¥î FAIL     : 10
+  ΓÜá∩╕Å  WARN     : 3
+  ≡ƒÆÇ CRITICAL : 11
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  CRITICAL FAILURES (Fix Before Any Real-World Test):
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    ≡ƒÆÇ A4 Gravity Calibration While Moving
+    ≡ƒÆÇ C4 Thermal Throttling ΓÇö CPU at 55┬░C
+    ≡ƒÆÇ D1 ONNX Crash ΓÇö No Watchdog
+    ≡ƒÆÇ D3 Battery 15% ΓÇö Silent Degradation
+    ≡ƒÆÇ E1 Section 208 ΓÇö No Distance Measurement
+    ≡ƒÆÇ F1 TTS Queue Saturation ΓÇö Crash Already Over
+    ≡ƒÆÇ G1 BLE Mesh ΓÇö Stale Hazard Replay Attack
+    ≡ƒÆÇ G2 BLE Mesh ΓÇö Spoofed Hazard Injection
+    ≡ƒÆÇ I1 TCN Has No Trained Weights
+    ≡ƒÆÇ I2 IDD vs Roboflow Dataset Mismatch
+    ≡ƒÆÇ J3 100 km/h Highway Speed-Blind Threshold
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  DESIGN GAPS (Required Before Pilot Deployment):
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    Γ¥î A3 U-Turn vs Skid Discrimination
+    Γ¥î B1 Drunk Rider Micro-Correction Pattern
+    Γ¥î B2 Medical Emergency / Seizure Signature
+    Γ¥î B3 Road Rage Tailgating Pre-Signal
+    Γ¥î B4 Pillion Rider Weight ΓÇö Threshold Bias
+    Γ¥î C1 Monsoon ΓÇö No Weather Context
+    Γ¥î C2 Railway Crossing Vibration FP
+    Γ¥î E2 Audit Document Completeness
+    Γ¥î F2 Tamil Language for CRITICAL Alerts
+    Γ¥î J2 Wrong-Way Head-On ΓÇö No Cross-Agent Corr
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  VERDICT: Γ¢ö NOT READY FOR REAL-WORLD USE
+  11 critical flaw(s) found that could cause missed crash detection
+  or active harm to a rider depending on this system.
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
