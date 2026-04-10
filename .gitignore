@@ -39,6 +39,23 @@ secrets/
 *.env
 
 
+# Large Video / Camera Footage
+# NOTE: Do NOT use PowerShell's >> operator to add lines here — it writes UTF-16,
+# which Git cannot parse. Instead use: Add-Content -Encoding UTF8 .gitignore "*.mp4"
+# or simply edit this file directly in VS Code / Notepad.
+*.mp4
+*.ts                # MPEG Transport Stream (camera footage) — not TypeScript; this is a Python-only project
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.mpg
+*.mpeg
+360camvideo
+
 # Logs & Telemetry Dumps
 *.log
 telemetry_dumps/
