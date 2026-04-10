@@ -21,8 +21,8 @@ ROBO_KEY = os.getenv("ROBOFLOW_API_KEY")
 HF_KEY = os.getenv("HF_TOKEN")
 
 # Output directories — override via environment variables if needed
-VISION_MODELS_DIR = os.getenv("VISION_MODELS_DIR", VISION_MODEL_DIR)
-LLM_MODELS_DIR = os.getenv("LLM_MODELS_DIR", LLM_MODEL_DIR)
+vision_output_dir = os.getenv("VISION_MODELS_DIR", VISION_MODEL_DIR)
+llm_output_dir = os.getenv("LLM_MODELS_DIR", LLM_MODEL_DIR)
 
 def finalize():
     print("FINALIZING_MODELS_FOR_EDGE_SENTINEL.")
@@ -39,8 +39,8 @@ def finalize():
                 model = YOLO(src1)
                 model.export(format="onnx")
                 onnx_src1 = src1.replace(".pt", ".onnx")
-                os.makedirs(VISION_MODELS_DIR, exist_ok=True)
-                shutil.copy(onnx_src1, os.path.join(VISION_MODELS_DIR, "indian_traffic_signs_yolov8n.onnx"))
+                os.makedirs(vision_output_dir, exist_ok=True)
+                shutil.copy(onnx_src1, os.path.join(vision_output_dir, "indian_traffic_signs_yolov8n.onnx"))
                 print("SUCCESS: Legal Signage Auditor (ONNX).")
         except Exception as e:
             print(f"ERR_SIGNAGE: {e}")
@@ -56,8 +56,8 @@ def finalize():
                 model = YOLO(src2)
                 model.export(format="onnx")
                 onnx_src2 = src2.replace(".pt", ".onnx")
-                os.makedirs(VISION_MODELS_DIR, exist_ok=True)
-                shutil.copy(onnx_src2, os.path.join(VISION_MODELS_DIR, "indian_vehicles_chaos_yolov8n.onnx"))
+                os.makedirs(vision_output_dir, exist_ok=True)
+                shutil.copy(onnx_src2, os.path.join(vision_output_dir, "indian_vehicles_chaos_yolov8n.onnx"))
                 print("SUCCESS: V2X Hazard Monitor (ONNX).")
         except Exception as e:
             print(f"ERR_CHAOS (IDD): {e}")
@@ -66,14 +66,14 @@ def finalize():
 
     # 3. LLM: Edge Legal
     try:
-        os.makedirs(LLM_MODELS_DIR, exist_ok=True)
+        os.makedirs(llm_output_dir, exist_ok=True)
         path = hf_hub_download(
             repo_id="microsoft/Phi-3-mini-4k-instruct-gguf",
             filename="Phi-3-mini-4k-instruct-q4.gguf",
-            local_dir=LLM_MODELS_DIR,
+            local_dir=llm_output_dir,
             token=HF_KEY
         )
-        dest_llm = os.path.join(LLM_MODELS_DIR, "phi-3-mini-4k-instruct-q4.gguf")
+        dest_llm = os.path.join(llm_output_dir, "phi-3-mini-4k-instruct-q4.gguf")
         if os.path.exists(path) and path != dest_llm:
             shutil.copy(path, dest_llm)
         print(f"SUCCESS: Edge Legal Reasoner.")

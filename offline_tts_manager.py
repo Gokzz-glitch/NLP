@@ -20,7 +20,6 @@ class OfflineTTSManager:
 
     def _setup_worker(self):
         def worker():
-            logger = logging.getLogger("edge_sentinel.tts.worker")
             while True:
                 priority, _seq, _enqueued_at, message = self.interrupt_queue.get()
                 try:

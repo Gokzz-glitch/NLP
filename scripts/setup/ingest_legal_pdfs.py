@@ -2,13 +2,13 @@ import os
 import sys
 import pdfplumber
 from dotenv import load_dotenv
-from config import RAW_DATA_DIR
+from config import RAW_DATA_DIR as _CONFIG_RAW_DATA_DIR
 
 # Initialize Env
 load_dotenv()
 
 # Allow env var override of the data directory
-RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", RAW_DATA_DIR)
+RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", _CONFIG_RAW_DATA_DIR)
 PDF_FILES = [
     "Motor Vehicle Amendment Act 2019.pdf",
     "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",

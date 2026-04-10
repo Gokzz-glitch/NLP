@@ -13,7 +13,10 @@ except ImportError:
     # Fallback to env var check for various Colab environments
     IN_COLAB = any(k in os.environ for k in ['COLAB_GPU', 'COLAB_JUPYTER_IP', 'COLAB_RELEASE_TAG'])
 
-PROJECT_ROOT = "/content/drive/My Drive/NLP" if IN_COLAB else os.getcwd()
+PROJECT_ROOT = os.environ.get(
+    "NLP_PROJECT_ROOT",
+    "/content/drive/My Drive/NLP" if IN_COLAB else os.getcwd(),
+)
 
 # Runtime policy: local small jobs use a dedicated interpreter, heavy jobs prefer Colab.
 DEFAULT_SMALL_JOB_PYTHON = os.environ.get("SMALL_JOB_PYTHON", sys.executable)
