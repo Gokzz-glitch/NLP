@@ -1,10 +1,3 @@
-import os
-import sys
-try:
-    import osmium
-except ImportError:
-    osmium = None
-
 """
 etl/spatial_database_init.py
 SmartSalai Edge-Sentinel — Persona 6: Spatial Database Initialization
@@ -29,10 +22,17 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import sqlite3
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple
+
+try:
+    import osmium
+except ImportError:
+    osmium = None
 
 logger = logging.getLogger("edge_sentinel.etl.spatial_database_init")
 logger.setLevel(logging.DEBUG)
@@ -47,105 +47,99 @@ SCHEMA_VERSION = "1.1.0"
 
 class SpatialDatabaseManager:
 
-        def enable_spatialite(self):
-            """Enable Spatialite extension for geospatial support."""
-            try:
-                self.conn.enable_load_extension(True)
-                # Try common names for the extension
-                for ext in ["mod_spatialite", "spatialite"]:
-                    try:
-                        self.conn.load_extension(ext)
-                        logger.info(f"Spatialite extension loaded: {ext}")
-                        return
-                    except Exception:
-                        continue
-                logger.warning("Spatialite extension not loaded. Geospatial features may not work.")
-            except Exception as e:
-                logger.warning(f"Spatialite extension load failed: {e}")
-
-        def create_osm_roads_table(self):
-            """Create OSM roads table with geometry."""
-            cursor = self.conn.cursor()
-            cursor.execute("""
-            CREATE TABLE IF NOT EXISTS osm_roads (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                osm_id TEXT,
-                highway TEXT,
-                ref TEXT,
-                name TEXT,
-                geom BLOB
-            );
-            """)
-            # Add spatial index if possible
-            try:
-                cursor.execute("SELECT InitSpatialMetaData(1);")
-                cursor.execute("SELECT AddGeometryColumn('osm_roads', 'geom', 4326, 'LINESTRING', 'XY');")
-            except Exception:
-                pass
-            self.conn.commit()
-
-        def insert_osm_road(self, osm_id, highway, ref, name, wkt_linestring):
-            cursor = self.conn.cursor()
-            try:
-                cursor.execute(
-                    """
-                    INSERT INTO osm_roads (osm_id, highway, ref, name, geom)
-                    VALUES (?, ?, ?, ?, GeomFromText(?, 4326))
-                    """,
-                    (osm_id, highway, ref, name, wkt_linestring)
-                )
-                self.conn.commit()
-            except Exception as e:
-                logger.error(f"Insert OSM road failed: {e}")
-                self.conn.rollback()
-
-    def load_osm_pbf(filepath, db_path=DEFAULT_DB_PATH):
-        """
-        Ingest OSM PBF file, extract road segments, and store as LineStrings in SQLite/Spatialite.
-        Args:
-            filepath: Path to .osm.pbf file
-            db_path: Path to SQLite DB
-        """
-        if osmium is None:
-            raise ImportError("osmium required: pip install osmium")
-        db = SpatialDatabaseManager(db_path)
-        db.enable_spatialite()
-        db.create_osm_roads_table()
-
-        class RoadHandler(osmium.SimpleHandler):
-            def __init__(self, db):
-                super().__init__()
-                self.db = db
-            def way(self, w):
-                tags = w.tags
-                highway = tags.get("highway", None)
-                if not highway:
-                    return
-                ref = tags.get("ref", None)
-                name = tags.get("name", None)
-                # Only keep major roads
-                if highway not in {"primary", "trunk", "secondary", "residential"}:
-                    return
+    def enable_spatialite(self):
+        """Enable Spatialite extension for geospatial support."""
+        try:
+            self.conn.enable_load_extension(True)
+            # Try common names for the extension
+            for ext in ["mod_spatialite", "spatialite"]:
                 try:
-                    coords = [(n.lat, n.lon) for n in w.nodes]
-                    if len(coords) < 2:
-                        return
-                    # WKT: LINESTRING(lon1 lat1, lon2 lat2, ...)
-                    wkt = "LINESTRING (" + ", ".join(f"{lon} {lat}" for lat, lon in coords) + ")"
-                    self.db.insert_osm_road(str(w.id), highway, ref, name, wkt)
-                except Exception as e:
-                    logger.error(f"Failed to ingest way {w.id}: {e}")
+                    self.conn.load_extension(ext)
+                    logger.info(f"Spatialite extension loaded: {ext}")
+                    return
+                except Exception:
+                    continue
+            logger.warning("Spatialite extension not loaded. Geospatial features may not work.")
+        except Exception as e:
+            logger.warning(f"Spatialite extension load failed: {e}")
 
-        handler = RoadHandler(db)
-        logger.info(f"Starting OSM PBF ingest: {filepath}")
-        handler.apply_file(filepath, locations=True)
-        logger.info("OSM PBF ingest complete.")
+    def create_osm_roads_table(self):
+        """Create OSM roads table with geometry."""
+        cursor = self.conn.cursor()
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS osm_roads (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            osm_id TEXT,
+            highway TEXT,
+            ref TEXT,
+            name TEXT,
+            geom BLOB
+        );
+        """)
+        # Add spatial index if possible
+        try:
+            cursor.execute("SELECT InitSpatialMetaData(1);")
+            cursor.execute("SELECT AddGeometryColumn('osm_roads', 'geom', 4326, 'LINESTRING', 'XY');")
+        except Exception:
+            pass
+        self.conn.commit()
+
+    def insert_osm_road(self, osm_id, highway, ref, name, wkt_linestring):
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(
+                """
+                INSERT INTO osm_roads (osm_id, highway, ref, name, geom)
+                VALUES (?, ?, ?, ?, GeomFromText(?, 4326))
+                """,
+                (osm_id, highway, ref, name, wkt_linestring)
+            )
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"Insert OSM road failed: {e}")
+            self.conn.rollback()
+
+def load_osm_pbf(filepath, db_path=DEFAULT_DB_PATH):
     """
-    SQLite3 backend for spatial and legal document queries.
-    
-    Provides atomic transactions, ACID compliance, and full-text search
-    for offline-first edge devices (Android 8.0+).
+    Ingest OSM PBF file, extract road segments, and store as LineStrings in SQLite/Spatialite.
+    Args:
+        filepath: Path to .osm.pbf file
+        db_path: Path to SQLite DB
     """
+    if osmium is None:
+        raise ImportError("osmium required: pip install osmium")
+    db = SpatialDatabaseManager(db_path)
+    db.enable_spatialite()
+    db.create_osm_roads_table()
+
+    class RoadHandler(osmium.SimpleHandler):
+        def __init__(self, db):
+            super().__init__()
+            self.db = db
+        def way(self, w):
+            tags = w.tags
+            highway = tags.get("highway", None)
+            if not highway:
+                return
+            ref = tags.get("ref", None)
+            name = tags.get("name", None)
+            # Only keep major roads
+            if highway not in {"primary", "trunk", "secondary", "residential"}:
+                return
+            try:
+                coords = [(n.lat, n.lon) for n in w.nodes]
+                if len(coords) < 2:
+                    return
+                # WKT: LINESTRING(lon1 lat1, lon2 lat2, ...)
+                wkt = "LINESTRING (" + ", ".join(f"{lon} {lat}" for lat, lon in coords) + ")"
+                self.db.insert_osm_road(str(w.id), highway, ref, name, wkt)
+            except Exception as e:
+                logger.error(f"Failed to ingest way {w.id}: {e}")
+
+    handler = RoadHandler(db)
+    logger.info(f"Starting OSM PBF ingest: {filepath}")
+    handler.apply_file(filepath, locations=True)
+    logger.info("OSM PBF ingest complete.")
 
     def __init__(self, db_path: str = DEFAULT_DB_PATH):
         """

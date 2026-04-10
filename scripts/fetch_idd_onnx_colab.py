@@ -13,7 +13,8 @@ from core.secret_manager import get_secret
 try:
     from roboflow import Roboflow
 except ImportError:
-    !pip install -q roboflow ultralytics
+    import subprocess, sys
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "roboflow", "ultralytics"])
     from roboflow import Roboflow
 
 from ultralytics import YOLO

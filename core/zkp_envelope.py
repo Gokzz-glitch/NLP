@@ -41,6 +41,12 @@ logger = logging.getLogger("edge_sentinel.core.zkp_envelope")
 
 ENVELOPE_VERSION = "ZKP-1.0"
 
+# AES key derivation salt — loaded from env so it's not embedded in source.
+# Minimum 32 bytes (256 bits). Falls back to a derived constant only if env
+# is not set (dev/test mode), but a warning is emitted.
+_ZKP_AES_SALT_ENV = "ZKP_AES_DERIVE_SALT"
+_ZKP_AES_SALT_DEFAULT = b"SmartSalai-ZKP-AES-KEY-v1"  # used only when env is absent
+
 # ---------------------------------------------------------------------------
 # Part 1: GPS coordinate coarsening (pipeline stub, T-014 backlog for Groth16)
 # ---------------------------------------------------------------------------
@@ -114,8 +120,26 @@ def _pedersen_commit(value: int, blinding: int) -> int:
 
 
 def _derive_aes_key(blinding_bytes: bytes) -> bytes:
-    """HKDF-like 256-bit key from blinding bytes."""
-    return hmac.new(b"SmartSalai-ZKP-AES-KEY-v1", blinding_bytes, "sha3_256").digest()[:32]
+    """HKDF-like 256-bit key from blinding bytes.
+
+    The derivation salt is read from the ``ZKP_AES_DERIVE_SALT`` environment
+    variable (hex-encoded). If not set, a compile-time default is used and a
+    warning is logged — never deploy to production without this env var.
+    """
+    salt_hex = os.environ.get(_ZKP_AES_SALT_ENV, "").strip()
+    if salt_hex:
+        try:
+            salt = bytes.fromhex(salt_hex)
+        except ValueError:
+            logger.error("ZKP_AES_DERIVE_SALT is not valid hex; falling back to default salt")
+            salt = _ZKP_AES_SALT_DEFAULT
+    else:
+        logger.warning(
+            "ZKP_AES_DERIVE_SALT env var is not set; using default salt. "
+            "Set ZKP_AES_DERIVE_SALT to a 64-char hex string in production."
+        )
+        salt = _ZKP_AES_SALT_DEFAULT
+    return hmac.new(salt, blinding_bytes, "sha3_256").digest()[:32]
 
 
 def _aes_gcm_encrypt(plaintext: bytes, key: bytes) -> Tuple[bytes, bytes]:

@@ -93,67 +93,128 @@ class AgentBus:
         self.max_history = 500  # Keep last N events for debugging
         # [REMEDIATION #5]: Managed ThreadPool for sync callbacks [CWE-400]
         self._executor = ThreadPoolExecutor(max_workers=20, thread_name_prefix="BusWorker")
-    
+        self._running = False
+
+    def start(self) -> None:
+        """Start (or restart) the bus — idempotent and test-safe."""
+        with self._lock:
+            if not self._running:
+                # Refresh executor in case stop() was called previously
+                try:
+                    self._executor.shutdown(wait=False)
+                except Exception:
+                    pass
+                self._executor = ThreadPoolExecutor(max_workers=20, thread_name_prefix="BusWorker")
+                self._running = True
+
+    def stop(self) -> None:
+        """Shut down the bus cleanly — flushes in-flight callbacks."""
+        with self._lock:
+            self._running = False
+        self._executor.shutdown(wait=True)
+
     def shutdown(self):
-        """Cleanly shutdown the thread pool"""
-        self._executor.shutdown(wait=False)
+        """Cleanly shutdown the thread pool (alias for stop())."""
+        self.stop()
     
     def subscribe(self, event_type: str, callback: Callable[[Any], None], name: str = None):
         """
         Register callback for event type.
-        
+
+        Supports wildcard ``"*"`` to receive every published event as a
+        :class:`BusMessage`.  The callback receives a ``BusMessage`` when the
+        event was dispatched via :meth:`publish`; it receives the raw payload
+        when dispatched via :meth:`emit`.
+
         Args:
-            event_type: One of EVENT_TYPES keys
+            event_type: One of EVENT_TYPES keys, a dot-notation topic, or ``"*"``
             callback: Function(payload) to execute on event
             name: Optional name for this subscription (for debugging)
         """
-        if event_type not in EVENT_TYPES and not event_type.startswith("CUSTOM_"):
-            logger.warning(f"BUS_SUBSCRIBE: Unknown event type '{event_type}'")
-        
+        # Wildcard and dot-notation topics are intentional — suppress the noise.
+        is_known = event_type in EVENT_TYPES or event_type.startswith("CUSTOM_")
+        is_wildcard = event_type == "*"
+        has_dot = "." in event_type
+
+        if not is_known and not is_wildcard and not has_dot:
+            logger.debug(f"BUS_SUBSCRIBE: Unknown event type '{event_type}'")
+
         with self._lock:
             self._subscribers[event_type].append(callback)
             self._metrics[event_type]["subscriber_count"] = len(self._subscribers[event_type])
             logger.info(f"BUS_SUBSCRIBE: {event_type} ({name or 'anonymous'})")
-    
+
     def emit(self, event_type: str, payload: Any):
         """
-        Dispatch event to all subscribers.
-        
+        Dispatch event to all subscribers with raw payload.
+
         Args:
             event_type: One of EVENT_TYPES keys
             payload: Event data (dict or object with .to_dict())
         """
+        self._dispatch(event_type, payload)
+
+    def _dispatch(self, event_type: str, payload: Any, envelope: "BusMessage" = None):
+        """Internal dispatch — delivers to specific-topic and wildcard subscribers.
+
+        When *envelope* is provided, wildcard ``"*"`` subscribers receive the
+        full :class:`BusMessage`; specific-topic subscribers also receive it
+        (instead of the raw dict) so that ``msg.topic`` / ``msg.params`` are
+        available.  Without an envelope the raw payload is forwarded.
+        """
         emit_time = time.time()
-        
+
         with self._lock:
-            callbacks = self._subscribers.get(event_type, []).copy()
+            topic_callbacks = self._subscribers.get(event_type, []).copy()
+            wildcard_callbacks = self._subscribers.get("*", []).copy()
             self._metrics[event_type]["emit_count"] += 1
             self._metrics[event_type]["last_emitted_at"] = emit_time
-        
-        # Log event
-        payload_str = json.dumps(payload, default=str) if isinstance(payload, dict) else str(payload)
-        logger.info(f"BUS_EMIT: {event_type} | {len(callbacks)} subscribers")
-        
+
+        logger.info(
+            f"BUS_EMIT: {event_type} | {len(topic_callbacks)} topic + "
+            f"{len(wildcard_callbacks)} wildcard subscribers"
+        )
+
         # Record in history
         with self._lock:
             self._history.append({
                 "event_type": event_type,
                 "timestamp": emit_time,
                 "payload_type": type(payload).__name__,
-                "subscriber_count": len(callbacks),
+                "subscriber_count": len(topic_callbacks) + len(wildcard_callbacks),
             })
             if len(self._history) > self.max_history:
                 self._history = self._history[-self.max_history:]
-        
-        # 4. Execute callbacks asynchronously to prevent deadlocks [CWE-662]
+
+        # Topic-specific subscribers get the envelope (if provided) or raw payload.
+        topic_arg = envelope if envelope is not None else payload
+        self._run_callbacks(topic_callbacks, topic_arg, event_type)
+
+        # Wildcard subscribers always get the envelope (wrapping if needed).
+        if wildcard_callbacks:
+            wild_msg = envelope if envelope is not None else BusMessage(
+                topic=event_type, params=payload if isinstance(payload, dict) else {}
+            )
+            self._run_callbacks(wildcard_callbacks, wild_msg, event_type)
+
+    def _run_callbacks(self, callbacks, arg, event_type: str):
+        """Dispatch a list of callbacks safely, handling both sync and async."""
         for callback in callbacks:
             try:
-                # Wrap in task so slow agents don't block the emitter
                 if asyncio.iscoroutinefunction(callback):
-                    asyncio.create_task(self._safe_callback(callback, payload, event_type))
+                    # [CWE-662]: Don't blindly call create_task — it requires a
+                    # running loop in the current thread.  Use run_coroutine_threadsafe
+                    # when a loop is running, otherwise schedule via the executor.
+                    try:
+                        loop = asyncio.get_running_loop()
+                        loop.create_task(self._safe_callback(callback, arg, event_type))
+                    except RuntimeError:
+                        # No running event loop in this thread; schedule it.
+                        self._executor.submit(
+                            asyncio.run, self._safe_callback(callback, arg, event_type)
+                        )
                 else:
-                    # [REMEDIATION #5]: Offload to managed pool instead of raw Thread().start()
-                    self._executor.submit(self._safe_sync_callback, callback, payload, event_type)
+                    self._executor.submit(self._safe_sync_callback, callback, arg, event_type)
             except Exception as e:
                 logger.error(f"BUS_DISPATCH_ERROR: {event_type} | {e}")
 
@@ -220,9 +281,21 @@ class AgentBus:
         with self._lock:
             self._history.clear()
 
-    def publish(self, event_type: str, data: Any) -> None:
-        """Alias for emit() — compatibility with agents using the JSON-RPC 2.0 bus API."""
-        self.emit(event_type, data)
+    def publish(self, topic: str, params: Any) -> None:
+        """Publish a :class:`BusMessage` envelope to all subscribers.
+
+        Subscribers receive the full ``BusMessage`` (with ``.topic`` and
+        ``.params`` attributes) rather than the raw dict.  Wildcard ``"*"``
+        subscribers also receive the envelope.
+
+        This is the preferred API for newer agents. Legacy code should use
+        :meth:`emit` for raw payload dispatch.
+        """
+        envelope = BusMessage(
+            topic=topic,
+            params=params if isinstance(params, dict) else {},
+        )
+        self._dispatch(topic, params, envelope=envelope)
 
 
 # Global singleton instance
@@ -327,5 +400,11 @@ def get_bus() -> "AgentBus":
 
 
 def reset_bus() -> None:
-    """No-op kept for compatibility with test harnesses."""
-    pass
+    """Reset the singleton bus — clears all subscribers and history.
+
+    Intended for use in test harnesses to ensure clean state between tests.
+    """
+    with AgentBus._lock:
+        AgentBus._instance._subscribers.clear()
+        AgentBus._instance._history.clear()
+        AgentBus._instance._metrics.clear()
