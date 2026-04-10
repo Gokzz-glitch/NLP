@@ -1,77 +1,4 @@
 """
-<<<<<<< HEAD
-Sign Auditor Agent (Persona 3)
-- Loads YOLOv8 model (ONNX or Ultralytics)
-- Processes video (file or webcam)
-- Detects speed cameras and speed limit signs
-- Emits violation event if 500m rule is broken
-
-Author: SmartSalai Team
-License: AGPL3.0
-"""
-
-import cv2
-import numpy as np
-from pathlib import Path
-import time
-import json
-
-# Placeholder for YOLOv8 model loading (update with actual model path)
-MODEL_PATH = "yolov8n.pt"
-
-# Placeholder class names (update with actual class indices for your model)
-SPEED_CAMERA_CLASSES = ["speed_camera"]
-SPEED_LIMIT_CLASSES = ["speed_limit"]
-
-# --- Utility Functions ---
-def load_model(model_path):
-    # TODO: Replace with ONNX or Ultralytics YOLOv8 loader
-    # For now, just a stub
-    return None
-
-def detect_objects(model, frame):
-    # TODO: Replace with actual YOLOv8 inference
-    # Return list of (class_name, bbox, confidence)
-    return []
-
-# --- Main Auditor Logic ---
-def process_video(video_path, output_events_path="violation_events.json"):
-    model = load_model(MODEL_PATH)
-    cap = cv2.VideoCapture(str(video_path))
-    frame_idx = 0
-    speed_cameras = []
-    speed_limits = []
-    events = []
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
-        detections = detect_objects(model, frame)
-        for cls, bbox, conf in detections:
-            if cls in SPEED_CAMERA_CLASSES:
-                speed_cameras.append((frame_idx, bbox, conf))
-            elif cls in SPEED_LIMIT_CLASSES:
-                speed_limits.append((frame_idx, bbox, conf))
-        frame_idx += 1
-    # Simple rule: if speed camera within 500m (or N frames) of speed limit sign
-    for cam_idx, cam_bbox, cam_conf in speed_cameras:
-        for sign_idx, sign_bbox, sign_conf in speed_limits:
-            if 0 < (cam_idx - sign_idx) < 100:  # 100 frames as placeholder for 500m
-                events.append({
-                    "type": "500m_violation",
-                    "speed_camera_frame": cam_idx,
-                    "speed_limit_frame": sign_idx,
-                    "timestamp": time.time(),
-                })
-    with open(output_events_path, "w") as f:
-        json.dump(events, f, indent=2)
-    print(f"Detected {len(events)} violations. Events written to {output_events_path}")
-
-if __name__ == "__main__":
-    import sys
-    video_path = sys.argv[1] if len(sys.argv) > 1 else "sample_video.mp4"
-    process_video(video_path)
-=======
 agents/sign_auditor.py  (T-009)
 SmartSalai Edge-Sentinel — YOLOv8-nano Sign Classification + 500m Geofence
 
@@ -343,4 +270,3 @@ def get_agent() -> SignAuditorAgent:
         _agent = SignAuditorAgent()
         _agent.load()
     return _agent
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e

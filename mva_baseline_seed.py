@@ -197,14 +197,8 @@ BASELINE_DATA = [
 def seed_database():
     conn = sqlite3.connect('legal_vector_store.db')
     cursor = conn.cursor()
-<<<<<<< HEAD
-    
-    # Schema for MVA 2024 Update
-    cursor.execute('DROP TABLE IF EXISTS legal_statutes')
-=======
 
     # Schema for MVA Baseline
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS legal_statutes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -218,60 +212,6 @@ def seed_database():
         )
     ''')
 
-<<<<<<< HEAD
-    baseline_data = [
-        (
-            '183', 
-            'Punishment for speeding', 
-            'Whoever drives a motor vehicle in contravention of the speed limits referred to in section 112 shall be punishable... LMV: 1000-2000 INR, MPV/HPV: 2000-4000 INR.',
-            'INDIA',
-            datetime.datetime.now(),
-            2019,
-            'MVA_2019'
-        ),
-        (
-            '194D', 
-            'Penalty for not wearing protective headgear', 
-            'Whoever drives a motor cycle in contravention of the provisions of section 129 shall be punishable with a fine of one thousand rupees and disqualification for three months.',
-            'INDIA',
-            datetime.datetime.now(),
-            2019,
-            'MVA_2019'
-        ),
-        (
-            '115 (BS-VI)', 
-            'First Amendment Rules 2024', 
-            'Revised emission standards for Bharat Stage VI (BS-VI) vehicles. Mandatory compliance for all newly manufactured vehicles to adhere to real driving emission (RDE) norms.',
-            'INDIA',
-            datetime.datetime.now(),
-            2024,
-            'CMVR_AMENDMENT_2024_01'
-        ),
-        (
-            'Indirect Vision (Rules)', 
-            'Second Amendment Rules 2024', 
-            'Provisions for devices for indirect vision (including digital cameras and monitors) are now officially permitted for M, N, L5, and L7 categories, augmenting traditional rear-view mirrors.',
-            'INDIA',
-            datetime.datetime.now(),
-            2024,
-            'CMVR_AMENDMENT_2024_02'
-        ),
-        (
-            'L2-5 Modular Category', 
-            'Eighth Amendment Rules 2024', 
-            'New vehicle category L2-5 introduced for motor vehicles that combine 2-wheeler and 3-wheeler modules. Specific registration mark and chassis embossment rules revised.',
-            'INDIA',
-            datetime.datetime.now(),
-            2024,
-            'CMVR_AMENDMENT_2024_08'
-        )
-    ]
-
-    cursor.executemany('''
-        INSERT INTO legal_statutes (section, title, content, jurisdiction, last_updated, year, legal_source)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    ''', baseline_data)
-=======
     # Only insert sections not already present (idempotent re-seed)
     for row in BASELINE_DATA:
         section = row[0]
@@ -283,7 +223,6 @@ def seed_database():
                 'INSERT INTO legal_statutes (section, title, content, jurisdiction, last_updated) VALUES (?, ?, ?, ?, ?)',
                 row,
             )
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e
 
     conn.commit()
     conn.close()

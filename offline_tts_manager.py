@@ -22,7 +22,6 @@ class OfflineTTSManager:
         def worker():
             logger = logging.getLogger("edge_sentinel.tts.worker")
             while True:
-<<<<<<< HEAD
                 try:
                     priority, _, enqueued_at, message = self.interrupt_queue.get()
                     queue_wait_ms = (time.perf_counter() - enqueued_at) * 1000
@@ -35,14 +34,6 @@ class OfflineTTSManager:
                     logger.info("TTS_SPOKEN: synth_ms=%.1f text=%s", synth_ms, message[:80])
                 except Exception as e:
                     logger.error(f"TTS_WORKER_CRASHED: {e}")
-=======
-                priority, message = self.interrupt_queue.get()
-                try:
-                    self.engine.say(message)
-                    self.engine.runAndWait()
-                except Exception as e:
-                    print(f"PERSONA_4_ERROR: TTS engine failure: {e}")
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e
                 finally:
                     self.interrupt_queue.task_done()
         

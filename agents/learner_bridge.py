@@ -43,7 +43,7 @@ class SelfSupervisedBridge:
         """
         timestamp = int(time.time())
         temp_frame_path = f"raw_data/self_labeled/jerk_{timestamp}.jpg"
-        dashcam_path = "Testing videos/dashcam.mp4"
+        dashcam_path = os.getenv("VIDEO_SOURCE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "raw_data", "videos", "dashcam.mp4"))
         
         try:
             if not os.path.exists("raw_data/self_labeled"):
