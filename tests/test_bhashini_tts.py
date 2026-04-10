@@ -30,7 +30,7 @@ from core.bhashini_tts import BhashiniTTSClient, BhashiniUnavailableError
 # Fixtures
 # ---------------------------------------------------------------------------
 
-def _mock_discovery_response(lang: str = "ta", callback_url: str = "https://bhashini.example/tts",
+def _mock_discovery_response(lang: str = "ta", callback_url: str = "https://api.bhashini.gov.in/tts",
                               service_id: str = "svc-ta-001") -> bytes:
     """Build a minimal valid Bhashini pipeline discovery response JSON."""
     body = {
@@ -125,11 +125,11 @@ class TestDiscoverPipeline:
 
     def test_returns_callback_url(self):
         client = self._client()
-        disc_resp = _mock_discovery_response(callback_url="https://cb.example/tts")
+        disc_resp = _mock_discovery_response(callback_url="https://api.bhashini.gov.in/tts")
         mock_cm = _make_mock_urlopen(disc_resp)
         with patch("urllib.request.urlopen", return_value=mock_cm):
             url, sid = client._discover_pipeline("ta")
-        assert url == "https://cb.example/tts"
+        assert url == "https://api.bhashini.gov.in/tts"
 
     def test_returns_service_id(self):
         client = self._client()
@@ -286,9 +286,18 @@ class TestSynthesizeAndPlay:
         b64 = base64.b64encode(audio).decode()
         mock_cm = _make_mock_urlopen(_mock_inference_response(b64))
         with patch("urllib.request.urlopen", return_value=mock_cm):
-            # Patch subprocess.run to raise FileNotFoundError (aplay/afplay absent)
-            with patch("subprocess.run", side_effect=FileNotFoundError):
-                result = client.synthesize_and_play("test", lang="ta")
+            # Simulate pyaudio being unavailable by removing it from sys.modules
+            # and blocking its import, then block all subprocess audio players.
+            saved = sys.modules.pop("pyaudio", None)
+            try:
+                sys.modules["pyaudio"] = None  # type: ignore[assignment]
+                with patch("subprocess.run", side_effect=FileNotFoundError):
+                    result = client.synthesize_and_play("test", lang="ta")
+            finally:
+                if saved is None:
+                    sys.modules.pop("pyaudio", None)
+                else:
+                    sys.modules["pyaudio"] = saved
         assert result is False
 
     def test_raises_bhashini_error_when_synthesis_fails(self):

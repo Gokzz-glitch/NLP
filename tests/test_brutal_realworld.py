@@ -525,11 +525,13 @@ class TestBhashiniFailureModes:
 
 class TestBLEMeshPacketStorm:
 
+    _TEST_KEY = b"\xAB" * 32  # Fixed test key — avoids dependency on dev-key env var
+
     def test_50_concurrent_publish_receive_roundtrip(self):
         """50 threads each publishing + receiving a hazard message must all succeed."""
         from agents.ble_mesh_broker import BLEMeshBroker
 
-        broker = BLEMeshBroker(node_id="stress-node")
+        broker = BLEMeshBroker(node_id="stress-node", signing_key=self._TEST_KEY)
         errors: list = []
 
         def _roundtrip(i):
@@ -560,7 +562,7 @@ class TestBLEMeshPacketStorm:
         """A message with a corrupted signature must be rejected by receive()."""
         from agents.ble_mesh_broker import BLEMeshBroker
 
-        broker = BLEMeshBroker(node_id="tamper-test")
+        broker = BLEMeshBroker(node_id="tamper-test", signing_key=self._TEST_KEY)
         msg = broker.publish_hazard("pothole", 13.0, 80.0, "HIGH", 0.9)
 
         # Corrupt the signature bytes
@@ -576,7 +578,7 @@ class TestBLEMeshPacketStorm:
         """The exact same message received twice must be rejected on the second receive."""
         from agents.ble_mesh_broker import BLEMeshBroker
 
-        broker = BLEMeshBroker(node_id="replay-test")
+        broker = BLEMeshBroker(node_id="replay-test", signing_key=self._TEST_KEY)
         msg = broker.publish_hazard("pothole", 13.0, 80.0, "HIGH", 0.9)
 
         r1 = broker.receive(msg)
@@ -588,7 +590,7 @@ class TestBLEMeshPacketStorm:
         """Heartbeat messages must be accepted by receive()."""
         from agents.ble_mesh_broker import BLEMeshBroker
 
-        broker = BLEMeshBroker(node_id="heartbeat-test")
+        broker = BLEMeshBroker(node_id="heartbeat-test", signing_key=self._TEST_KEY)
         msg = broker.publish_heartbeat(battery_level=85.0)
         result = broker.receive(msg)
         assert result is True
@@ -597,7 +599,7 @@ class TestBLEMeshPacketStorm:
         """Message with TTL=0 must be rejected by receive()."""
         from agents.ble_mesh_broker import BLEMeshBroker
 
-        broker = BLEMeshBroker(node_id="ttl-test")
+        broker = BLEMeshBroker(node_id="ttl-test", signing_key=self._TEST_KEY)
         msg = broker.publish_hazard("pothole", 13.0, 80.0, "HIGH", 0.9)
         msg.ttl = 0
         result = broker.receive(msg)

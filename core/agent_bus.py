@@ -67,6 +67,9 @@ class AgentBus:
         self._agent_registry: Dict[str, float] = {}
         self._reg_lock = threading.RLock()
 
+        # Set of agent IDs currently marked as stale (to avoid repeated events)
+        self._stale_agents: set = set()
+
         self._watchdog_thread: Optional[threading.Thread] = None
         self._running = False
 
@@ -146,6 +149,8 @@ class AgentBus:
         """Record a heartbeat for *agent_id*.  Call periodically from each agent."""
         with self._reg_lock:
             self._agent_registry[agent_id] = time.time()
+            # Clear stale status so the agent can trigger a new stale event if it lapses again
+            self._stale_agents.discard(agent_id)
 
     def get_agent_status(self) -> Dict[str, Any]:
         """Return a dict of {agent_id: {"last_heartbeat_s_ago": float}}."""
@@ -162,12 +167,13 @@ class AgentBus:
             time.sleep(self._heartbeat_interval)
             now = time.time()
             with self._reg_lock:
-                stale = [
+                newly_stale = [
                     aid
                     for aid, ts in self._agent_registry.items()
-                    if now - ts > stale_threshold
+                    if now - ts > stale_threshold and aid not in self._stale_agents
                 ]
-            for aid in stale:
+                self._stale_agents.update(newly_stale)
+            for aid in newly_stale:
                 logger.warning("[AgentBus] WATCHDOG: Agent '%s' missed %d heartbeats — stale!",
                                aid, self.STALE_MULTIPLIER)
                 self.emit("AGENT_STALE", {"agent_id": aid})
@@ -178,11 +184,14 @@ class AgentBus:
 # ---------------------------------------------------------------------------
 
 _default_bus: Optional[AgentBus] = None
+_default_bus_lock = threading.Lock()
 
 
 def get_bus() -> AgentBus:
     """Return (and lazily create) the process-level default AgentBus."""
     global _default_bus
     if _default_bus is None:
-        _default_bus = AgentBus()
+        with _default_bus_lock:
+            if _default_bus is None:
+                _default_bus = AgentBus()
     return _default_bus

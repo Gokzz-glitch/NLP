@@ -165,11 +165,29 @@ class RouteAdvisor:
         Deduplication: each hazard record is counted at most once even if
         it falls within range of multiple consecutive waypoints.
         """
+        score, _ = self._score_route_with_hazards(
+            waypoints, radius_m=radius_m, max_age_h=max_age_h
+        )
+        return score
+
+    def _score_route_with_hazards(
+        self,
+        waypoints: List[Tuple[float, float]],
+        radius_m: float = HAZARD_SCAN_RADIUS_M,
+        max_age_h: float = 24.0,
+    ):
+        """
+        Score a route and return both the score and the deduplicated hazard list.
+
+        Returns:
+            (score: float, hazards: list[dict])
+        """
         if not waypoints:
-            return 0.0
+            return 0.0, []
 
         seen_ids: set[int] = set()
         total_score = 0.0
+        hazards = []
 
         for lat, lon in waypoints:
             for h in self.get_hazards_near(lat, lon, radius_m=radius_m, max_age_h=max_age_h):
@@ -177,13 +195,14 @@ class RouteAdvisor:
                 if hid in seen_ids:
                     continue
                 seen_ids.add(hid)
+                hazards.append(h)
                 weight = HAZARD_WEIGHTS.get(h["hazard_class"], _DEFAULT_WEIGHT)
                 # Time decay: halves every HAZARD_DECAY_H hours
                 age_h = (time.time() - h["reported_at"]) / 3600.0
                 decay = math.exp(-math.log(2) * age_h / HAZARD_DECAY_H)
                 total_score += weight * h["confidence"] * decay
 
-        return round(total_score, 4)
+        return round(total_score, 4), hazards
 
     # ------------------------------------------------------------------
     # Recommendation
@@ -205,10 +224,7 @@ class RouteAdvisor:
 
         scored = []
         for i, route in enumerate(alternatives):
-            s = self.score_route(route)
-            hazards = []
-            for wp in route:
-                hazards.extend(self.get_hazards_near(wp[0], wp[1]))
+            s, hazards = self._score_route_with_hazards(route)
             scored.append({
                 "index":   i,
                 "label":   labels[i] if i < len(labels) else f"Route {i + 1}",
