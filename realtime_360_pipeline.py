@@ -111,6 +111,21 @@ def process_frame(frame):
 
 
 def main():
+    # ── GPU-first enforcement ─────────────────────────────────────────────
+    # Apply GPU config NOW — before cv2.VideoCapture is created — so that
+    # NVIDIA hardware video decoding (h264_cuvid), VRAM allocator settings,
+    # and CPU thread-count limits are all locked in.  This is identical to
+    # what system_orchestrator_v2.py does at import time.  Without this call
+    # the i5 CPU spawns unbounded BLAS/OpenMP threads and overheats.
+    from core.gpu_config import apply as _apply_gpu
+    try:
+        gpu_device = _apply_gpu()
+        logger.info(f"[GPU] Active device: {gpu_device}")
+    except RuntimeError as exc:
+        logger.error(f"[GPU] {exc}")
+        return
+    # ─────────────────────────────────────────────────────────────────────
+
     try:
         stream_source = resolve_video_source()
     except FileNotFoundError as exc:
