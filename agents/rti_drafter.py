@@ -7,9 +7,7 @@ import sqlite3
 import textwrap
 import threading
 import time
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional
+from datetime import datetime, timezone
 
 import urllib.request
 
@@ -213,7 +211,7 @@ class RTIDrafter:
                 road_type = self._resolve_road_type(conn, hotspot)
                 rti_text = self._compose_rti_text(hotspot, road_type)
 
-                ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+                ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
                 out_name = f"rti_hotspot_{hotspot['id']}_{ts}.pdf"
                 out_path = self.output_dir / out_name
                 lines = [line.strip() for line in rti_text.splitlines()]

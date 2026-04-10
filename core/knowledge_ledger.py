@@ -161,7 +161,7 @@ class KnowledgeLedger:
         """
         if isinstance(data, str):
             # Mask typical API Key patterns (32+ hex/alphanumeric)
-            if len(data) > 30 and re.match(r'^[a-zA-Z0-0_\-]+$', data):
+            if len(data) > 30 and re.match(r'^[a-zA-Z0-9_\-]+$', data):
                 return data[:4] + "*" * (len(data)-8) + data[-4:]
             # Mask potential phone numbers (simple 10-digit)
             if re.match(r'^\d{10}$', data):

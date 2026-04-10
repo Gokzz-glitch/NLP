@@ -40,9 +40,7 @@ import json
 import logging
 from collections import defaultdict
 from dataclasses import asdict, dataclass
-from datetime import datetime
-from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+from datetime import datetime, timezone
 
 try:
     import h3
@@ -277,7 +275,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 agg.deaths_total,  # deaths_count
                 agg.injuries_total,  # injuries_count
                 agg.road_types[0] if agg.road_types else "local",  # road_type
-                datetime.utcnow().isoformat() + "Z",  # last_updated
+                datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),  # last_updated
                 json.dumps(agg.metadata)  # metadata
             )
             insert_data.append((sql_template, params))

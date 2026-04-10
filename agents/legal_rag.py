@@ -18,8 +18,7 @@ import time
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
-from datetime import datetime
-import hashlib
+from datetime import datetime, timezone
 
 from agents.court_standards import build_and_validate_packet
 
@@ -303,7 +302,7 @@ class LegalRAG:
         """
         return {
             "document_type": "RTA_CHALLENGE_PETITION",
-            "generated_at_utc": datetime.utcnow().isoformat(),
+            "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "vehicle_registration": violation_event.get("vehicle_reg", "UNKNOWN"),
             "challan_reference": violation_event.get("challan_id", "UNKNOWN"),
             "location": violation_event.get("location", {}),
@@ -332,6 +331,57 @@ class LegalRAG:
         packet["court_ready"] = bool(validation.passed)
         packet["validation_gate"] = "PASS" if validation.passed else "FAIL"
         return packet
+
+    # ── Public interface expected by tests and external callers ──────────────
+
+    def load(self) -> None:
+        """Initialise the agent (no-op for the in-memory knowledge base)."""
+        pass
+
+    def query(self, query_text: str) -> Dict:
+        """
+        Text-based search across the in-memory legal knowledge base.
+
+        Args:
+            query_text: Free-form query string (section number, keywords, etc.)
+
+        Returns:
+            Dict with keys:
+              - source: "empty" | "legacy_db" | "no_db"
+              - results: list of matching section dicts (each with section_id, chunk_text)
+              - uls_matches: list of ULS offence matches (each with offence_id)
+        """
+        if not query_text or not query_text.strip():
+            return {"source": "empty", "results": [], "uls_matches": []}
+
+        query_lower = query_text.lower()
+        results = []
+        uls_matches = []
+
+        for section_id, section_data in self.db.items():
+            # Match on section ID, title, or full_text
+            searchable = " ".join([
+                section_id,
+                section_data.get("title", ""),
+                section_data.get("full_text", ""),
+                section_data.get("chapter", ""),
+            ]).lower()
+
+            if any(term in searchable for term in query_lower.split()):
+                chunk_text = (
+                    f"Section {section_id}: {section_data.get('title', '')}. "
+                    f"{section_data.get('full_text', '').strip()[:200]}"
+                )
+                results.append({
+                    "section_id": section_id,
+                    "chunk_text": chunk_text,
+                    "penalty_min_inr": section_data.get("penalty_min_inr"),
+                    "penalty_max_inr": section_data.get("penalty_max_inr"),
+                })
+                uls_matches.append({"offence_id": section_id})
+
+        source = "legacy_db" if results else "no_db"
+        return {"source": source, "results": results, "uls_matches": uls_matches}
 
 
 # ─────────────────────────────────────────────────────────────────────────

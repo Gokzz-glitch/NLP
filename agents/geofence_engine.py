@@ -24,8 +24,7 @@ import json
 import logging
 import math
 from dataclasses import asdict, dataclass
-from datetime import datetime
-from typing import List, Optional, Tuple
+from datetime import datetime, timezone
 
 try:
     import h3
@@ -210,7 +209,7 @@ class H3GeofenceEngine:
             alert_base = f"Caution: accident hotspot has been reported."
             recommended_speed = None
 
-        event_id = f"GEO_{int(datetime.utcnow().timestamp() * 1000)}_{vehicle_h3_res12[-6:]}"
+        event_id = f"GEO_{int(datetime.now(timezone.utc).timestamp() * 1000)}_{vehicle_h3_res12[-6:]}"
 
         return GeoHazardEvent(
             event_id=event_id,
