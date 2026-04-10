@@ -102,8 +102,8 @@ def check_rate_limit(ip: str) -> bool:
             return True
         return False
     except Exception as e:
-        print(f"RATE_LIMIT_DB_ERROR: {e}")
-        return True # Fail open for resilience if DB is locked
+        logger.error(f"RATE_LIMIT_DB_ERROR: {e}")
+        return False  # Fail closed on DB error — deny rather than allow unlimited requests
     finally:
         conn.close()
 

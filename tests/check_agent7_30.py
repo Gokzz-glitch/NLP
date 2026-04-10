@@ -3,7 +3,8 @@ c = sqlite3.connect('knowledge_ledger.db')
 print("Checking for Agent7 & Agent30 activity...")
 for agent in ['Agent7-GPUThermal', 'Agent30-CloudSync']:
     rows = c.execute(
-        f"SELECT agent_name, finding_type, content, timestamp FROM agent_logs WHERE agent_name='{agent}' ORDER BY id DESC LIMIT 3"
+        "SELECT agent_name, finding_type, content, timestamp FROM agent_logs WHERE agent_name=? ORDER BY id DESC LIMIT 3",
+        (agent,)
     ).fetchall()
     if rows:
         for row in rows:
