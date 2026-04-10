@@ -206,7 +206,9 @@ def seed_database():
             title TEXT,
             content TEXT NOT NULL,
             jurisdiction TEXT DEFAULT 'INDIA',
-            last_updated TIMESTAMP
+            last_updated TIMESTAMP,
+            year INTEGER DEFAULT 2019,
+            legal_source TEXT DEFAULT 'CMVR'
         )
     ''')
 

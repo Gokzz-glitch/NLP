@@ -54,3 +54,8 @@ irad_logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Media and generated database files (too large / generated artifacts)
+*.mp4
+*.ts
+*.db
