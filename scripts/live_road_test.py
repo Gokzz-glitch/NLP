@@ -10,10 +10,14 @@ import math
 from core.model_registry import resolve_yolo_pothole_pt
 
 class LiveRoadTester:
-    def __init__(self, phone_ip="192.168.42.129"):
+    def __init__(self, phone_ip="192.168.42.129", phone_port=8080):
+        self.phone_ip = phone_ip
+        self.phone_port = phone_port
         # Phyphox endpoint for Acceleration and raw Location
-        self.phyphox_imu_url = f"http://{phone_ip}:8080/get?accX&accY&accZ"
-        self.phyphox_gps_url = f"http://{phone_ip}:8080/get?lat&lon"
+        self.phyphox_imu_url = f"http://{phone_ip}:{phone_port}/get?accX&accY&accZ"
+        self.phyphox_gps_url = f"http://{phone_ip}:{phone_port}/get?lat&lon"
+        # IP Webcam app stream URL (Android "IP Webcam" app default)
+        self.ip_cam_url = f"http://{phone_ip}:{phone_port}/video"
         
         self.imu_z_baseline = deque(maxlen=30)
         self.current_lat = 13.0827 # Default Chennai
@@ -162,14 +166,19 @@ class LiveRoadTester:
 
     def run(self):
         print("🎥 LIVE ROAD TEST MODE INITIATED (Aegis GPU Force)")
-        print("➡️ Mount phone securely. Ensure USB tether is active.")
+        print(f"➡️ Connecting to IP Camera at {self.ip_cam_url}")
+        print("➡️ Mount phone securely. Ensure phone and laptop are on the same WiFi/USB tether.")
+        print("➡️ Install 'IP Webcam' app on Android and start the server at port 8080.")
         print("➡️ Press ESC to exit.")
         # Honest Physics triggers required for Hackathon UI evaluation.
-        
-        # Aegis v3: Force FFMPEG backend to avoid Intel/MSMF hardware capture
-        cap = cv2.VideoCapture(0, cv2.CAP_FFMPEG)
+
+        # Try IP camera stream first, fall back to local webcam
+        cap = cv2.VideoCapture(self.ip_cam_url, cv2.CAP_FFMPEG)
         if not cap.isOpened():
-            print("⚠️ CAP_FFMPEG failed for Webcam. Falling back to default.")
+            print(f"⚠️ IP Camera at {self.ip_cam_url} not reachable. Falling back to local webcam.")
+            cap = cv2.VideoCapture(0, cv2.CAP_FFMPEG)
+        if not cap.isOpened():
+            print("⚠️ CAP_FFMPEG failed for webcam. Falling back to default.")
             cap = cv2.VideoCapture(0)
         threading.Thread(target=self.poll_smartphone_physics, daemon=True).start()
         
@@ -310,6 +319,7 @@ class LiveRoadTester:
 
 if __name__ == "__main__":
     import os
-    phone_ip = os.environ.get("PHONE_IP", "192.168.1.10") 
-    tester = LiveRoadTester(phone_ip=phone_ip)
+    phone_ip = os.environ.get("PHONE_IP", "192.168.1.10")
+    phone_port = int(os.environ.get("PHONE_PORT", "8080"))
+    tester = LiveRoadTester(phone_ip=phone_ip, phone_port=phone_port)
     tester.run()
