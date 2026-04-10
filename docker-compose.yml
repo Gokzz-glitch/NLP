@@ -1,0 +1,160 @@
+version: "3.9"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NNDL Offline Voice Assistant Stack
+# Targets Tamil Nadu drivers (offline, hands-free)
+# ─────────────────────────────────────────────────────────────────────────────
+
+networks:
+  nndl_net:
+    driver: bridge
+
+volumes:
+  qdrant_data:
+
+services:
+
+  # ── 1. Wake-word detection ─────────────────────────────────────────────────
+  openwakeword:
+    image: rhasspy/wyoming-openwakeword:latest
+    container_name: openwakeword
+    restart: unless-stopped
+    ports:
+      - "10400:10400"
+    command: ["--uri", "tcp://0.0.0.0:10400", "--wake-word-names", "hey_jarvis"]
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/10400 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── 2. Speech-to-Text (offline Vosk) ─────────────────────────────────────
+  vosk:
+    image: rhasspy/wyoming-vosk:latest
+    container_name: vosk
+    restart: unless-stopped
+    ports:
+      - "10300:10300"
+    volumes:
+      - ./models/vosk/model:/model:ro
+    command: ["--uri", "tcp://0.0.0.0:10300", "--model", "/model"]
+    environment:
+      - VOSK_MODEL_PATH=/model
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/10300 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # ── 3. Text-to-Speech (offline Piper) ────────────────────────────────────
+  piper:
+    image: rhasspy/wyoming-piper:latest
+    container_name: piper
+    restart: unless-stopped
+    ports:
+      - "10200:10200"
+    volumes:
+      - ./voices:/voices:ro
+    command: ["--uri", "tcp://0.0.0.0:10200", "--voice", "en_US-lessac-medium"]
+    environment:
+      - PIPER_VOICE_DIR=/voices
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/10200 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # ── 4. Vector DB for RAG (Qdrant) ────────────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__HTTP_PORT=6333
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:6333/readyz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── 5. Map-matching / speed-limits (Valhalla) ────────────────────────────
+  valhalla:
+    image: ghcr.io/gis-ops/docker-valhalla/valhalla:latest
+    container_name: valhalla
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./data/valhalla_tiles:/custom_files:ro
+    environment:
+      - use_tiles_ignore_pbf=True
+      - serve_tiles=True
+      - build_admins=False
+      - build_time_zones=False
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8002/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ── 6. FastAPI orchestrator ───────────────────────────────────────────────
+  orchestrator:
+    build:
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: orchestrator
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      - WAKE_HOST=openwakeword
+      - WAKE_PORT=10400
+      - STT_HOST=vosk
+      - STT_PORT=10300
+      - TTS_HOST=piper
+      - TTS_PORT=10200
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - VALHALLA_HOST=valhalla
+      - VALHALLA_PORT=8002
+      - LOG_LEVEL=info
+    depends_on:
+      openwakeword:
+        condition: service_healthy
+      vosk:
+        condition: service_healthy
+      piper:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+      valhalla:
+        condition: service_healthy
+    networks:
+      - nndl_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

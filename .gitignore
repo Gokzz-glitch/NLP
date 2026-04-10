@@ -19,6 +19,21 @@ models/**/*.pt
 models/**/*.gguf
 models/**/*.bin
 
+# Voice assistant — large binary assets
+models/vosk/model/
+voices/*.onnx
+voices/*.onnx.json
+data/valhalla_tiles/
+
+# Docker build artifacts
+orchestrator/__pycache__/
+orchestrator/app/__pycache__/
+orchestrator/app/tools/__pycache__/
+
+# Demo client output
+reply.wav
+*.wav
+
 # Android Build Artifacts
 *.apk
 *.aab
