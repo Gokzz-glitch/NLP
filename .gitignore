@@ -60,7 +60,7 @@ desktop.ini
 *.avi
 *.mov
 *.mkv
-*.ts
+*.ts  # MPEG Transport Stream video files (not TypeScript)
 raw_data/videos/
 data/videos/
 360camvideo
