@@ -54,3 +54,18 @@ irad_logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Video & Large Media Files — never commit
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.ts  # MPEG Transport Stream video files (not TypeScript)
+raw_data/videos/
+data/videos/
+360camvideo
+
+# Database / Binary Stores — never commit
+*.db
+*.sqlite
+*.sqlite3
