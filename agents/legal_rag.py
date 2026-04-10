@@ -335,7 +335,7 @@ class LegalRAG:
     # ── Public interface expected by tests and external callers ──────────────
 
     def load(self) -> None:
-        """Initialise the agent (no-op for the in-memory knowledge base)."""
+        """Initialize the agent (no-op for the in-memory knowledge base)."""
         pass
 
     def query(self, query_text: str) -> Dict:
@@ -354,7 +354,7 @@ class LegalRAG:
         if not query_text or not query_text.strip():
             return {"source": "empty", "results": [], "uls_matches": []}
 
-        query_lower = query_text.lower()
+        terms = [t for t in query_text.lower().strip().split() if t]
         results = []
         uls_matches = []
 
@@ -367,7 +367,7 @@ class LegalRAG:
                 section_data.get("chapter", ""),
             ]).lower()
 
-            if any(term in searchable for term in query_lower.split()):
+            if any(term in searchable for term in terms):
                 chunk_text = (
                     f"Section {section_id}: {section_data.get('title', '')}. "
                     f"{section_data.get('full_text', '').strip()[:200]}"
