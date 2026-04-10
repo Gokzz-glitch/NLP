@@ -9,15 +9,11 @@ load_dotenv()
 ROBO_KEY = os.getenv("ROBOFLOW_API_KEY")
 HF_KEY = os.getenv("HF_TOKEN")
 
-<<<<<<< HEAD:scripts/utils/finalize_models.py
-@heavy_task("MODEL_FINALIZATION")
-=======
 # Output directories — override via environment variables if needed
 _PROJECT_ROOT = os.path.dirname(__file__)
 VISION_MODELS_DIR = os.getenv("VISION_MODELS_DIR", os.path.join(_PROJECT_ROOT, "models", "vision"))
 LLM_MODELS_DIR = os.getenv("LLM_MODELS_DIR", os.path.join(_PROJECT_ROOT, "models", "llm"))
 
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e:finalize_models.py
 def finalize():
     print("FINALIZING_MODELS_FOR_EDGE_SENTINEL.")
     
@@ -51,37 +47,23 @@ def finalize():
             model = YOLO(src2)
             model.export(format="onnx")
             onnx_src2 = src2.replace(".pt", ".onnx")
-<<<<<<< HEAD:scripts/utils/finalize_models.py
-            # Final destination for ERR-001 resolution
-            shutil.copy(onnx_src2, "g:/My Drive/NLP/models/vision/indian_vehicles_chaos_yolov8n.onnx")
-            print("SUCCESS: V2X Hazard Monitor (IDD-ONNX).")
-=======
             os.makedirs(VISION_MODELS_DIR, exist_ok=True)
             shutil.copy(onnx_src2, os.path.join(VISION_MODELS_DIR, "indian_vehicles_chaos_yolov8n.onnx"))
             print("SUCCESS: V2X Hazard Monitor (ONNX).")
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e:finalize_models.py
     except Exception as e:
         print(f"ERR_CHAOS (IDD): {e}")
 
     # 3. LLM: Edge Legal
     try:
-<<<<<<< HEAD:scripts/utils/finalize_models.py
-        # Public model, but passing token for safety
-=======
         os.makedirs(LLM_MODELS_DIR, exist_ok=True)
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e:finalize_models.py
         path = hf_hub_download(
             repo_id="microsoft/Phi-3-mini-4k-instruct-gguf",
             filename="Phi-3-mini-4k-instruct-q4.gguf",
             local_dir=LLM_MODELS_DIR,
             token=HF_KEY
         )
-<<<<<<< HEAD:scripts/utils/finalize_models.py
-        dest_llm = "g:/My Drive/NLP/models/llm/phi-3-mini-4k-instruct-q4.gguf"
-=======
         # Rename to user requested
         dest_llm = os.path.join(LLM_MODELS_DIR, "phi-3-mini-4k-instruct-q4.gguf")
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e:finalize_models.py
         if os.path.exists(path) and path != dest_llm:
              shutil.copy(path, dest_llm)
         print(f"SUCCESS: Edge Legal Reasoner.")

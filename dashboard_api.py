@@ -367,7 +367,7 @@ AGENT_META = {
 }
 
 # --- Video Stream Logic ---
-VIDEO_PATH = "g:/My Drive/NLP/Testing videos/VID_20260403_113108525.mp4"
+VIDEO_PATH = os.getenv("VIDEO_SOURCE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "raw_data", "videos", "dashcam.mp4"))
 
 def gen_frames():
     """Aegis Phase 7: Forced Hardware-Accelerated Stream."""
@@ -403,7 +403,7 @@ def get_storage_stats():
     """Robust storage check for Windows G: (Google Drive) and C: fallback."""
     try:
         # Default to checking G: drive if exists, else C:
-        check_path = 'G:/' if os.path.exists('G:/') else 'C:/'
+        check_path = os.getenv('STORAGE_CHECK_PATH', '/')
         usage = psutil.disk_usage(check_path)
         return {
             "free_gb": round(usage.free / (1024**3), 2),

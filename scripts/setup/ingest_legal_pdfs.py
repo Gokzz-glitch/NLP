@@ -9,13 +9,8 @@ from config import RAW_DATA_DIR, heavy_task
 load_dotenv()
 
 
-<<<<<<< HEAD:scripts/setup/ingest_legal_pdfs.py
 # CONFIGURATION
 # RAW_DATA_DIR is now centrally managed in config.py
-=======
-# CONFIGURATION — override RAW_DATA_DIR via environment variable if needed
-RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", os.path.join(os.path.dirname(__file__), "raw_data"))
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e:ingest_legal_pdfs.py
 PDF_FILES = [
     "Motor Vehicle Ammendment Act 2019.pdf",
     "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",

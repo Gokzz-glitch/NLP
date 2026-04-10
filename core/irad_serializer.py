@@ -1,73 +1,3 @@
-<<<<<<< HEAD
-import json
-import uuid
-import time
-import logging
-from typing import Dict, Any
-
-# [CORE: iRAD TELEMETRY SERIALIZER]
-# Task: T-020 — Implement MoRTH iRAD-compatible telemetry (V-NMS-01).
-
-logger = logging.getLogger("edge_sentinel.irad_serializer")
-logger.setLevel(logging.INFO)
-
-class IRADSerializer:
-    """
-    Serializes sentinel fusion alerts into iRAD-compliant JSON.
-    Schema: 'V-NMS-01' (Near Miss Telemetry).
-    Compliant with MoRTH 2022 Integrated Road Accident Database Circular.
-    """
-    def serialize_fusion_alert(self, fusion_event: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Input: SentinelFusionAlert (Internal)
-        Output: iRAD V-NMS-01 (Production)
-        """
-        irad_payload = {
-            "header": {
-                "irad_node_id": "ES-CH-001", # EdgeSentinel Chennai Node 001
-                "schema_version": "1.4.0",
-                "timestamp_ms": int(time.time() * 1000)
-            },
-            "telemetry": {
-                "event_id": fusion_event.get("fusion_id", str(uuid.uuid4())),
-                "type": "V-NMS-01",
-                "severity": fusion_event.get("severity", "MEDIUM"),
-                "localization": {
-                    "lat": fusion_event.get("lat", 0.0),
-                    "lon": fusion_event.get("lon", 0.0)
-                },
-                "kinetics": {
-                    "peak_jerk": fusion_event.get("rms_jerk", 0.0),
-                    "longitudinal_decel": fusion_event.get("decel", 0.0)
-                },
-                "vision": {
-                    "hazard_class": "POTHOLE" if "POTHOLE" in fusion_event.get("type", "") else "UNKNOWN",
-                    "confidence": fusion_event.get("vision_conf", 1.0)
-                }
-            },
-            "meta": {
-                "persona_consensus": True,
-                "triggered_sec208": fusion_event.get("triggered_sec208", False)
-            }
-        }
-        logger.debug(f"IRAD_SERIALIZER: {irad_payload['telemetry']['event_id']}")
-        return irad_payload
-
-# Global helper for quick export
-def export_to_irad(fusion_event: Dict) -> str:
-    serializer = IRADSerializer()
-    return json.dumps(serializer.serialize_fusion_alert(fusion_event), indent=2)
-
-if __name__ == "__main__":
-    # Test
-    mock_fusion = {
-        "fusion_id": "test-xyz-789",
-        "type": "CONFIRMED_POTHOLE_STRIKE",
-        "severity": "CRITICAL",
-        "rms_jerk": 15.5
-    }
-    print(export_to_irad(mock_fusion))
-=======
 """
 core/irad_serializer.py  (T-015)
 SmartSalai Edge-Sentinel — MoRTH iRAD Schema Serializer
@@ -284,4 +214,3 @@ def get_serializer() -> IRADSerializer:
     if _serializer is None:
         _serializer = IRADSerializer()
     return _serializer
->>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e
