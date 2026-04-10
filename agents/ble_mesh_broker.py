@@ -126,8 +126,15 @@ class BLEMeshBroker:
         self.node_id = node_id
 
         if signing_key is None:
-            # Derive a deterministic dev key — replace with Keystore in production
+            # Deterministic dev key — INSECURE, for testing only.
+            # In production, supply a key from TrustZone / Android Keystore.
+            if os.getenv("BLE_MESH_ALLOW_DEV_KEY", "0") != "1":
+                raise ValueError(
+                    "signing_key is required in production. "
+                    "Set BLE_MESH_ALLOW_DEV_KEY=1 to use an insecure derived key for testing."
+                )
             signing_key = hashlib.sha256(node_id.encode("utf-8")).digest()
+            logger.warning("[BLE] Using INSECURE derived signing key — for testing only!")
         if len(signing_key) < 16:
             raise ValueError("signing_key must be at least 16 bytes")
 

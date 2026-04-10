@@ -262,23 +262,29 @@ def _camera_thread_fn(camera_index: int, direction: str) -> None:
 
         # --- Post detection event (includes camera direction label) ---
         if detections:
-            _event_queue.put_nowait({
-                "type": "detection",
-                "camera": direction,
-                "data": detections,
-                "ts": time.time(),
-            })
+            try:
+                _event_queue.put_nowait({
+                    "type": "detection",
+                    "camera": direction,
+                    "data": detections,
+                    "ts": time.time(),
+                })
+            except _queue.Full:
+                logger.warning("[CAM:%s] Event queue full — detection dropped", direction)
 
         # --- Post GPS heartbeat (10 Hz) ---
         with _gps_lock:
             lat = _live_gps["lat"]
             lon = _live_gps["lon"]
-        _event_queue.put_nowait({
-            "type": "gps",
-            "lat": lat,
-            "lon": lon,
-            "ts": time.time(),
-        })
+        try:
+            _event_queue.put_nowait({
+                "type": "gps",
+                "lat": lat,
+                "lon": lon,
+                "ts": time.time(),
+            })
+        except _queue.Full:
+            logger.warning("[CAM:%s] Event queue full — GPS heartbeat dropped", direction)
 
         time.sleep(0.033)  # ~30 FPS cap — leaves CPU headroom for inference
 
@@ -622,7 +628,10 @@ def create_app() -> "FastAPI":
             }
             with _alert_lock:
                 _alert_log.append(alert_event)
-            _event_queue.put_nowait(alert_event)
+            try:
+                _event_queue.put_nowait(alert_event)
+            except _queue.Full:
+                logger.warning("[BLE] Event queue full — hazard alert dropped")
 
             # Persist to crowd-source hazard DB when GPS available
             if payload.gps_lat is not None and payload.gps_lon is not None:

@@ -38,6 +38,7 @@ import json
 import logging
 import os
 import time
+import urllib.parse
 from typing import Optional
 
 logger = logging.getLogger("edge_sentinel.core.bhashini_tts")
@@ -56,6 +57,16 @@ _CACHE_TTL_S: float = 3600.0
 
 # Bhashini returns 8 kHz mono WAV by default; request higher quality
 _SAMPLE_RATE = "8000"
+
+# Allowlist of trusted Bhashini/ULCA callback hostnames.
+# Only HTTPS URLs whose hostname ends with one of these suffixes are accepted.
+_BHASHINI_ALLOWED_HOSTS = (
+    "bhashini.gov.in",
+    "ulcacontrib.org",
+    "bhashini.ai",
+    "meity.gov.in",
+    "dhruva.ulcacontrib.org",
+)
 
 # ---------------------------------------------------------------------------
 # Errors
@@ -194,6 +205,19 @@ class BhashiniTTSClient:
                 f"Unexpected discovery response structure: {exc}\nResponse: {data}"
             ) from exc
 
+        # Validate callback_url before caching or using it
+        _parsed = urllib.parse.urlparse(callback_url)
+        if _parsed.scheme != "https":
+            raise BhashiniUnavailableError(
+                f"Discovered callback_url uses non-HTTPS scheme: {callback_url!r}"
+            )
+        _hostname = (_parsed.hostname or "").lower()
+        if not any(_hostname == h or _hostname.endswith("." + h) for h in _BHASHINI_ALLOWED_HOSTS):
+            raise BhashiniUnavailableError(
+                f"Discovered callback_url hostname '{_hostname}' is not in the trusted "
+                f"Bhashini host allowlist. URL: {callback_url!r}"
+            )
+
         with self._cache_lock:
             self._cache[lang] = (callback_url, service_id, now + _CACHE_TTL_S)
 
@@ -301,6 +325,8 @@ class BhashiniTTSClient:
             return True
         except ImportError:
             pass  # pyaudio not available
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("[Bhashini] PyAudio playback failed: %s — falling back to subprocess", exc)
 
         # Fallback: write to temp file and use subprocess
         import tempfile       # noqa: PLC0415
@@ -317,10 +343,12 @@ class BhashiniTTSClient:
                 ["powershell", "-c", f"(New-Object Media.SoundPlayer '{tmp_path}').PlaySync()"],
             ]:
                 try:
-                    subprocess.run(cmd, check=True, timeout=30,
-                                   capture_output=True)
+                    subprocess.run(  # noqa: S603
+                        cmd, check=True, timeout=30, capture_output=True
+                    )
                     return True
-                except (FileNotFoundError, subprocess.CalledProcessError):
+                except (FileNotFoundError, subprocess.CalledProcessError,
+                        subprocess.TimeoutExpired):
                     continue
         finally:
             try:

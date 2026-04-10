@@ -1658,7 +1658,7 @@ html, body {
       });
       const data = await res.json();
       chatTyping.classList.remove('visible');
-      addChatBubble(data.response || data.message || JSON.stringify(data), 'bot', !res.ok);
+      addChatBubble(data.text || data.response || data.message || JSON.stringify(data), 'bot', !res.ok);
     } catch (err) {
       chatTyping.classList.remove('visible');
       addChatBubble('Error: ' + err.message, 'bot', true);
