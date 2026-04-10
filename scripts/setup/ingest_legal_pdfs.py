@@ -1,22 +1,20 @@
 import os
 import sys
-import sqlite3
 import pdfplumber
 from dotenv import load_dotenv
-from config import heavy_task
+from config import RAW_DATA_DIR
 
 # Initialize Env
 load_dotenv()
 
-# CONFIGURATION — override RAW_DATA_DIR via environment variable if needed
-RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", os.path.join(os.path.dirname(__file__), "raw_data"))
+# Allow env var override of the data directory
+RAW_DATA_DIR = os.getenv("RAW_DATA_DIR", RAW_DATA_DIR)
 PDF_FILES = [
-    "Motor Vehicle Ammendment Act 2019.pdf",
+    "Motor Vehicle Amendment Act 2019.pdf",
     "MOTOR VEHICLES ACTS - ADMINISTRATION 2022-2023.pdf",
     "TAMILNADU ROAD CRASH DATA.pdf"
 ]
 
-@heavy_task("LEGAL_PDF_INGESTION")
 def check_raw_data():
     missing = []
     for f in PDF_FILES:

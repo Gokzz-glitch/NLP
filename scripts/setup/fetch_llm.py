@@ -1,13 +1,12 @@
 import os
 from huggingface_hub import hf_hub_download
 from dotenv import load_dotenv
-from config import IN_COLAB, heavy_task
+from config import IN_COLAB, LLM_MODEL_DIR
 
 load_dotenv()
 hf_token = os.getenv("HF_TOKEN")
 
-_PROJECT_ROOT = os.path.dirname(__file__)
-LLM_MODELS_DIR = os.getenv("LLM_MODELS_DIR", os.path.join(_PROJECT_ROOT, "models", "llm"))
+LLM_MODELS_DIR = os.getenv("LLM_MODELS_DIR", LLM_MODEL_DIR)
 
 def download_llm():
     if IN_COLAB:

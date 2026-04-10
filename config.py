@@ -16,8 +16,8 @@ except ImportError:
 PROJECT_ROOT = "/content/drive/My Drive/NLP" if IN_COLAB else os.getcwd()
 
 # Runtime policy: local small jobs use a dedicated interpreter, heavy jobs prefer Colab.
-DEFAULT_SMALL_JOB_PYTHON = r"C:\Users\gokul\AppData\Local\Programs\Python\Python310\python.exe"
-SMALL_JOB_PYTHON = os.environ.get("SMALL_JOB_PYTHON", DEFAULT_SMALL_JOB_PYTHON)
+DEFAULT_SMALL_JOB_PYTHON = os.environ.get("SMALL_JOB_PYTHON", sys.executable)
+SMALL_JOB_PYTHON = DEFAULT_SMALL_JOB_PYTHON
 HEAVY_TASK_EXECUTOR = os.environ.get("HEAVY_TASK_EXECUTOR", "rtx").strip().lower()
 WORKLOAD_POLICY = os.environ.get("WORKLOAD_POLICY", "rtx_only").strip().lower()
 COLAB_ORDER = os.environ.get("COLAB_ORDER", "desc").strip().lower()

@@ -42,7 +42,7 @@ class OfflineTTSManager:
                 self.engine = pyttsx3.init()
                 self._setup_worker()
                 return True
-            except:
+            except Exception:
                 return False
         return True
 
