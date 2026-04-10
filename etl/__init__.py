@@ -1,19 +1,25 @@
-"""
-etl/__init__.py
-SmartSalai Edge-Sentinel — Persona 6: ETL Data Scavenger
-Package: edge_sentinel.etl
+"""ETL package entrypoint.
 
-Stages:
-  1. pdf_extractor.py     → raw text extraction (pdfplumber + Tesseract OCR fallback)
-  2. text_chunker.py      → section-aware legal chunking
-  3. embedder.py          → local ONNX-INT8 vector generation
-  4. sqlite_vss_ingestor.py → Edge-RAG SQLite-VSS persistence
-  5. pipeline.py          → orchestrator (directory watcher + ordered stage execution)
-
-ZERO cloud API calls. All inference on-device.
+Keep imports lightweight so submodules like `spatial_database_init` can be
+loaded without pulling optional PDF/OCR dependencies into the import path.
 """
 
-from .pipeline import ETLPipeline
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+__version__ = "0.1.0"
+
+if TYPE_CHECKING:
+  from .pipeline import ETLPipeline as ETLPipeline
+
+
+def __getattr__(name: str):
+  if name == "ETLPipeline":
+    from .pipeline import ETLPipeline
+
+    return ETLPipeline
+  raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = ["ETLPipeline"]
-__version__ = "0.1.0"

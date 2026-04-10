@@ -29,6 +29,7 @@ import logging
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional, List, Tuple
+from core.agent_bus import bus
 
 import numpy as np
 
@@ -204,6 +205,16 @@ def calibrate_gravity(
         [[s.accel_x_ms2, s.accel_y_ms2, s.accel_z_ms2] for s in raw_samples[:n]],
         dtype=np.float32,
     )
+    # Motion guard: check if device is stationary (low variance in accel_x, accel_y)
+    accel_x_std = np.std(arr[:, 0])
+    accel_y_std = np.std(arr[:, 1])
+    accel_mag = np.linalg.norm(arr[:, :2], axis=1)
+    accel_mag_mean = np.mean(accel_mag)
+    # Thresholds: std < 0.08 m/s² and mean magnitude < 0.15 m/s² (tunable)
+    if accel_x_std > 0.08 or accel_y_std > 0.08 or accel_mag_mean > 0.15:
+        raise ValueError(
+            f"calibrate_gravity: Device is moving (std_x={accel_x_std:.3f}, std_y={accel_y_std:.3f}, mean_xy={accel_mag_mean:.3f}). Calibration aborted."
+        )
     return arr.mean(axis=0)  # shape (3,) — gravity offset per axis
 
 
@@ -471,6 +482,8 @@ class NearMissDetector:
         self.onnx_model_path = onnx_model_path
         self.inference_interval = inference_interval_samples
         self.anomaly_threshold = anomaly_score_threshold
+        self.verified_events_count = 0 
+        self.collision_lock_counter = 0 # Sustain CRITICAL for 5 frames to trigger SOS
 
         self._buffer = IMUBuffer(capacity=WINDOW_SIZE_SAMPLES)
         self._feature_extractor = NearMissFeatureExtractor()
@@ -536,6 +549,22 @@ class NearMissDetector:
             sample.accel_y_ms2 -= self._gravity_offset[1]
             sample.accel_z_ms2 -= self._gravity_offset[2]
 
+        # --- A1: Speed Bump False Positive Suppression ---
+        # If a large vertical acceleration spike is detected (e.g., >2.5 m/s² above gravity),
+        # and lateral/longitudinal G are low, suppress near-miss detection for this sample.
+        VERTICAL_G_BUMP_THRESHOLD = 2.5  # m/s² above gravity (tune as needed)
+        lateral_g = abs(sample.accel_y_ms2) / GRAVITY_MS2
+        longitudinal_g = abs(sample.accel_x_ms2) / GRAVITY_MS2
+        vertical_g_excess = abs(sample.accel_z_ms2) - GRAVITY_MS2
+        if (
+            vertical_g_excess > VERTICAL_G_BUMP_THRESHOLD
+            and lateral_g < 0.2
+            and longitudinal_g < 0.2
+        ):
+            # Likely speed bump or pothole — ignore this sample
+            logger.info(f"[A1] Suppressed near-miss: vertical-G spike (speed bump) detected. vertical_g_excess={vertical_g_excess:.2f} lateral_g={lateral_g:.2f} longitudinal_g={longitudinal_g:.2f}")
+            return None
+
         self._buffer.push(sample)
         self._sample_count += 1
 
@@ -574,30 +603,52 @@ class NearMissDetector:
             f"[P3] NEAR-MISS DETECTED | severity={severity.value} "
             f"score={anomaly_score:.3f} lat-G={features['lateral_g_peak']:.3f}"
         )
+        # Collision Lock logic for SOS
+        if severity == NearMissSeverity.CRITICAL:
+            self.collision_lock_counter += 1
+            if self.collision_lock_counter >= 5: # ~500ms of critical impact
+                 logger.critical(f"PERSONA_3_REPORT: !!! COLLISION_LOCK_ACTIVATED !!! EMITTING_ACCIDENT_EVENT")
+                 bus.emit("IMU_ACCIDENT_DETECTED", {
+                     "severity": "CRITICAL",
+                     "reason": "Sustained High-G Impact",
+                     "timestamp": sample.timestamp_epoch_ms
+                 })
+                 self.collision_lock_counter = 0 # reset once triggered
+        else:
+            self.collision_lock_counter = 0 # reset counter if severity drops
+
+        # T-013: CONNECT TO BUS
+        bus.emit("NEAR_MISS_DETECTED", event)
         return event
+
 
     def _run_inference(
         self, window: np.ndarray, features: dict
     ) -> Tuple[float, NearMissSeverity]:
         """
         Run TCN scoring. Returns (anomaly_score ∈ [0,1], severity).
+        Implements a watchdog for ONNX inference crashes: logs, switches to fallback, emits bus event.
         """
+        score = None
         if self._mode == "ONNX_INT8_NPU" and self._ort_session is not None:
-            # Input: (1, 6, 120) — batch, channels, time
-            inp = window.T[np.newaxis, :, :].astype(np.float32)  # (1, 6, 120)
-            outputs = self._ort_session.run(
-                ["anomaly_score"],
-                {"imu_window": inp},
-            )
-            score = float(outputs[0][0, 0])
-
-        elif self._mode == "PYTORCH_FP32" and self._torch_model is not None:
+            try:
+                inp = window.T[np.newaxis, :, :].astype(np.float32)  # (1, 6, 120)
+                outputs = self._ort_session.run(
+                    ["anomaly_score"],
+                    {"imu_window": inp},
+                )
+                score = float(outputs[0][0, 0])
+            except Exception as exc:
+                logger.critical(f"[WATCHDOG] ONNX inference crashed: {exc}. Switching to deterministic fallback.")
+                self._mode = "DETERMINISTIC"
+                bus.emit("ONNX_INFERENCE_CRASH", {"error": str(exc)})
+                # Fallback to deterministic for this call
+        if score is None and self._mode == "PYTORCH_FP32" and self._torch_model is not None:
             import torch
             with torch.no_grad():
                 inp = torch.from_numpy(window.T[np.newaxis, :, :])  # (1, 6, 120)
                 score = float(self._torch_model(inp).item())
-
-        else:
+        if score is None:
             # Deterministic fallback: map kinematic features to score
             score = min(
                 1.0,
@@ -606,7 +657,6 @@ class NearMissDetector:
                     features["longitudinal_decel_ms2"] / LONGITUDINAL_DECEL_CRITICAL_MS2,
                 ),
             )
-
         severity = self._map_score_to_severity(score, features)
         return score, severity
 

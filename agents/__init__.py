@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# agents/__init__.py
+=======
 """SmartSalai Edge-Sentinel — agents package."""
 from .imu_near_miss_detector import NearMissDetector, NearMissEvent, IMUSample, NearMissSeverity
 from .legal_rag import LegalRAGAgent, get_agent as get_rag_agent
@@ -16,3 +19,4 @@ __all__ = [
     "AcousticUIAgent", "get_tts_agent",
     "BlackspotGeofenceAgent", "get_blackspot_agent",
 ]
+>>>>>>> 2c7c158ab4b54348e45911533a25b045f3d7342e

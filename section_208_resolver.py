@@ -125,7 +125,15 @@ class Section208Resolver:
         """
 
 if __name__ == "__main__":
+    import sys
     resolver = Section208Resolver()
-    # Mock data for testing
-    result = resolver.challenge_speed_camera({"lat": 12.924, "lon": 80.230, "type": "speed_camera"}, False)
+    
+    # Authentic execution: Receive dynamic GPS from hardware module/CLI
+    if len(sys.argv) == 3:
+        dynamic_lat = float(sys.argv[1])
+        dynamic_lon = float(sys.argv[2])
+    else:
+        raise ValueError("Missing critical telemetry: require dynamic_lat and dynamic_lon as arguments.")
+        
+    result = resolver.challenge_speed_camera({"lat": dynamic_lat, "lon": dynamic_lon, "type": "speed_camera"}, False)
     print(json.dumps(result, indent=2))
