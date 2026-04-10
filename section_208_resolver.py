@@ -80,7 +80,8 @@ _SIGN_WINDOW_M: float = 500.0
 # Maximum angular deviation (degrees) from the camera heading for a sign to be
 # considered upstream / ahead of the camera.  Signs outside this forward cone
 # (e.g. behind the camera or on the opposite carriageway) are not compliant.
-_FORWARD_CONE_DEG: float = 90.0
+# 60° gives a meaningful forward-facing window while excluding lateral/rear signs.
+_FORWARD_CONE_DEG: float = 60.0
 
 class Section208Resolver:
     """

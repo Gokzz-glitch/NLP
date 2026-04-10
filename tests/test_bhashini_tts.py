@@ -286,8 +286,10 @@ class TestSynthesizeAndPlay:
         b64 = base64.b64encode(audio).decode()
         mock_cm = _make_mock_urlopen(_mock_inference_response(b64))
         with patch("urllib.request.urlopen", return_value=mock_cm):
-            # Simulate pyaudio being unavailable by removing it from sys.modules
-            # and blocking its import, then block all subprocess audio players.
+            # Setting sys.modules["pyaudio"] = None is the documented Python idiom
+            # for causing `import pyaudio` to raise ImportError (negative cache entry).
+            # The type: ignore is required because sys.modules typing does not accept None,
+            # but Python's import machinery treats None as "module not found".
             saved = sys.modules.pop("pyaudio", None)
             try:
                 sys.modules["pyaudio"] = None  # type: ignore[assignment]
