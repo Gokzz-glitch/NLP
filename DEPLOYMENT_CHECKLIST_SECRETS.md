@@ -25,12 +25,14 @@
 - [ ] Test pre-commit: Try to stage `.env.local` (should fail)
 
 ### 4. Secret Manager Health
-- [ ] Required secrets configured (CSRF_SECRET_KEY, DASHBOARD_SECRET_KEY)
+- [ ] Required secrets configured (CSRF_SECRET_KEY, DASHBOARD_SECRET_KEY, LEDGER_HMAC_KEY)
 - [ ] Optional secrets configured for enabled features:
   - [ ] GPU override: GPU_OVERRIDE_PASSWORD
   - [ ] Gemini: GEMINI_API_KEYS
   - [ ] Roboflow: ROBOFLOW_API_KEY
   - [ ] Payment: RAZORPAY_KEY_* (if using payments)
+  - [ ] Ingest/WebSocket auth: INGEST_HMAC_SECRET, API_BRIDGE_AUTH_TOKEN, ORCHESTRATOR_AUTH_TOKEN
+  - [ ] Fleet halt control: FLEET_HALT_TOKEN
 - [ ] Test manager: `python scripts/init_secrets.py --test` passes
 
 ### 5. File Permissions

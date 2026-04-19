@@ -11,6 +11,8 @@ import math
 import secrets
 import hashlib
 import urllib.request
+import logging
+import hmac
 from datetime import timedelta
 from datetime import datetime
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Depends, Header, HTTPException, status
@@ -41,7 +43,14 @@ PREDICTIVE_DB_PATH = os.getenv("EDGE_SPATIAL_DB_PATH", "edge_spatial.db")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in os.getenv(
+            "AGENT2_ALLOWED_ORIGINS",
+            os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1:8765,http://localhost:8765"),
+        ).split(",")
+        if origin.strip()
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -53,6 +62,12 @@ if not DASHBOARD_SECRET_KEY:
         "DASHBOARD_SECRET_KEY not set in environment. "
         "Please set this variable before running Flask dashboard. "
         "Use: export DASHBOARD_SECRET_KEY='<your-secret-key>'"
+    )
+
+FLEET_HALT_TOKEN = os.getenv("FLEET_HALT_TOKEN") or DASHBOARD_SECRET_KEY
+if not os.getenv("FLEET_HALT_TOKEN"):
+    logging.getLogger("FleetHalt").warning(
+        "FLEET_HALT_TOKEN not set; falling back to DASHBOARD_SECRET_KEY."
     )
 
 # 🛠️ OMEGA UTILS: Haversine for Spatial Deduplication
@@ -317,9 +332,12 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.disconnect(websocket)
 
 @app.post("/api/fleet/halt")
-async def global_halt(secret: str):
+async def global_halt(authorization: Optional[str] = Header(default=None)):
     # 🚨 TC50: Global Safety Halt
-    if secret == DASHBOARD_SECRET_KEY:
+    token = ""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split(" ", 1)[1].strip()
+    if token and hmac.compare_digest(token, FLEET_HALT_TOKEN):
         await manager.broadcast({"type": "GLOBAL_HALT", "msg": "Safety Emergency Halt Issued."})
         return {"status": "HALT_ISSUED"}
     return {"status": "UNAUTHORIZED"}
@@ -533,13 +551,15 @@ async def razorpay_webhook(request: Request):
     finally:
         conn.close()
 
-    return {
+    response_payload = {
         "status": "success",
         "tx_id": tx_id,
         "customer_email": customer_email,
         "tier": "fleet_pass_24h",
-        "api_key": api_key,
     }
+    if os.getenv("RETURN_API_KEY_IN_WEBHOOK", "false").strip().lower() in {"1", "true", "yes", "on"}:
+        response_payload["api_key"] = api_key
+    return response_payload
 
 
 @app.post("/api/v1/api-key/revoke")
@@ -754,4 +774,18 @@ def serve_dashboard():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8765, reload=False)
+    from core.tls_config import TLSConfig
+
+    tls_config = TLSConfig()
+    if tls_config.use_https:
+        tls_config.validate()
+        uvicorn.run(
+            app,
+            host="0.0.0.0",
+            port=8765,
+            reload=False,
+            ssl_certfile=tls_config.cert_path,
+            ssl_keyfile=tls_config.key_path,
+        )
+    else:
+        uvicorn.run(app, host="0.0.0.0", port=8765, reload=False)

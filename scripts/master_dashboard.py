@@ -22,7 +22,14 @@ app = FastAPI(title="SmartSalai Master Dashboard")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in os.getenv(
+            "MASTER_DASHBOARD_ALLOWED_ORIGINS",
+            os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1:5556,http://localhost:5556"),
+        ).split(",")
+        if origin.strip()
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )

@@ -10,14 +10,16 @@ def get_jurisdiction(lat, lon, db_path="edge_spatial.db"):
     conn.execute("PRAGMA synchronous = NORMAL;")
     conn.execute("PRAGMA busy_timeout = 15000;")
     conn.execute("PRAGMA temp_store = MEMORY;")
-    conn.enable_load_extension(True)
-    try:
-        conn.load_extension("mod_spatialite")
-    except Exception:
+    allow_extensions = os.getenv("EDGE_ENABLE_SQLITE_EXTENSIONS", "0").strip().lower() in {"1", "true", "yes", "on"}
+    conn.enable_load_extension(allow_extensions)
+    if allow_extensions:
         try:
-            conn.load_extension("spatialite")
+            conn.load_extension("mod_spatialite")
         except Exception:
-            pass
+            try:
+                conn.load_extension("spatialite")
+            except Exception:
+                pass
     cursor = conn.cursor()
     # Ensure jurisdiction table exists
     cursor.execute("""
@@ -107,6 +109,7 @@ class APIBridgeAgent:
         self.host = host
         self.port = port
         self.clients: set = set()
+        self._clients_lock = threading.Lock()
         self.loop = asyncio.new_event_loop()
         self._bridge_age_ms = deque(maxlen=500)
         self._broadcast_ms = deque(maxlen=500)
@@ -129,8 +132,9 @@ class APIBridgeAgent:
         self._telemetry_file = Path("logs") / "telemetry_health.json"
         self._spatial_db_path = os.getenv("EDGE_SPATIAL_DB_PATH", "edge_spatial.db")
         
-        # Get FERNET_KEY from SecretManager
+        # Get secrets from SecretManager
         sm = get_manager(strict_mode=False)
+        self._ws_auth_token = sm.get("API_BRIDGE_AUTH_TOKEN", required=True)
         fernet_key = sm.get("FERNET_KEY")
         if not fernet_key:
             raise RuntimeError(
@@ -319,6 +323,16 @@ class APIBridgeAgent:
         for ch in channels:
             bus.subscribe(ch, lambda pl, channel=ch: self._forward_to_mobile(channel, pl))
 
+    def _is_authorized(self, websocket) -> bool:
+        auth_header = (websocket.request_headers.get("Authorization") or "").strip()
+        if auth_header.startswith("Bearer "):
+            token = auth_header.split(" ", 1)[1].strip()
+        else:
+            token = auth_header
+        if not token:
+            return False
+        return hmac.compare_digest(token, self._ws_auth_token)
+
     @staticmethod
     def _percentile(values, p):
         if not values:
@@ -475,8 +489,9 @@ class APIBridgeAgent:
             
     def _forward_to_mobile(self, channel: str, payload: Any):
         """Called by Python synchronous bus -> pushes to WebSocket clients"""
-        if not self.clients:
-            return
+        with self._clients_lock:
+            if not self.clients:
+                return
             
         try:
             now_ms = int(time.time() * 1000)
@@ -553,11 +568,12 @@ class APIBridgeAgent:
             logger.error(f"API_BRIDGE_ERROR: Broadcast failed: {e}")
 
     async def _broadcast(self, message: str):
-        if not self.clients:
+        with self._clients_lock:
+            clients_snapshot = list(self.clients)
+        if not clients_snapshot:
             return
 
         started = time.perf_counter()
-        clients_snapshot = list(self.clients)
         results = await asyncio.gather(
             *[client.send(message) for client in clients_snapshot],
             return_exceptions=True,
@@ -567,7 +583,8 @@ class APIBridgeAgent:
         for client, result in zip(clients_snapshot, results):
             if isinstance(result, Exception):
                 logger.warning(f"API_BRIDGE_WARN: Dropping slow/disconnected client: {result}")
-                self.clients.discard(client)
+                with self._clients_lock:
+                    self.clients.discard(client)
 
     async def _serve(self):
         async with websockets.serve(
@@ -582,7 +599,11 @@ class APIBridgeAgent:
             await asyncio.Future()
 
     async def _handler(self, websocket):
-        self.clients.add(websocket)
+        if not self._is_authorized(websocket):
+            await websocket.close(code=4401)
+            return
+        with self._clients_lock:
+            self.clients.add(websocket)
         logger.info(f"MOBILE_APP_CONNECTED | Total clients: {len(self.clients)}")
         try:
             async for message in websocket:
@@ -617,7 +638,8 @@ class APIBridgeAgent:
         except Exception as e:
             logger.error(f"MOBILE_STREAM_ERROR: {e}")
         finally:
-            self.clients.discard(websocket)
+            with self._clients_lock:
+                self.clients.discard(websocket)
             logger.info(f"MOBILE_APP_DISCONNECTED | Remaining: {len(self.clients)}")
 
     def start(self):

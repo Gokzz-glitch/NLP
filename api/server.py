@@ -7,7 +7,7 @@ tests/test_stress_enterprise.py:
 
   POST /api/v1/internal/ingest
     Accept telemetry events (vision detections, IMU spikes) from edge nodes.
-    No auth required (internal LAN only; mTLS enforced in production).
+    Requires X-Ingest-Signature HMAC header (INGEST_HMAC_SECRET).
 
   GET /api/v1/fleet-routing-hazards
     Premium endpoint: returns active hazard feed for fleet routing.
@@ -52,6 +52,9 @@ try:
     FASTAPI_AVAILABLE = True
 except ImportError:
     FASTAPI_AVAILABLE = False
+
+from core.secret_manager import get_manager
+from core.tls_config import TLSConfig, https_redirect_middleware
 
 # ---------------------------------------------------------------------------
 # Configuration (all secrets from env — never hardcoded)
@@ -98,6 +101,13 @@ def _verify_razorpay_signature(
     return hmac.compare_digest(expected, signature)
 
 
+def _verify_ingest_signature(payload: bytes, signature: str, secret: str) -> bool:
+    if not secret or not signature:
+        return False
+    expected = hmac.new(secret.encode(), payload, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(expected, signature)
+
+
 # ---------------------------------------------------------------------------
 # Application factory
 # ---------------------------------------------------------------------------
@@ -113,16 +123,41 @@ def create_app() -> "FastAPI":
         version="0.1.0",
         description="Internal telemetry ingest + fleet hazard routing API.",
     )
+    app = https_redirect_middleware(app)
+
+    ingest_secret = get_manager(strict_mode=False).get("INGEST_HMAC_SECRET", required=True)
 
     # ------------------------------------------------------------------
     # POST /api/v1/internal/ingest
     # ------------------------------------------------------------------
     @app.post("/api/v1/internal/ingest", status_code=status.HTTP_201_CREATED)
-    async def ingest_telemetry(payload: TelemetryIngestPayload):
+    async def ingest_telemetry(
+        request: Request,
+        x_ingest_signature: Optional[str] = Header(None),
+    ):
         """
         Receive a telemetry event from an edge node (dashcam / IMU sensor).
         Writes to the edge_spatial.db SQLite store (WAL mode).
         """
+        raw_payload = await request.body()
+        if not _verify_ingest_signature(raw_payload, x_ingest_signature or "", ingest_secret):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid ingest signature.",
+            )
+        try:
+            payload_dict = json.loads(raw_payload.decode("utf-8"))
+            payload = TelemetryIngestPayload(**payload_dict)
+        except json.JSONDecodeError as exc:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid JSON payload.",
+            ) from exc
+        except Exception as exc:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid telemetry payload.",
+            ) from exc
         logger.info(
             f"[INGEST] node={payload.node_id} event={payload.event_type} "
             f"hazard={payload.hazard_class} conf={payload.confidence}"
@@ -192,3 +227,19 @@ def create_app() -> "FastAPI":
 # ---------------------------------------------------------------------------
 if FASTAPI_AVAILABLE:
     app = create_app()
+
+if __name__ == "__main__" and FASTAPI_AVAILABLE:
+    import uvicorn
+
+    tls_config = TLSConfig()
+    if tls_config.use_https:
+        tls_config.validate()
+        uvicorn.run(
+            "api.server:app",
+            host="0.0.0.0",
+            port=int(os.getenv("API_PORT", "8000")),
+            ssl_certfile=tls_config.cert_path,
+            ssl_keyfile=tls_config.key_path,
+        )
+    else:
+        uvicorn.run("api.server:app", host="0.0.0.0", port=int(os.getenv("API_PORT", "8000")))

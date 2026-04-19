@@ -62,6 +62,11 @@ OPTIONAL_SECRETS = {
     "OPENROUTER_API_KEY": {"description": "OpenRouter API key"},
     "GITHUB_TOKEN": {"description": "GitHub personal access token"},
     "GITHUB_REPO": {"description": "GitHub repository (owner/repo)"},
+    "INGEST_HMAC_SECRET": {"description": "Telemetry ingest HMAC secret"},
+    "API_BRIDGE_AUTH_TOKEN": {"description": "API bridge WebSocket auth token"},
+    "ORCHESTRATOR_AUTH_TOKEN": {"description": "Orchestrator WebSocket auth token"},
+    "LEDGER_HMAC_KEY": {"description": "Knowledge ledger HMAC key"},
+    "FLEET_HALT_TOKEN": {"description": "Global fleet halt authorization token"},
 }
 
 
