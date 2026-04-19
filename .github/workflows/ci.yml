@@ -8,6 +8,8 @@ on:
 jobs:
   api-smoke:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       API_USE_HTTPS: "false"
       API_REQUIRE_HTTPS_REDIRECT: "false"
@@ -34,4 +36,4 @@ jobs:
         run: python -m compileall api core etl agents
 
       - name: API tests
-        run: python -m pytest -q /home/runner/work/NLP/NLP/tests/test_api_server.py
+        run: python -m pytest -q tests/test_api_server.py

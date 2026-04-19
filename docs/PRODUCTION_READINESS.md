@@ -9,7 +9,7 @@
 
 ## Configuration Standard
 
-1. Copy `/home/runner/work/NLP/NLP/.env.example` to `/home/runner/work/NLP/NLP/.env`.
+1. Copy `.env.example` to `.env`.
 2. Set strong secrets (minimum 32 chars) for:
    - `CSRF_SECRET_KEY`
    - `DASHBOARD_SECRET_KEY`
@@ -45,7 +45,7 @@
 
 ## CI/CD Gate
 
-GitHub Actions workflow: `/home/runner/work/NLP/NLP/.github/workflows/ci.yml`
+GitHub Actions workflow: `.github/workflows/ci.yml`
 
 Required checks:
 - Dependency install from `requirements/dev.txt`

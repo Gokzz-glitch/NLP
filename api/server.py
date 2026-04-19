@@ -9,8 +9,13 @@ import logging
 import os
 import time
 import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional, Set
+from typing import Any, Optional, Set
+
+from api.storage import APIDatabase
+from core.secret_manager import get_manager
+from core.tls_config import TLSConfig, https_redirect_middleware
 
 logger = logging.getLogger("edge_sentinel.api")
 logger.setLevel(logging.INFO)
@@ -22,15 +27,10 @@ logger.setLevel(logging.INFO)
 try:
     from fastapi import FastAPI, Header, HTTPException, Request, Response, status
     from fastapi.middleware.cors import CORSMiddleware
-    from fastapi.responses import JSONResponse
     from pydantic import BaseModel, Field
     FASTAPI_AVAILABLE = True
 except ImportError:
     FASTAPI_AVAILABLE = False
-
-from api.storage import APIDatabase
-from core.secret_manager import get_manager
-from core.tls_config import TLSConfig, https_redirect_middleware
 
 # ---------------------------------------------------------------------------
 # Configuration (all secrets from env — never hardcoded)
@@ -39,6 +39,10 @@ _RAZORPAY_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
 _PROCESS_START = time.time()
 _HAZARD_DEFAULT_WINDOW_SEC = int(os.getenv("HAZARD_WINDOW_SEC", "1800"))
 _HAZARD_DEFAULT_LIMIT = int(os.getenv("HAZARD_LIMIT", "200"))
+_MIN_HAZARD_WINDOW_SEC = 60
+_MAX_HAZARD_WINDOW_SEC = 24 * 3600
+_MIN_HAZARD_LIMIT = 1
+_MAX_HAZARD_LIMIT = 1000
 _API_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv(
@@ -139,10 +143,28 @@ def create_app() -> "FastAPI":
             "fastapi is not installed. Run: pip install fastapi uvicorn"
         )
 
+    @asynccontextmanager
+    async def lifespan(app: "FastAPI"):
+        app.state.db = APIDatabase(os.getenv("EDGE_SPATIAL_DB_PATH", "edge_spatial.db"))
+        app.state.fleet_api_keys = _load_fleet_api_keys()
+        app.state.db.migrate()
+        _log_event(
+            "api_startup",
+            db_path=app.state.db.db_path,
+            allowed_origins=_API_ALLOWED_ORIGINS,
+            fleet_key_count=len(app.state.fleet_api_keys),
+        )
+        try:
+            yield
+        finally:
+            app.state.db.close()
+            _log_event("api_shutdown")
+
     app = FastAPI(
         title="SmartSalai Edge-Sentinel API",
         version="1.0.0",
         description="Internal telemetry ingest + fleet hazard routing API.",
+        lifespan=lifespan,
     )
     app.add_middleware(
         CORSMiddleware,
@@ -151,27 +173,10 @@ def create_app() -> "FastAPI":
         allow_headers=["Authorization", "Content-Type", "X-API-Key", "X-Ingest-Signature", "X-Razorpay-Signature"],
     )
     app = https_redirect_middleware(app)
-    app.state.db = APIDatabase(os.getenv("EDGE_SPATIAL_DB_PATH", "edge_spatial.db"))
-    app.state.fleet_api_keys = _load_fleet_api_keys()
 
     ingest_secret = get_manager(strict_mode=False).get("INGEST_HMAC_SECRET", required=False)
     if not ingest_secret:
         ingest_secret = os.getenv("INGEST_HMAC_SECRET", "").strip()
-
-    @app.on_event("startup")
-    async def startup_event() -> None:
-        app.state.db.migrate()
-        _log_event(
-            "api_startup",
-            db_path=app.state.db.db_path,
-            allowed_origins=_API_ALLOWED_ORIGINS,
-            fleet_key_count=len(app.state.fleet_api_keys),
-        )
-
-    @app.on_event("shutdown")
-    async def shutdown_event() -> None:
-        app.state.db.close()
-        _log_event("api_shutdown")
 
     @app.middleware("http")
     async def request_context_middleware(request: Request, call_next):
@@ -277,8 +282,8 @@ def create_app() -> "FastAPI":
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid or missing API token.",
             )
-        safe_window = max(60, min(window_seconds, 24 * 3600))
-        safe_limit = max(1, min(limit, 1000))
+        safe_window = max(_MIN_HAZARD_WINDOW_SEC, min(window_seconds, _MAX_HAZARD_WINDOW_SEC))
+        safe_limit = max(_MIN_HAZARD_LIMIT, min(limit, _MAX_HAZARD_LIMIT))
         hazards = app.state.db.query_recent_hazards(window_seconds=safe_window, limit=safe_limit)
         return {
             "hazards": hazards,

@@ -115,8 +115,8 @@ uvicorn api.server:app --host 0.0.0.0 --port 8000
 ```
 
 Production guide:
-- `/home/runner/work/NLP/NLP/docs/PRODUCTION_READINESS.md`
-- `/home/runner/work/NLP/NLP/.env.example`
+- `docs/PRODUCTION_READINESS.md`
+- `.env.example`
 
 
 ## Reference Customers & Distribution Channels

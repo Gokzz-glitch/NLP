@@ -24,47 +24,45 @@ def _load_server_module(monkeypatch, tmp_path):
 
 def test_ingest_and_hazard_feed(monkeypatch, tmp_path):
     server_module = _load_server_module(monkeypatch, tmp_path)
-    client = TestClient(server_module.app)
+    with TestClient(server_module.app) as client:
+        payload = {
+            "node_id": "node-1",
+            "event_type": "pothole_hazard",
+            "hazard_class": "pothole",
+            "confidence": 0.93,
+            "gps_lat": 12.9,
+            "gps_lon": 80.2,
+        }
+        raw = json.dumps(payload).encode("utf-8")
+        signature = hmac.new(b"c" * 32, raw, hashlib.sha256).hexdigest()
 
-    payload = {
-        "node_id": "node-1",
-        "event_type": "pothole_hazard",
-        "hazard_class": "pothole",
-        "confidence": 0.93,
-        "gps_lat": 12.9,
-        "gps_lon": 80.2,
-    }
-    raw = json.dumps(payload).encode("utf-8")
-    signature = hmac.new(b"c" * 32, raw, hashlib.sha256).hexdigest()
+        ingest_res = client.post(
+            "/api/v1/internal/ingest",
+            content=raw,
+            headers={
+                "Content-Type": "application/json",
+                "X-Ingest-Signature": signature,
+            },
+        )
+        assert ingest_res.status_code == 201
 
-    ingest_res = client.post(
-        "/api/v1/internal/ingest",
-        data=raw,
-        headers={
-            "Content-Type": "application/json",
-            "X-Ingest-Signature": signature,
-        },
-    )
-    assert ingest_res.status_code == 201
-
-    hazards_res = client.get(
-        "/api/v1/fleet-routing-hazards",
-        headers={"X-API-Key": "fleet-test-token"},
-    )
-    assert hazards_res.status_code == 200
-    body = hazards_res.json()
-    assert len(body["hazards"]) >= 1
-    assert body["hazards"][0]["hazard_class"] == "pothole"
+        hazards_res = client.get(
+            "/api/v1/fleet-routing-hazards",
+            headers={"X-API-Key": "fleet-test-token"},
+        )
+        assert hazards_res.status_code == 200
+        body = hazards_res.json()
+        assert len(body["hazards"]) >= 1
+        assert body["hazards"][0]["hazard_class"] == "pothole"
 
 
 def test_metrics_and_health(monkeypatch, tmp_path):
     server_module = _load_server_module(monkeypatch, tmp_path)
-    client = TestClient(server_module.app)
+    with TestClient(server_module.app) as client:
+        health = client.get("/healthz")
+        assert health.status_code == 200
+        assert health.json()["status"] == "ok"
 
-    health = client.get("/healthz")
-    assert health.status_code == 200
-    assert health.json()["status"] == "ok"
-
-    metrics = client.get("/api/metrics")
-    assert metrics.status_code == 200
-    assert "metrics" in metrics.json()
+        metrics = client.get("/api/metrics")
+        assert metrics.status_code == 200
+        assert "metrics" in metrics.json()
