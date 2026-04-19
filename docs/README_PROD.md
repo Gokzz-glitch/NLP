@@ -29,6 +29,13 @@ FERNET_KEY=yourkey               # For Firebase credential encryption
 ROBOFLOW_API_KEY=yourkey         # For Active Learning sync
 ```
 
+For the primary production backend (`api.server:app`), also set:
+- `INGEST_HMAC_SECRET`
+- `FLEET_API_KEYS`
+- `EDGE_SPATIAL_DB_PATH`
+- `RAZORPAY_WEBHOOK_SECRET` (if webhook enabled)
+- `API_ALLOWED_ORIGINS`
+
 ### Step 3: Launching the Watchdog
 In production, do NOT run the scripts directly via `python`. Use the PowerShell watchdog to ensure auto-restart on failure:
 1. Open PowerShell as Administrator.

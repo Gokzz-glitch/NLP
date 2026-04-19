@@ -104,8 +104,19 @@ npx expo start --lan
 ## Repository Highlights
 - `agents/` - core autonomous agents and bridge layers.
 - `agent2_dashboard/` - operator dashboard API and websocket surface.
+- `api/` - **primary production backend API entrypoint** (`api.server:app`).
 - `scripts/` - benchmarks, test harnesses, and deployment helpers.
 - `sentinel_app/` - Expo mobile interface for field operation.
+
+## Production Startup (Primary Backend)
+
+```bash
+uvicorn api.server:app --host 0.0.0.0 --port 8000
+```
+
+Production guide:
+- `docs/PRODUCTION_READINESS.md`
+- `.env.example`
 
 
 ## Reference Customers & Distribution Channels
