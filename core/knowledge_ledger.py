@@ -16,14 +16,18 @@ from dotenv import load_dotenv
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-# SECURITY FIX #4: No hardcoded default fallback; require environment variable
-_ENCRYPTION_KEY_STR = os.getenv("DASHBOARD_SECRET_KEY")
+# SECURITY FIX #4: Require dedicated ledger HMAC key, avoid auth-secret reuse
+_ENCRYPTION_KEY_STR = os.getenv("LEDGER_HMAC_KEY")
 if not _ENCRYPTION_KEY_STR:
-    raise EnvironmentError(
-        "DASHBOARD_SECRET_KEY not set in environment. "
-        "Please set this variable before running knowledge ledger. "
-        "Use: export DASHBOARD_SECRET_KEY='<your-secret-key>'"
-    )
+    allow_legacy = os.getenv("LEDGER_ALLOW_DASHBOARD_KEY", "0").strip().lower() in {"1", "true", "yes", "on"}
+    if allow_legacy:
+        _ENCRYPTION_KEY_STR = os.getenv("DASHBOARD_SECRET_KEY", "")
+    if not _ENCRYPTION_KEY_STR:
+        raise EnvironmentError(
+            "LEDGER_HMAC_KEY not set in environment. "
+            "Set LEDGER_HMAC_KEY before running knowledge ledger "
+            "(legacy fallback requires LEDGER_ALLOW_DASHBOARD_KEY=1)."
+        )
 _ENCRYPTION_KEY = _ENCRYPTION_KEY_STR.encode()
 
 # Move DB path to local non-synced directory to avoid massive GoogleDriveFS CPU overhead

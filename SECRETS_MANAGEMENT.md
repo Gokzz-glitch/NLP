@@ -15,12 +15,17 @@ All API keys, credentials, and sensitive data are now managed through a centrali
 ### Core Security (Always Required)
 - **CSRF_SECRET_KEY** (min 32 chars) — CSRF token generation
 - **DASHBOARD_SECRET_KEY** (min 32 chars) — Dashboard authentication
+- **LEDGER_HMAC_KEY** (min 32 chars) — Knowledge ledger HMAC signing key
 
 ### Optional but Recommended
 - **GPU_OVERRIDE_PASSWORD** (min 16 chars) — GPU resource control
 - **API_USE_HTTPS** — Enable HTTPS enforcement
 - **API_TLS_CERT_PATH** — Path to TLS certificate
 - **API_TLS_KEY_PATH** — Path to TLS private key
+- **INGEST_HMAC_SECRET** — HMAC key for telemetry ingest
+- **API_BRIDGE_AUTH_TOKEN** — WebSocket auth token for API bridge
+- **ORCHESTRATOR_AUTH_TOKEN** — WebSocket auth token for Macha orchestrator
+- **FLEET_HALT_TOKEN** — Authorization token for global halt endpoint
 
 ### Payment Processing (If using Razorpay)
 - **RAZORPAY_KEY_ID** — Razorpay account key ID

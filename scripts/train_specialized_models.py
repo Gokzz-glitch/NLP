@@ -15,8 +15,13 @@ load_dotenv()
 # Replaces generic yolov8n.onnx with domain-specific weights.
 # ============================================================
 
-KAGGLE_USERNAME = os.getenv("KAGGLE_USERNAME", "gokulraj324")
-KAGGLE_KEY = os.getenv("KAGGLE_KEY", "cc257dafb9a5b6c7e136d6076c8c4643")
+KAGGLE_USERNAME = os.getenv("KAGGLE_USERNAME")
+KAGGLE_KEY = os.getenv("KAGGLE_KEY")
+if not KAGGLE_USERNAME or not KAGGLE_KEY:
+    raise RuntimeError(
+        "KAGGLE_USERNAME and KAGGLE_KEY must be set via environment variables "
+        "or a secret manager before running training."
+    )
 
 # Write kaggle.json so the CLI works
 kaggle_dir = Path.home() / ".kaggle"

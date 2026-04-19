@@ -6,9 +6,11 @@ import asyncio
 import logging
 import statistics
 import websockets
+import hmac
 from collections import deque
 from core.agent_bus import bus
 from core.driver_memory import memory
+from core.secret_manager import get_manager
 
 # Configure Orchestrator Logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: [MACHA_ORCHESTRATOR] %(message)s")
@@ -25,7 +27,18 @@ class MachaOrchestrator:
         self.max_inference_fps = 15
         self.thermal_throttled = False
         self.processing_spike_ms = 40.0
+        self._auth_token = get_manager(strict_mode=False).get("ORCHESTRATOR_AUTH_TOKEN", required=True)
         logger.info("MACHA_ORCHESTRATOR: Intelligence Service Initialized.")
+
+    def _is_authorized(self, websocket) -> bool:
+        auth_header = (websocket.request_headers.get("Authorization") or "").strip()
+        if auth_header.startswith("Bearer "):
+            token = auth_header.split(" ", 1)[1].strip()
+        else:
+            token = auth_header
+        if not token:
+            return False
+        return hmac.compare_digest(token, self._auth_token)
 
     def _fingerprint(self, channel, payload):
         if isinstance(payload, dict):
@@ -101,6 +114,9 @@ class MachaOrchestrator:
             await asyncio.sleep(2)
 
     async def handler(self, websocket):
+        if not self._is_authorized(websocket):
+            await websocket.close(code=4401)
+            return
         self.connected_clients.add(websocket)
         logger.info(f"BUS_EVENT: CONNECTED: New client from {websocket.remote_address}")
         try:
