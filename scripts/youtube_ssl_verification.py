@@ -650,7 +650,7 @@ class YouTubeSSLVerificationPipeline:
                         os.remove(context_frame_path)
                     elif os.path.exists(frame_path):
                         os.remove(frame_path)
-                except:
+                except Exception:
                     pass
                 
                 return True
@@ -739,9 +739,9 @@ class YouTubeSSLVerificationPipeline:
                 if detection["agreement"]:
                     agreement_count += 1
             
-            # Throttle Gemini API calls
+            # Throttle Gemini API calls (Slow Method)
             if idx < verify_limit - 1:
-                time.sleep(1)
+                time.sleep(3.5)
 
         # Step 2b: Sample background only when we actually got Gemini signal.
         background_checks = []

@@ -7,6 +7,7 @@ import random
 import base64
 import re
 import urllib.request
+import urllib.parse
 import urllib.error
 from pathlib import Path
 from dotenv import load_dotenv
@@ -452,6 +453,62 @@ Rules:
             logger.warning(f"⚠️ Consortium consensus failed: {e}")
         return None
 
+    def _gemini_verify(self, frame_path: str, imu_metadata: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Gemini verification with key rotation and backoff mechanism."""
+        if not self.api_keys or self.model is None:
+            return None
+            
+        retries = len(self.api_keys)
+        prompt = self._build_road_scene_prompt(imu_metadata)
+        
+        for attempt in range(max(1, retries)):
+            if self.is_quota_backoff_active():
+                if not self._rotate_key():
+                    return None
+            
+            try:
+                if google_genai is not None:
+                    image_file = self.client.files.upload(file=frame_path)
+                    response = self.client.models.generate_content(
+                        model=self.model,
+                        contents=[prompt, image_file],
+                    )
+                    text_resp = response.text
+                else:
+                    import PIL.Image
+                    img = PIL.Image.open(frame_path)
+                    response = self.model.generate_content([prompt, img])
+                    text_resp = response.text
+                
+                health = self.key_health[self.api_key_index]
+                health["successes"] += 1
+                
+                as_json = self._extract_first_json_object(text_resp)
+                verification = json.loads(as_json)
+                verification = self._normalize_scene_verification(verification)
+                
+                logger.info(
+                    "PERSONA_8_REPORT: GEMINI_TEACHER_VERIFIED | active_key_fp=%s | hazard=%s | primary=%s | confidence=%s",
+                    self._key_fingerprint(self.api_keys[self.api_key_index]),
+                    verification.get("hazard_confirmed"),
+                    verification.get("primary_class"),
+                    verification.get("confidence")
+                )
+                return verification
+                
+            except Exception as e:
+                err_str = str(e).lower()
+                logger.warning("PERSONA_8_REPORT: GEMINI_TEACHER_ERROR | active_key_fp=%s | msg=%s", 
+                              self._key_fingerprint(self.api_keys[self.api_key_index]), str(e))
+                if "429" in err_str or "quota" in err_str or "exhausted" in err_str:
+                    logger.warning("PERSONA_8_REPORT: GEMINI_QUOTA_HIT | applying backoff for key")
+                    self.key_quota_backoff[self.api_key_index] = time.time() + 65.0
+                    self.key_health[self.api_key_index]["failures"] += 1
+                    self._rotate_key()
+                    continue
+                return None
+        return None
+
     def _check_ollama_alive(self) -> bool:
         """Check if local Ollama server is responsive (Zero-Cost Hardening)."""
         try:
@@ -459,7 +516,7 @@ Rules:
             req = urllib.request.Request(url)
             with urllib.request.urlopen(req, timeout=1) as resp:
                 return resp.status == 200
-        except:
+        except Exception:
             return False
 
     def _fallback_verify(self, frame_path: str, imu_metadata: Dict[str, Any]):
@@ -646,8 +703,7 @@ Rules:
             return gemini_result
 
         # 2. Fallback to Ollama / Consortium / Godmode
-        # Set skip_gemini=True since we just tried it and it failed.
-        return self._fallback_verify(frame_path, imu_metadata, skip_gemini=True)
+        return self._fallback_verify(frame_path, imu_metadata)
 
 if __name__ == "__main__":
     # Test Mock Learner
