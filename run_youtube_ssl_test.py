@@ -16,7 +16,7 @@ import os
 import subprocess
 
 # Add project root to path
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
 def run_quick_test():
