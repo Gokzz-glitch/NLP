@@ -21,9 +21,7 @@ import json
 import time
 import uuid
 from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Optional, Tuple
-from dataclasses import dataclass, asdict
+from datetime import datetime, timezone
 from enum import Enum
 import hashlib
 
@@ -287,7 +285,7 @@ class DriveLegalViolationEngine:
         # Draft audit request
         audit_doc = {
             "audit_id": str(uuid.uuid4()),
-            "timestamp_utc": datetime.utcnow().isoformat(),
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "vehicle_reg": context.get("vehicle_reg", "UNKNOWN"),
             "location_lat": location.get("lat"),
             "location_lng": location.get("lng"),

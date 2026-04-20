@@ -93,7 +93,7 @@ async def test_api_ingest_endpoint_contract():
     Verifies the /api/v1/internal/ingest payload schema is well-formed.
     Uses a mocked HTTP session — no live server required.
     """
-    import aiohttp  # noqa: F401 — imported here to allow the test to be skipped if absent
+    aiohttp = pytest.importorskip("aiohttp")  # skip this test if aiohttp is not installed
 
     payloads_sent = []
 
