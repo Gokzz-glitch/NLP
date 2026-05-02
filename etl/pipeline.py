@@ -43,10 +43,20 @@ class ETLPipeline:
         self.ingestor.ensure_schema()
 
         for pdf_path in files:
+            claim_path = pdf_path.with_suffix(pdf_path.suffix + ".processing")
+            try:
+                pdf_path.rename(claim_path)
+            except FileNotFoundError:
+                # Another worker likely claimed it first.
+                continue
+            except OSError:
+                # Best effort skip on lock/cross-device constraints.
+                continue
             try:
                 # 1. Extract
-                result = self.extractor.extract(pdf_path)
+                result = self.extractor.extract(claim_path)
                 if result.status == ExtractionStatus.FAILED:
+                    claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".failed"))
                     continue
                 
                 # 2. Chunk
@@ -57,9 +67,14 @@ class ETLPipeline:
                 
                 # 4. Ingest
                 self.ingestor.ingest(embeddings)
-                
+                claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".done"))
+
             except Exception as e:
                 logger.error(f"Pipeline failure on {pdf_path.name}: {e}")
+                try:
+                    claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".failed"))
+                except OSError:
+                    pass
 
         self.ingestor.close()
         logger.info("ETL Pipeline Batch complete.")

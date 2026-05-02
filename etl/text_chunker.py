@@ -77,7 +77,7 @@ _STATUTORY_REF_RE = re.compile(
     r"|S\.O\.\s*\d+\s*\(E\)"                        # "S.O. 2224(E)"
     r"|G\.O\.\s*\(Ms\)[\.\s]*No[\.\s]*\d+"          # "G.O.(Ms).No.56"
     r"|MVA\s+(?:19)?(?:88|19|2019)"                 # "MVA 1988 / MVA 2019"
-    r"|Art(?:icle)?\.\s*\d+"                        # "Article 21"
+    r"|Art(?:icle)?\.?\s*\d+"                        # "Article 21"
     r"|Rule\s+\d+"                                  # "Rule 17"
     r")",
     re.IGNORECASE,
