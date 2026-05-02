@@ -1,0 +1,37 @@
+{
+  "HELMET_MISSING": {
+    "HELMET_MISSING": 9,
+    "SPEEDING": 0,
+    "DANGEROUS_DRIVING": 0,
+    "POTHOLE_HAZARD": 0,
+    "RTA_HAZARD": 0
+  },
+  "SPEEDING": {
+    "HELMET_MISSING": 0,
+    "SPEEDING": 9,
+    "DANGEROUS_DRIVING": 0,
+    "POTHOLE_HAZARD": 0,
+    "RTA_HAZARD": 0
+  },
+  "DANGEROUS_DRIVING": {
+    "HELMET_MISSING": 0,
+    "SPEEDING": 0,
+    "DANGEROUS_DRIVING": 7,
+    "POTHOLE_HAZARD": 0,
+    "RTA_HAZARD": 0
+  },
+  "POTHOLE_HAZARD": {
+    "HELMET_MISSING": 0,
+    "SPEEDING": 0,
+    "DANGEROUS_DRIVING": 0,
+    "POTHOLE_HAZARD": 7,
+    "RTA_HAZARD": 0
+  },
+  "RTA_HAZARD": {
+    "HELMET_MISSING": 0,
+    "SPEEDING": 0,
+    "DANGEROUS_DRIVING": 2,
+    "POTHOLE_HAZARD": 0,
+    "RTA_HAZARD": 6
+  }
+}

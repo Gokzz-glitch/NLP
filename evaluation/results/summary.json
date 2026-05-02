@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "target_accuracy": 0.95,
+  "epochs_ran": 2,
+  "stopped_early": true,
+  "best": {
+    "epoch": 2,
+    "accuracy": 0.95,
+    "macro_f1": 0.9464
+  },
+  "final": {
+    "epoch": 2,
+    "accuracy": 0.95,
+    "macro_f1": 0.9464,
+    "flip_prob": 0.27
+  }
+}
