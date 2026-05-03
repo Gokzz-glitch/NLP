@@ -42,41 +42,55 @@ class ETLPipeline:
         self.ingestor.connect()
         self.ingestor.ensure_schema()
 
-        for pdf_path in files:
-            claim_path = pdf_path.with_suffix(pdf_path.suffix + ".processing")
-            try:
-                pdf_path.rename(claim_path)
-            except FileNotFoundError:
-                # Another worker likely claimed it first.
-                continue
-            except OSError:
-                # Best effort skip on lock/cross-device constraints.
-                continue
-            try:
-                # 1. Extract
-                result = self.extractor.extract(claim_path)
-                if result.status == ExtractionStatus.FAILED:
-                    claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".failed"))
+        processed_dir = raw_dir / "processed"
+        failed_dir = raw_dir / "failed"
+        processing_dir = raw_dir / "processing"
+        processed_dir.mkdir(exist_ok=True)
+        failed_dir.mkdir(exist_ok=True)
+        processing_dir.mkdir(exist_ok=True)
+
+        try:
+            for pdf_path in files:
+                claim_path = processing_dir / pdf_path.name
+                if claim_path.exists() and (time.time() - claim_path.stat().st_mtime) > 3600:
+                    # Recover stale lock from a dead worker.
+                    stale_target = raw_dir / pdf_path.name
+                    if not stale_target.exists():
+                        claim_path.rename(stale_target)
+                try:
+                    pdf_path.rename(processing_dir / pdf_path.name)
+                    claim_path = processing_dir / pdf_path.name
+                except FileNotFoundError:
+                    # Another worker likely claimed it first.
                     continue
+                except OSError:
+                    # Best effort skip on lock/cross-device constraints.
+                    continue
+                try:
+                # 1. Extract
+                    result = self.extractor.extract(claim_path)
+                    if result.status == ExtractionStatus.FAILED:
+                        claim_path.rename(failed_dir / pdf_path.name)
+                        continue
                 
                 # 2. Chunk
-                chunks = self.chunker.chunk(result)
+                    chunks = self.chunker.chunk(result)
                 
                 # 3. Embed
-                embeddings = self.embedder.embed_chunks(chunks)
+                    embeddings = self.embedder.embed_chunks(chunks)
                 
                 # 4. Ingest
-                self.ingestor.ingest(embeddings)
-                claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".done"))
+                    self.ingestor.ingest(embeddings)
+                    claim_path.rename(processed_dir / pdf_path.name)
 
-            except Exception as e:
-                logger.error(f"Pipeline failure on {pdf_path.name}: {e}")
-                try:
-                    claim_path.rename(pdf_path.with_suffix(pdf_path.suffix + ".failed"))
-                except OSError:
-                    pass
-
-        self.ingestor.close()
+                except Exception as e:
+                    logger.error(f"Pipeline failure on {pdf_path.name}: {e}")
+                    try:
+                        claim_path.rename(failed_dir / pdf_path.name)
+                    except OSError:
+                        pass
+        finally:
+            self.ingestor.close()
         logger.info("ETL Pipeline Batch complete.")
 
 if __name__ == "__main__":
