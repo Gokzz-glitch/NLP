@@ -1,0 +1,14 @@
+[
+  {
+    "epoch": 1,
+    "accuracy": 0.875,
+    "macro_f1": 0.8762,
+    "flip_prob": 0.31
+  },
+  {
+    "epoch": 2,
+    "accuracy": 0.95,
+    "macro_f1": 0.9464,
+    "flip_prob": 0.27
+  }
+]

@@ -20,6 +20,7 @@ License: AGPL3.0 + MoRTH Data Share Agreement
 import json
 import time
 import uuid
+import threading
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
@@ -163,6 +164,7 @@ class DriveLegalViolationEngine:
         self.rules = MVA_TN_RULES
         self.violation_log: List[ViolationEvent] = []
         self.audit_queue: List[Dict] = []
+        self._lock = threading.RLock()
         
     def detect_violation(
         self,
@@ -213,7 +215,8 @@ class DriveLegalViolationEngine:
             challenge_drafted=challenge_drafted,
         )
         
-        self.violation_log.append(event)
+        with self._lock:
+            self.violation_log.append(event)
         return event
     
     def compute_rta_risk(
@@ -304,7 +307,8 @@ class DriveLegalViolationEngine:
             ],
         }
         
-        self.audit_queue.append(audit_doc)
+        with self._lock:
+            self.audit_queue.append(audit_doc)
         return True
     
     def _map_to_irad(self, violation_type: str) -> Optional[str]:
@@ -348,11 +352,13 @@ class DriveLegalViolationEngine:
     
     def get_violation_log(self) -> List[Dict]:
         """Export all logged violations"""
-        return [asdict(e) for e in self.violation_log]
+        with self._lock:
+            return [asdict(e) for e in list(self.violation_log)]
     
     def get_audit_queue(self) -> List[Dict]:
         """Export all queued Section 208 audits (ready to send to RTO)"""
-        return self.audit_queue
+        with self._lock:
+            return [dict(item) for item in self.audit_queue]
 
 
 # ─────────────────────────────────────────────────────────────────────────

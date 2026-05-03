@@ -66,6 +66,14 @@ def _load_vss(conn: sqlite3.Connection) -> bool:
 # ---------------------------------------------------------------------------
 
 _DDL = """
+CREATE TABLE IF NOT EXISTS ingest_claims (
+    file_sha256       TEXT PRIMARY KEY,
+    source_doc        TEXT NOT NULL,
+    status            TEXT NOT NULL,
+    claimed_at_epoch  INTEGER NOT NULL,
+    updated_at_epoch  INTEGER NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS legal_chunks (
     chunk_id          TEXT PRIMARY KEY,
     source_doc        TEXT NOT NULL,
@@ -122,10 +130,11 @@ class SQLiteVSSIngestor:
 
     def connect(self) -> None:
         Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
-        self._conn = sqlite3.connect(self.db_path, check_same_thread=False)
+        self._conn = sqlite3.connect(self.db_path, check_same_thread=False, timeout=20.0)
         self._conn.execute("PRAGMA journal_mode=WAL;")
         self._conn.execute("PRAGMA synchronous=NORMAL;")
         self._conn.execute("PRAGMA cache_size=-32768;")
+        self._conn.execute("PRAGMA busy_timeout=20000;")
         self._vss = _load_vss(self._conn)
 
     def close(self) -> None:
@@ -161,20 +170,26 @@ class SQLiteVSSIngestor:
         written, skipped, failed = 0, 0, 0
         for sha, group in by_sha.items():
             src = group[0].chunk_ref.source_doc
+            if not self._claim_file(sha, src):
+                skipped += len(group)
+                continue
             existing = self._conn.execute(
                 "SELECT COUNT(*) FROM legal_chunks WHERE file_sha256=?", (sha,)
             ).fetchone()[0]
             if existing:
                 logger.info(f"[P6/Stage4] SKIPPED_DUPLICATE: {Path(src).name} ({sha[:10]}…)")
+                self._set_claim_status(sha, "SKIPPED_DUPLICATE")
                 self._log(sha, src, "SKIPPED_DUPLICATE", 0, 0.0)
                 skipped += len(group)
                 continue
             try:
                 n = self._write_group(group)
+                self._set_claim_status(sha, "SUCCESS")
                 self._log(sha, src, "SUCCESS", n, (time.monotonic() - t0) * 1000)
                 written += n
             except Exception as exc:
                 self._conn.rollback()
+                self._set_claim_status(sha, "FAILED")
                 self._log(sha, src, "FAILED", 0, (time.monotonic() - t0) * 1000)
                 logger.error(f"[P6/Stage4] FAILED {src}: {exc}")
                 failed += len(group)
@@ -233,6 +248,27 @@ class SQLiteVSSIngestor:
                 )
         except Exception as exc:
             logger.warning(f"[P6/Stage4] ingest_log write failed: {exc}")
+
+    def _claim_file(self, sha: str, src: str) -> bool:
+        now = int(time.time() * 1000)
+        try:
+            with self._conn:
+                self._conn.execute(
+                    "INSERT INTO ingest_claims(file_sha256,source_doc,status,claimed_at_epoch,updated_at_epoch) VALUES(?,?,?,?,?)",
+                    (sha, src, "IN_PROGRESS", now, now),
+                )
+            return True
+        except sqlite3.IntegrityError:
+            logger.info(f"[P6/Stage4] Claim exists for {Path(src).name} ({sha[:10]}…), skipping duplicate worker.")
+            return False
+
+    def _set_claim_status(self, sha: str, status: str) -> None:
+        now = int(time.time() * 1000)
+        with self._conn:
+            self._conn.execute(
+                "UPDATE ingest_claims SET status=?, updated_at_epoch=? WHERE file_sha256=?",
+                (status, now, sha),
+            )
 
     # --- Query API (called by legal_rag.py T-010) ---
 
